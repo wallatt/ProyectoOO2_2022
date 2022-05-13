@@ -12,7 +12,7 @@ import com.unla.grupo13.TrabajoPractico.entities.User;
 @Repository("userRepository")
 public interface IUserRepository extends JpaRepository<User, Serializable> {
 
-	@Query("SELECT u FROM User u JOIN FETCH u.rol WHERE u.userName = (:username)")
+	@Query("SELECT u FROM User u JOIN FETCH u.role WHERE u.userName = (:username)")
 	public abstract User findByUsernameAndFetchUserRolesEagerly(@Param("username") String username);
 	
 }
