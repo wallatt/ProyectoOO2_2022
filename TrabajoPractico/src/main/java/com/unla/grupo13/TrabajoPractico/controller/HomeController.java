@@ -28,7 +28,7 @@ public class HomeController {
 		return ViewRouteHelper.USER_LOGOUT;
 	}
 	
-	@GetMapping("/loginsuccess")
+	@GetMapping("/loginsucces")
 	public String loginCheck() {
 		return ViewRouteHelper.INDEX;
 	}
