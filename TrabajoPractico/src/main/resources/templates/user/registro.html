@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="utf-8">
-<title>Inicio de sesión</title>
+<title>Registro de usuarios</title>
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
@@ -40,45 +40,54 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-md-6 col-md-offset-3">
-				<h1>Inicio de sesión</h1>
-				<form th:action="@{/login}" method="post">
+				<div th:if=${param.exito}>
+					<div class="alert alert-info">Se ha registrado exitosamente a
+						la aplicación</div>
+				</div>
 
-					<div th:if=${param.error}>
-						<div class="alert alert-danger">Usuario o contraseña
-							inválidos</div>
-					</div>
-
-					<div th:if=${param.logout}>
-						<div class="alert alert-info">Ha cerrado sesión exitosamente
-						</div>
-					</div>
-
-
+				<h1>Regístrate</h1>
+				<form th:action="@{/user/create}" method="post" th:object="${user}">
 					<div class="form-group">
-						<label  for="username">Nombre de
-							usuario : </label> <input id="username"  name="username" type="text" class="form-control"
-							required autofocus="autofocus" placeholder="Digite su email ID">
+						<label class="control-label" for="nombre">Nombre : </label> <input
+							id="nombre" type="text" class="form-control" th:field="*{nombre}"
+							required autofocus="autofocus">
 					</div>
 
 					<div class="form-group">
-						<label  for="password">Password : </label> <input
-							id="password" type="password"  name="password" class="form-control" required
-							autofocus="autofocus" placeholder="Digite su password">
+						<label class="control-label" for="apellido">Apellido : </label> <input
+							id="apellido" type ="text"class="form-control" th:field="*{apellido}"
+							required autofocus="autofocus">
 					</div>
 
 					<div class="form-group">
-						<div class="row">
-							<div class="col-md-6 col-md-offset-3">
-								<input type="submit" class="form-control btn btn-primary" name="login-submit" id="login-submit"
-									value="Iniciar sesión" />
-							</div>
-						</div>
+						<label class="control-label" for="email">Email : </label> <input
+							id="email" type="email" class="form-control" th:field="*{email}"
+							required autofocus="autofocus">
+					</div>
+
+					<div class="form-group">
+						<label class="control-label" for="password">Password : </label> <input
+							type="password" id="password" class="form-control" th:field="*{password}"
+							required autofocus="autofocus">
+					</div>
+					
+					<div class="form-group">
+						<label class="control-label" for="email">User Name : </label> <input
+							id="email" type="text" class="form-control" th:field="*{userName}"
+							required autofocus="autofocus">
+					</div>
+					
+					<div class="form-group">
+						<label class="control-label" for="email">Dni: </label> <input
+							id="dni" type="text" class="form-control" th:field="*{dni}"
+							required autofocus="autofocus">
+					</div>
+
+					<div class="form-group">
+						<button type="submit" class="btn btn-success">Registrar</button>
+						<span>Si estas registrado <a th:href="@{/login}">inicia sesión aqui</a></span>
 					</div>
 				</form>
-				<div class="form-group">
-					<span>Si eres nuevo usuario <a th:href="@{user/registro}">regístrate
-							aqui</a></span>
-				</div>
 
 			</div>
 		</div>
@@ -92,4 +101,5 @@
 		crossorigin="anonymous"></script>
 </body>
 </html>
+
 

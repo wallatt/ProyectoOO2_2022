@@ -41,16 +41,23 @@ import com.unla.grupo13.TrabajoPractico.services.IUserService;
 			return mAV;
 		}
 		
-		@GetMapping("/new")
+		@GetMapping("/registro")
 		public ModelAndView create() {
 			ModelAndView mAV = new ModelAndView(ViewRouteHelper.USER_NEW);
 			mAV.addObject("user", new UserModel());
 			return mAV;
 		}
 		
+		@GetMapping("/exito")
+		public ModelAndView exito() {
+			
+			ModelAndView mAV= new ModelAndView (ViewRouteHelper.EXITO);
+			return mAV;
+		}
+		
 		@PostMapping("/create")
 		public RedirectView create(@ModelAttribute("user") UserModel userModel) {
-			UserRole rol=rolService.findById(2);
+			UserRole rol=rolService.findById(1);
 			userModel.setRole(rol);
 			userService.save(modelMapper.map(userModel, User.class));
 			return new RedirectView(ViewRouteHelper.USER_ROOT);

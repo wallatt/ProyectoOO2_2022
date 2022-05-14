@@ -9,8 +9,11 @@ import org.springframework.web.servlet.ModelAndView;
 import com.unla.grupo13.TrabajoPractico.helpers.ViewRouteHelper;
 
 
+
 @Controller
 public class HomeController {
+ 
+	
 	@GetMapping("/login")
 	public String login(Model model,
 						@RequestParam(name="error",required=false) String error,
@@ -27,7 +30,7 @@ public class HomeController {
 	
 	@GetMapping("/loginsuccess")
 	public String loginCheck() {
-		return  "redirect:/index";
+		return ViewRouteHelper.INDEX;
 	}
 	
 	//GET Example: SERVER/index
@@ -36,4 +39,5 @@ public class HomeController {
 		ModelAndView modelAndView = new ModelAndView(ViewRouteHelper.INDEX);
 		return modelAndView;
 	}
+	
 }
