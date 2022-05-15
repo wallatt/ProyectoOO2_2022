@@ -33,6 +33,7 @@ public class HomeController {
 		return ViewRouteHelper.INDEX;
 	}
 	
+	
 	//GET Example: SERVER/index
 	@GetMapping("/index")
 	public ModelAndView index() {

@@ -30,7 +30,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests()
 				.antMatchers("/css/*", "/imgs/*", "/js/*", "/vendor/bootstrap/css/*", "/vendor/jquery/*",
-						"/vendor/bootstrap/js/*","/user/registro*","/user/create*","/user*")
+						"/vendor/bootstrap/js/*","/user/registro*","/user/create*")
 				.permitAll().anyRequest().authenticated().and().formLogin().loginPage("/login")
 				.loginProcessingUrl("/loginprocess").usernameParameter("username").passwordParameter("password")
 				.defaultSuccessUrl("/loginsucces").permitAll().and().logout().logoutUrl("/logout")

@@ -8,4 +8,5 @@ public interface IUserService {
 	
 	
 	public UserModel save(User user);
+	public UserModel findByUserName(String userName);
 }
