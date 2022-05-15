@@ -57,9 +57,31 @@ import com.unla.grupo13.TrabajoPractico.services.IUserService;
 		
 		@PostMapping("/create")
 		public RedirectView create(@ModelAttribute("user") UserModel userModel) {
-			UserRole rol=rolService.findById(1);
-			userModel.setRole(rol);
+			UserRole role=rolService.findById(1);
+			userModel.setRole(role);
 			userService.save(modelMapper.map(userModel, User.class));
 			return new RedirectView(ViewRouteHelper.USER_ROOT);
 		}
+	
+		@GetMapping("/asistente")
+		public ModelAndView asistente() {
+			
+			ModelAndView mAV= new ModelAndView (ViewRouteHelper.USER_ASISTENTE);
+			return mAV;
+		}
+		
+		
+		
+		@PostMapping ("/asistente/create")
+		public RedirectView createAsistente(@ModelAttribute ("user")UserModel userModel) {
+			
+			UserRole role=rolService.findByRole("USER_ASISTENTE");
+			userModel.setRole(role);
+			userService.save(modelMapper.map(userModel, User.class));
+			return new RedirectView(ViewRouteHelper.USER_ASISTENTE);
+			
+			
+		}
+		
+		
 }

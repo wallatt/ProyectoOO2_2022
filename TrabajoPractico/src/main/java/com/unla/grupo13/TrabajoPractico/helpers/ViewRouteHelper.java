@@ -23,6 +23,7 @@ public class ViewRouteHelper {
 	public final static String USER_LOGIN = "user/login";
 	public final static String USER_LOGOUT = "user/logout";
 	public final static String EXITO = "user/exito";
+	public final static String USER_ASISTENTE= "user/asistente";
 	/**** Redirects ****/
 	public final static String ROUTE = "/index";
 	public final static String DEGREE_ROOT = "/degrees/";
