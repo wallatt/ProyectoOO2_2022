@@ -9,4 +9,6 @@ public interface IUserService {
 	
 	public UserModel save(User user);
 	public UserModel findByUserName(String userName);
+	public UserModel editar(User user);
+	public User findById(int id);
 }

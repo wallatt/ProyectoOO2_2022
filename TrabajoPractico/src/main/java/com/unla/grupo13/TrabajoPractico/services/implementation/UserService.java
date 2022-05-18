@@ -1,5 +1,7 @@
 package com.unla.grupo13.TrabajoPractico.services.implementation;
 
+import java.util.Optional;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -41,6 +43,21 @@ public class UserService implements IUserService{
 		User user=userRepository.findByUsernameAndFetchUserRolesEagerly(userName);
 		return modelMapper.map(user, UserModel.class);
 	}
+
+
+	@Override
+	public User findById(int id) {
+		
+		// TODO Auto-generated method stub
+	
+		return userRepository.findById(id);
+	}
+
+
+
+	
+	
+	
 
 
 }

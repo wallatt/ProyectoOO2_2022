@@ -10,7 +10,7 @@ public class ViewRouteHelper {
 	public final static String USER_INDEX ="user/exito";
 	public final static String USER_NEW = "user/registro";
 	public final static String DATOS_USER="user/datosuser";
-	
+	public final static String USER_EDITAR="user/editar";
 	public final static String USER_LOGIN = "user/login";
 	public final static String USER_LOGOUT = "user/logout";
 	public final static String EXITO = "user/exito";

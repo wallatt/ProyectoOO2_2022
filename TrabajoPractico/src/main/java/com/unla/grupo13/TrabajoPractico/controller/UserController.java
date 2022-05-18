@@ -100,15 +100,33 @@ import com.unla.grupo13.TrabajoPractico.services.IUserService;
 				mAV.addObject("user", userService.findByUserName(userName));
 				return mAV;
 			}
+			
+			@PostMapping ("/editar/save/{id}")
+			public RedirectView editarUser (@PathVariable("id") int id,@ModelAttribute ("user")UserModel userModel){
+				
+				User usuario=userService.findById(id);
+				User user= modelMapper.map(userModel,User.class);
+				
+				usuario.setId(user.getId());
+				usuario.setNombre(user.getNombre());
+				usuario.setApellido(user.getApellido());
+				usuario.setUserName(user.getUserName());
+				usuario.setCreatedAt(usuario.getCreatedAt());
+				usuario.setDni(user.getDni());
+				usuario.setEmail(user.getEmail());
+				usuario.setPassword(user.getPassword());
+				userService.save(modelMapper.map(usuario, User.class));
+				
+				return new RedirectView(ViewRouteHelper.EXITO_ASISTENTE);
+				
+				
+			} 
 		
-		
-			@GetMapping("/perfil")
-			public ModelAndView perfil() {
-				ModelAndView modelAndView = new ModelAndView(ViewRouteHelper.PERFIL);
-				User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-				modelAndView.addObject("username", user.getUserName());
-				return modelAndView;
+			@GetMapping("/editar/{id}")
+			public ModelAndView editar (@PathVariable("id") int id) {
+				ModelAndView mAV = new ModelAndView(ViewRouteHelper.USER_EDITAR);
+				mAV.addObject("user", userService.findById(id));
+				return mAV;
 			}
-		
 		
 }
