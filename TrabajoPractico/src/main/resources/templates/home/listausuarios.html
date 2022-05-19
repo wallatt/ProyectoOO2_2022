@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html xmlns:sec="http://wwww.thymeleaf.org/extras/spring-security">
+<head>
+<meta charset="ISO-8859-1">
+<title>Lista de usuarios</title>
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+	integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+	crossorigin="anonymous">
+</head>
+<body>
+
+	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+		<a class="navbar-brand" href="#">Gestion de AULAS</a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse"
+			data-target="#navbarSupportedContent"
+			aria-controls="navbarSupportedContent" aria-expanded="false"
+			aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+
+		<div class="collapse navbar-collapse" id="navbarSupportedContent">
+			<ul class="navbar-nav mr-auto">
+				<li class="nav-item active"><a class="nav-link" sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{/user/asistente}">Agregar usuario
+					<span class="sr-only">(current)</span>	
+				</a></li>
+				<li class="nav-item dropdown"><a
+					class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
+					role="button" data-toggle="dropdown" aria-haspopup="true"
+					aria-expanded="false"> Dropdown </a>
+					<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+						<a class="dropdown-item" href="@{/user/create}">Action</a> <a
+							class="dropdown-item" href="#">Another action</a>
+						<div class="dropdown-divider"></div>
+						<a class="dropdown-item" href="#">Something else here</a>
+					</div></li>
+				<li class="nav-item"><a class="nav-link disabled" href="#">Disabled</a>
+				</li>
+
+			</ul>
+			<span class="nav-link" sec:authentication="principal.username"></span>
+		</div>
+		<div>
+			<form th:action="@{/logout}" method="post">
+				<input class="dropdown-item" style="cursor: pointer" type="submit"
+					value="Logout" />
+
+			</form>
+		</div>
+	</nav>
+
+	<br>
+
+	<div class="container text-center">
+		<form class="form-inline" sec:authorize="hasRole('ROLE_ADMIN')" action="">
+		<div class="form-group mb-2">
+		
+		<label> Filtrar: </label>
+		</div>
+		<div class= "form-group mx-sm-3 mb-2">
+			<input type="text" name="userName" class="form-control" id="userName" th:value="${userName}" placeholder="username" required>
+		</div>
+		<input type="submit" class=" btn btn-primary mb-2" value="Buscar">
+		&nbsp;&nbsp;
+		<td>
+		<a class ="btn btn-secundary" th:href="@{loginsucces}">Limpiar</a>
+		</td>
+		</form>
+		<table class="table" sec:authorize="hasRole('ROLE_ADMIN')">
+			<thead class="thead-dark">
+				<tr>
+					<th scope="col">#</th>
+					<th scope="col">NOMBRE</th>
+					<th scope="col">APELLIDO</th>
+					<th scope="col">USERNAME</th>
+					<th scope="col">DNI</th>
+					<th scope="col">EMAIL</th>
+					<th scope="col">ROL</th>
+					<th scope="col">ACTIONS</th>
+			</thead>
+
+			<tbody>
+				<tr th:each="user:${users}">
+					<td th:text="${user.id}"></td>
+					<td th:text="${user.nombre}"></td>
+					<td th:text="${user.apellido}"></td>
+					<td th:text="${user.userName}"></td>
+					<td th:text="${user.dni}"></td>
+					<td th:text="${user.email}"></td>
+					<td th:text="${user.role.role}"></td>
+					<td><a class="btn btn-primary"
+						th:href="@{user/editar/}+${user.id}">Editar</a>
+
+						<a class="btn btn-danger"
+						th:href="@{/user/baja/{id}(id=${user.id})}">Dar Baja</a>
+
+				</tr>
+			</tbody>
+
+		</table>
+
+
+	</div>
+
+
+</body>
+</html>

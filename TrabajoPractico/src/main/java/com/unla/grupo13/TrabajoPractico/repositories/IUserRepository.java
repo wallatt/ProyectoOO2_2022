@@ -1,6 +1,7 @@
 package com.unla.grupo13.TrabajoPractico.repositories;
 
 import java.io.Serializable;
+import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -16,4 +17,10 @@ public interface IUserRepository extends JpaRepository<User, Serializable> {
 	public abstract User findByUsernameAndFetchUserRolesEagerly(@Param("username") String userName);
 	
 	public abstract User findById(int id);
+	
+	@Query ("SELECT u FROM User u JOIN FETCH u.role WHERE u.enabled=true")
+	public abstract List<User> findAll();
+	
+	@Query("SELECT u FROM User u JOIN FETCH u.role WHERE u.userName= (:username) and u.enabled=true")
+	public abstract List<User> findAll(@Param ("username")String userName);
 }

@@ -5,7 +5,7 @@ public class ViewRouteHelper {
 	
 	/**** Views ****/
 	//HOME
-	public final static String INDEX = "home/index";
+	public final static String INDEX = "/user";
 	//USER
 	public final static String USER_INDEX ="user/exito";
 	public final static String USER_NEW = "user/registro";

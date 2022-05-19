@@ -1,10 +1,12 @@
 package com.unla.grupo13.TrabajoPractico.services.implementation;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.unla.grupo13.TrabajoPractico.entities.User;
@@ -32,7 +34,8 @@ public class UserService implements IUserService{
 	@Override
 	public UserModel save(User user) {
 		// TODO Auto-generated method stub
-		
+		BCryptPasswordEncoder pe = new BCryptPasswordEncoder(4);
+		user.setPassword(pe.encode(user.getPassword()));
 		User nuevoU = userRepository.save(user);
 		return modelMapper.map(nuevoU,UserModel.class);
 	}
@@ -52,6 +55,24 @@ public class UserService implements IUserService{
 	
 		return userRepository.findById(id);
 	}
+
+
+	
+	@Override
+	public List<User> getAll(String palabraClave) {
+		// TODO Auto-generated method stub
+		
+		if (palabraClave!=null) {
+			
+			
+			return userRepository.findAll(palabraClave);
+		}
+		
+		
+		return userRepository.findAll();
+	}
+
+
 
 
 

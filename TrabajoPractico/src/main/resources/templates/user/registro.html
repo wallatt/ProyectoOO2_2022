@@ -28,7 +28,7 @@
 						class="icon-bar"></span> <span class="icon-bar"></span> <span
 						class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand" href="#" th:href="@{/user/editar/{id}">Registro e
+				<a class="navbar-brand" href="#" th:href="@{/user/create}">Registro e
 					inicio de sesión</a>
 			</div>
 		</div>
@@ -41,7 +41,7 @@
 		<div class="row">
 			<div class="col-md-6 col-md-offset-3">
 
-				<h1>Editar</h1>
+				<h1>Registro</h1>
 				<form th:action="@{/user/create}" method="post" th:object="${user}">
 					<div class="form-group">
 						<label class="control-label" for="nombre">Nombre : </label> <input

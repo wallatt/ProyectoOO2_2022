@@ -1,10 +1,10 @@
 package com.unla.grupo13.TrabajoPractico.controller;
 
+import java.util.List;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.data.repository.query.Param;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
@@ -22,6 +21,8 @@ import com.unla.grupo13.TrabajoPractico.helpers.ViewRouteHelper;
 import com.unla.grupo13.TrabajoPractico.models.UserModel;
 import com.unla.grupo13.TrabajoPractico.services.IRolService;
 import com.unla.grupo13.TrabajoPractico.services.IUserService;
+
+
 
 
 
@@ -40,11 +41,26 @@ import com.unla.grupo13.TrabajoPractico.services.IUserService;
 		private ModelMapper modelMapper= new ModelMapper();
 		
 		
+		
 		@GetMapping("")
-		public ModelAndView index() {
-			ModelAndView mAV = new ModelAndView(ViewRouteHelper.USER_INDEX);
-			return mAV;
+		public String VerUsuarios(Model model) {
+		
+			
+			return "redirect:/loginsucces";
+			
+			
+			
 		}
+		
+		
+		/*@GetMapping("")
+		public ModelAndView index() {
+	
+			ModelAndView mAV = new ModelAndView(ViewRouteHelper.USER_INDEX);
+			mAV.addObject("users",userService.getAll());
+			mAV.addObject("user", new UserModel());
+			return mAV;
+		}*/
 		
 		@GetMapping("/registro")
 		public ModelAndView create() {
@@ -85,6 +101,7 @@ import com.unla.grupo13.TrabajoPractico.services.IUserService;
 			UserRole role=rolService.findByRole("USER_ASISTENTE");
 			userModel.setRole(role);
 			userModel.setEnabled(true);
+			
 			userService.save(modelMapper.map(userModel, User.class));
 			return new RedirectView(ViewRouteHelper.EXITO_ASISTENTE);
 		}
@@ -100,9 +117,19 @@ import com.unla.grupo13.TrabajoPractico.services.IUserService;
 				mAV.addObject("user", userService.findByUserName(userName));
 				return mAV;
 			}
+			@GetMapping("/baja/{id}")
+			public String darBajar(@PathVariable("id") int id,@ModelAttribute("user") UserModel userModel) {
+				
+				
+
+				User usuario=userService.findById(id);
+				usuario.setEnabled(!usuario.isEnabled());
+				userService.save(modelMapper.map(usuario,User.class));
+				return "redirect:/loginsucces";
+			}
 			
 			@PostMapping ("/editar/save/{id}")
-			public RedirectView editarUser (@PathVariable("id") int id,@ModelAttribute ("user")UserModel userModel){
+			public String editarUser (@PathVariable("id") int id,@ModelAttribute ("user")UserModel userModel){
 				
 				User usuario=userService.findById(id);
 				User user= modelMapper.map(userModel,User.class);
@@ -117,7 +144,7 @@ import com.unla.grupo13.TrabajoPractico.services.IUserService;
 				usuario.setPassword(user.getPassword());
 				userService.save(modelMapper.map(usuario, User.class));
 				
-				return new RedirectView(ViewRouteHelper.EXITO_ASISTENTE);
+				return "user/exitoeditar";
 				
 				
 			} 
