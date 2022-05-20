@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping
 public class HelloWorldController {
 
-    @GetMapping("helloworld")
+    @GetMapping("/helloworld")
     public String helloWorld(){
-        return "HelloWorld";
+        return "index";
     }
 }
