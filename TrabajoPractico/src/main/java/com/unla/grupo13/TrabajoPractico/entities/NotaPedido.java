@@ -37,27 +37,26 @@ public class NotaPedido extends EntityBase{
 	@Column (name="codcurso")
 	private String codCurso;
 	
+	@Column (name="profesores")
+	private String profesores;
+	
 	@Column(name="examenfinal")
 	private boolean examenFinal;
-	
-	@ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "aula_id", nullable = false)
-	private Aula aula;
 	
 	@OneToMany(fetch=FetchType.LAZY, mappedBy="notaPedido")
 	private Set<Espacio> espacios=new HashSet<Espacio>();
 	
-	public NotaPedido(boolean softDelete, LocalDateTime fechaCreacion, LocalDateTime fechaModificacion,char turno,int cantEstudiantes,Materia materia,String observaciones,String codCurso,Aula aula,boolean examenFinal) {
+	public NotaPedido(boolean softDelete, LocalDateTime fechaCreacion, LocalDateTime fechaModificacion,char turno,int cantEstudiantes,Materia materia,String observaciones,String codCurso,Aula aula,boolean examenFinal,String profesores) {
 		super(softDelete, fechaCreacion, fechaModificacion);
 		// TODO Auto-generated constructor stub
 		
 		this.turno=turno;
 		this.cantEstudiantes=cantEstudiantes;
 		this.materia=materia;
-		this.aula=aula;
 		this.observaciones= observaciones;
 		this.codCurso=codCurso;
 		this.examenFinal=examenFinal;
+		this.profesores=profesores;
 		
 	}
 	

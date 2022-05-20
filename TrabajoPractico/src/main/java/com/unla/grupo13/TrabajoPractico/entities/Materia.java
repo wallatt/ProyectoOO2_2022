@@ -19,10 +19,14 @@ import lombok.Setter;
 @Getter @Setter @NoArgsConstructor
 public class Materia extends EntityBase {
 
-	@Column(name="codmteria")
+	@Column(name="codmateria")
 	private String codMateria;
+	
 	@Column (name="nombre")
 	private String nombre;
+	
+	@Column (name="codComision")
+	private String codComision;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "carrera_id", nullable = false)

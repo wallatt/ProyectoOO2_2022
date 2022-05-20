@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "laboratorio")
 @Getter @Setter @NoArgsConstructor
-public class Laboratotio extends Aula{
+public class Laboratorio extends Aula{
 
     @Column(name = "cantpc")
     private int cantPc;
@@ -21,7 +21,7 @@ public class Laboratotio extends Aula{
     @Column(name = "cantsillas")
     private int cantSillas;
 
-    public Laboratotio(int numero, boolean softDelete, LocalDateTime fechaCreacion, LocalDateTime fechaModificacion,
+    public Laboratorio(int numero, boolean softDelete, LocalDateTime fechaCreacion, LocalDateTime fechaModificacion,
                        int cantPc, int cantSillas) {
         super(numero, softDelete, fechaCreacion, fechaModificacion);
         this.cantPc = cantPc;
