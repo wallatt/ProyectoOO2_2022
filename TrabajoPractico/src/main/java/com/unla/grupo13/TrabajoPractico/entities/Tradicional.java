@@ -12,7 +12,6 @@ import java.time.LocalDateTime;
 
 @Getter @Setter @NoArgsConstructor
 @Entity
-@Table(name = "tradicional")
 public class Tradicional extends Aula{
 
     @Column(name = "cantBancos")
@@ -24,11 +23,5 @@ public class Tradicional extends Aula{
     @Column(name = "tieneproyector")
     private boolean tieneProyector;
 
-    public Tradicional(int numero, boolean softDelete, LocalDateTime fechaCreacion, LocalDateTime fechaModificacion,
-                       int cantBancos, String pizarron, boolean tieneProyector) {
-        super(numero, softDelete, fechaCreacion, fechaModificacion);
-        this.cantBancos = cantBancos;
-        this.pizarron = pizarron;
-        this.tieneProyector = tieneProyector;
-    }
+   
 }

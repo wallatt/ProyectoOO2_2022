@@ -16,7 +16,6 @@ import lombok.Setter;
 
 @Getter @Setter @NoArgsConstructor 
 @Entity
-@Table(name = "carrera")
 public class Carrera extends EntityBase{
 	
 	@Column (name="nombre")
@@ -26,13 +25,7 @@ public class Carrera extends EntityBase{
     @JoinColumn(name = "departamento_id", nullable = false)
 	private Departamento departamento;
 	
-	public Carrera(boolean softDelete, LocalDateTime fechaCreacion, LocalDateTime fechaModificacion,String nombre, Departamento departamento) {
-		super(softDelete, fechaCreacion, fechaModificacion);
-		// TODO Auto-generated constructor stub
-		
-		this.nombre=nombre;
-		this.departamento=departamento;
-	}
+	
 	
 		
 }

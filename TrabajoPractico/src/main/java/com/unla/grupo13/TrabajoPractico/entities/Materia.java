@@ -32,16 +32,7 @@ public class Materia extends EntityBase {
     @JoinColumn(name = "carrera_id", nullable = false)
 	private Carrera carrera;
 	
-	public Materia(boolean softDelete, LocalDateTime fechaCreacion, LocalDateTime fechaModificacion,String codMateria,String nombre,Carrera carrera,String codComision) {
-		super(softDelete, fechaCreacion, fechaModificacion);
-		// TODO Auto-generated constructor stub
-		
-		this.codMateria=codMateria;
-		this.nombre=nombre;
-		this.carrera=carrera;
-		this.codComision=codComision;
-	}
-
+	
 	
 	
 	

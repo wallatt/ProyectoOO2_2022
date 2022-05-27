@@ -12,17 +12,11 @@ import lombok.Setter;
 
 @Getter @Setter @NoArgsConstructor 
 @Entity
-@Table(name = "departamento")
 public class Departamento extends EntityBase{
 
 	@Column(name="nombre")
 	private String departamento;
 	
 	
-	public Departamento(boolean softDelete, LocalDateTime fechaCreacion, LocalDateTime fechaModificacion, String departamento) {
-		super(softDelete, fechaCreacion, fechaModificacion);
-		// TODO Auto-generated constructor stub
-		this.departamento=departamento;
-	}
 
 }

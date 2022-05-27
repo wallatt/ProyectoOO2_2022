@@ -46,19 +46,7 @@ public class NotaPedido extends EntityBase{
 	@OneToMany(fetch=FetchType.LAZY, mappedBy="notaPedido")
 	private Set<Espacio> espacios=new HashSet<Espacio>();
 	
-	public NotaPedido(boolean softDelete, LocalDateTime fechaCreacion, LocalDateTime fechaModificacion,char turno,int cantEstudiantes,Materia materia,String observaciones,String codCurso,Aula aula,boolean examenFinal,String profesores) {
-		super(softDelete, fechaCreacion, fechaModificacion);
-		// TODO Auto-generated constructor stub
-		
-		this.turno=turno;
-		this.cantEstudiantes=cantEstudiantes;
-		this.materia=materia;
-		this.observaciones= observaciones;
-		this.codCurso=codCurso;
-		this.examenFinal=examenFinal;
-		this.profesores=profesores;
-		
-	}
+	
 	
 	
 	

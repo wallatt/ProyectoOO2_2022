@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:sec="http://wwww.thymeleaf.org/extras/spring-security">
+<head>
+<meta charset="ISO-8859-1">
+<title>Lista de usuarios</title>
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+	integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+	crossorigin="anonymous">
+</head>
+<body>
+
+	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+		<a class="navbar-brand" href="#">Gestion de AULAS</a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse"
+			data-target="#navbarSupportedContent"
+			aria-controls="navbarSupportedContent" aria-expanded="false"
+			aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+
+		<div class="collapse navbar-collapse" id="navbarSupportedContent">
+			<ul class="navbar-nav mr-auto">
+
+			</ul>
+		</div>
+		<div>
+			<form th:action="@{/logout}" method="post">
+				<input class="dropdown-item" style="cursor: pointer" type="submit"
+					value="Logout" />
+
+			</form>
+		</div>
+	</nav>
+
+	<br>
+
+	<div class="container text-center">
+		<table class="table">
+			<thead class="thead-dark">
+				<tr>
+					<th scope="col">#</th>
+					<th scope="col">EDIFICIO</th>
+					<th scope="col">ACTIONS</th>
+			</thead>
+
+			<tbody>
+				<tr th:each="edificio:${edificios}">
+				<td th:text="${edificio.id}"></td>
+				<td th:text="${edificio.edificio}"></td>
+						<td><a class="btn btn-primary"
+						th:href="@{/laboratorios/}+${edificio.id}">Ver laboratorios</a>
+						<a class="btn btn-primary"
+						th:href="@{/tradicional/}+${edificio.id}">Ver tradicional</a>
+				</tr>
+			</tbody>
+
+		</table>
+
+
+	</div>
+
+
+</body>
+</html>

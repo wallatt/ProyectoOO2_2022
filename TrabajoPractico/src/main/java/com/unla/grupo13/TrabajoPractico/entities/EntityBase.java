@@ -28,9 +28,39 @@ public class EntityBase {
     @UpdateTimestamp
     protected LocalDateTime fechaModificacion;
 
-    public EntityBase(boolean softDelete, LocalDateTime fechaCreacion, LocalDateTime fechaModificacion) {
-        this.softDelete = softDelete;
-        this.fechaCreacion = fechaCreacion;
-        this.fechaModificacion = fechaModificacion;
-    }
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public boolean isSoftDelete() {
+		return softDelete;
+	}
+
+	public void setSoftDelete(boolean softDelete) {
+		this.softDelete = softDelete;
+	}
+
+	public LocalDateTime getFechaCreacion() {
+		return fechaCreacion;
+	}
+
+	public void setFechaCreacion(LocalDateTime fechaCreacion) {
+		this.fechaCreacion = fechaCreacion;
+	}
+
+	public LocalDateTime getFechaModificacion() {
+		return fechaModificacion;
+	}
+
+	public void setFechaModificacion(LocalDateTime fechaModificacion) {
+		this.fechaModificacion = fechaModificacion;
+	}
+
+    
+    public EntityBase() {}
+    
 }
