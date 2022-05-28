@@ -13,7 +13,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.unla.grupo13.TrabajoPractico.entities.Laboratorio;
 import com.unla.grupo13.TrabajoPractico.helpers.ViewRouteHelper;
-import com.unla.grupo13.TrabajoPractico.models.EdificioModel;
 import com.unla.grupo13.TrabajoPractico.models.LaboratorioModel;
 import com.unla.grupo13.TrabajoPractico.models.TradicionalModel;
 import com.unla.grupo13.TrabajoPractico.services.IAulaService;

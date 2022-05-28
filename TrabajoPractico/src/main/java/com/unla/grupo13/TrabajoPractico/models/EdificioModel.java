@@ -1,8 +1,6 @@
 package com.unla.grupo13.TrabajoPractico.models;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+
 
 
 public class EdificioModel {

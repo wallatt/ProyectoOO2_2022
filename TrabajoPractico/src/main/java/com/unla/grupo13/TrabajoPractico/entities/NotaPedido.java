@@ -18,7 +18,6 @@ import lombok.Setter;
 
 
 @Entity
-@Getter @Setter @NoArgsConstructor
 public class NotaPedido extends EntityBase{
 	
 	@Column(name="turno")
@@ -45,6 +44,80 @@ public class NotaPedido extends EntityBase{
 	
 	@OneToMany(fetch=FetchType.LAZY, mappedBy="notaPedido")
 	private Set<Espacio> espacios=new HashSet<Espacio>();
+
+	
+	public NotaPedido() {}
+	
+	public char getTurno() {
+		return turno;
+	}
+
+	public void setTurno(char turno) {
+		this.turno = turno;
+	}
+
+	public int getCantEstudiantes() {
+		return cantEstudiantes;
+	}
+
+	public void setCantEstudiantes(int cantEstudiantes) {
+		this.cantEstudiantes = cantEstudiantes;
+	}
+
+	public Materia getMateria() {
+		return materia;
+	}
+
+	public void setMateria(Materia materia) {
+		this.materia = materia;
+	}
+
+	public String getObservaciones() {
+		return observaciones;
+	}
+
+	public void setObservaciones(String observaciones) {
+		this.observaciones = observaciones;
+	}
+
+	public String getCodCurso() {
+		return codCurso;
+	}
+
+	public void setCodCurso(String codCurso) {
+		this.codCurso = codCurso;
+	}
+
+	public String getProfesores() {
+		return profesores;
+	}
+
+	public void setProfesores(String profesores) {
+		this.profesores = profesores;
+	}
+
+	public boolean isExamenFinal() {
+		return examenFinal;
+	}
+
+	public void setExamenFinal(boolean examenFinal) {
+		this.examenFinal = examenFinal;
+	}
+
+	public Set<Espacio> getEspacios() {
+		return espacios;
+	}
+
+	public void setEspacios(Set<Espacio> espacios) {
+		this.espacios = espacios;
+	}
+
+	@Override
+	public String toString() {
+		return "NotaPedido [turno=" + turno + ", cantEstudiantes=" + cantEstudiantes + ", observaciones="
+				+ observaciones + ", codCurso=" + codCurso + ", profesores=" + profesores + ", examenFinal="
+				+ examenFinal + "]";
+	}
 	
 	
 	

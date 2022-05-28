@@ -1,8 +1,6 @@
 package com.unla.grupo13.TrabajoPractico.entities;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -10,7 +8,6 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @MappedSuperclass
-@Getter @Setter @NoArgsConstructor
 public class EntityBase {
 
     @Id
@@ -62,5 +59,11 @@ public class EntityBase {
 
     
     public EntityBase() {}
+
+	@Override
+	public String toString() {
+		return "EntityBase [id=" + id + ", softDelete=" + softDelete + ", fechaCreacion=" + fechaCreacion
+				+ ", fechaModificacion=" + fechaModificacion + "]";
+	}
     
 }

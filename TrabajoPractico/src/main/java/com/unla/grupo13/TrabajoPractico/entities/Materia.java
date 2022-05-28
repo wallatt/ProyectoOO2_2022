@@ -16,7 +16,7 @@ import lombok.Setter;
 
 
 @Entity
-@Getter @Setter @NoArgsConstructor
+
 public class Materia extends EntityBase {
 
 	@Column(name="codmateria")
@@ -25,12 +25,40 @@ public class Materia extends EntityBase {
 	@Column (name="nombre")
 	private String nombre;
 	
-	@Column (name="codComision")
-	private String codComision;
-	
 	@ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "carrera_id", nullable = false)
 	private Carrera carrera;
+
+	public Materia () {}
+	
+	public String getCodMateria() {
+		return codMateria;
+	}
+
+	public void setCodMateria(String codMateria) {
+		this.codMateria = codMateria;
+	}
+
+	public String getNombre() {
+		return nombre;
+	}
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+
+	public Carrera getCarrera() {
+		return carrera;
+	}
+
+	public void setCarrera(Carrera carrera) {
+		this.carrera = carrera;
+	}
+
+	@Override
+	public String toString() {
+		return "Materia [codMateria=" + codMateria + ", nombre=" + nombre + "]";
+	}
 	
 	
 	
