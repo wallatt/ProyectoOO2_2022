@@ -41,11 +41,11 @@ public class NotaPedidoController {
 	// todos los pedidos
 	@GetMapping("pedidos")
 	public ModelAndView getPedidos() {
-
 		List<NotaPedido> lstNotaPedido = notaPedidoService.getAll();
 		ModelAndView mAV = new ModelAndView(ViewRouteHelper.PEDIDOS_ROOT);
 		mAV.addObject("pedidos", lstNotaPedido);
 		mAV.addObject("pedido", new NotaPedidoModel());
+
 		return mAV;
 	}
 	
