@@ -4,9 +4,7 @@ package com.unla.grupo13.TrabajoPractico.entities;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.PrimaryKeyJoinColumn;
-import javax.persistence.Table;
-import java.time.LocalDateTime;
+
 
 @Entity
 
