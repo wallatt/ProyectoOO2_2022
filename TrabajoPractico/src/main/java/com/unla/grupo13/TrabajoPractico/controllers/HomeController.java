@@ -19,7 +19,7 @@ public class HomeController {
 	
 	
 
-    @GetMapping("home")
+    @GetMapping(value={"/","home"})
     public ModelAndView home(){
     	ModelAndView mAV = new ModelAndView(ViewRouteHelper.HOME);
     	
