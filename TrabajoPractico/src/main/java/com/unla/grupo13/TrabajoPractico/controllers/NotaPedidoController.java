@@ -19,6 +19,7 @@ import org.springframework.web.servlet.view.RedirectView;
 import com.unla.grupo13.TrabajoPractico.entities.Materia;
 import com.unla.grupo13.TrabajoPractico.entities.NotaPedido;
 import com.unla.grupo13.TrabajoPractico.helpers.ViewRouteHelper;
+import com.unla.grupo13.TrabajoPractico.models.NotaPedidoModel;
 import com.unla.grupo13.TrabajoPractico.services.IMateriaService;
 import com.unla.grupo13.TrabajoPractico.services.INotaPedidoService;
 
@@ -40,9 +41,11 @@ public class NotaPedidoController {
 	// todos los pedidos
 	@GetMapping("pedidos")
 	public ModelAndView getPedidos() {
-		// Get pedidos codigo
+
+		List<NotaPedido> lstNotaPedido = notaPedidoService.getAll();
 		ModelAndView mAV = new ModelAndView(ViewRouteHelper.PEDIDOS_ROOT);
-		
+		mAV.addObject("pedidos", lstNotaPedido);
+		mAV.addObject("pedido", new NotaPedidoModel());
 		return mAV;
 	}
 	
