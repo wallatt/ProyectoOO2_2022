@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<!-- Fragmento Head-->
+<head th:insert="../fragments/generalView.html :: head"></head>
+
+<body>
+	<!-- Fragmento Wrapper-->
+	<div th:replace="../fragments/generalView.html :: wrapper(~{:: .myContent})">
+		<div class="myContent container-fluid">
+			<h1 class="mt-4">Bienvenido!</h1>
+			<h4>Administra tus clases facilmente!</h4>
+		</div>
+	</div>
+	<!-- Bootstrap core JS-->
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
