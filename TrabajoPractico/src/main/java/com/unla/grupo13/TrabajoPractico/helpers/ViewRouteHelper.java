@@ -8,6 +8,6 @@ public class ViewRouteHelper {
 	public static String LABORATORIO_INDEX="aula/index";
 	public static String TRADICIONAL_INDEX="aula/indexTradicional";
 	public static String NUEVO_PEDIDO="pedidos/nuevo";
-	public static String PEDIDOS_ROOT="/pedidos";
+	public static String PEDIDOS_ROOT="pedidos/pedidos";
 	public static String PEDIDOS_OK="pedidos/okPedido";
 }

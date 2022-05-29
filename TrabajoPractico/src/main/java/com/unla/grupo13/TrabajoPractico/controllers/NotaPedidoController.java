@@ -37,6 +37,15 @@ public class NotaPedidoController {
 	private IMateriaService materiaService;
 	
 	
+	// todos los pedidos
+	@GetMapping("pedidos")
+	public ModelAndView getPedidos() {
+		// Get pedidos codigo
+		ModelAndView mAV = new ModelAndView(ViewRouteHelper.PEDIDOS_ROOT);
+		
+		return mAV;
+	}
+	
 	@GetMapping("/pedidos/nuevo")
 	public ModelAndView crearPedido() {
 		
