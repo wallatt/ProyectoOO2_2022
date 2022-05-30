@@ -23,7 +23,7 @@
 						<td th:text="${tradicional.cantBancos}"></td>
 						<td th:text="${tradicional.pizarron}"></td>
 						<td th:text="${tradicional.tieneProyector}"></td>
-						<td><a class="btn btn-primary" th:href="@{#}">Editar</a>
+						<td><a class="btn btn-primary"  sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{#}">Editar</a>
 
 					</tr>
 				</tbody>

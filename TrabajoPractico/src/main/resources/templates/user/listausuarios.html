@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns:sec="http://wwww.thymeleaf.org/extras/spring-security">
+
+<head th:insert="../fragments/generalView.html :: head"></head>
+<body>
+	<div
+		th:replace="../fragments/generalView.html :: wrapper(~{:: .myContent})">
+		<div class="myContent container text-center pt-3">
+			<h1>Gestion de USUARIOS</h1>
+			<div class="form-group mb-2">
+						<td><a class="btn btn-primary" th:href="@{/user/asistente}">Agregar
+								usuario</a></td>
+
+					</div>
+			<br>
+
+			<div class="container text-center">
+				<form class="form-inline" sec:authorize="hasRole('ROLE_ADMIN')"
+					action="">
+					<div class="form-group mb-2">
+
+						<label> Filtrar: </label>
+					</div>
+					<div class="form-group mx-sm-3 mb-2">
+						<input type="text" name="userName" class="form-control"
+							id="userName" th:value="${userName}" placeholder="username"
+							required>
+					</div>
+					<input type="submit" class=" btn btn-primary mb-2" value="Buscar">
+					&nbsp;&nbsp;
+					<td><a class="btn btn-primary" th:href="@{/user}">Limpiar</a>
+					</td>
+
+				</form>
+				<table class="table" sec:authorize="hasRole('ROLE_ADMIN')">
+					<thead class="thead-dark">
+						<tr>
+							<th scope="col">#</th>
+							<th scope="col">NOMBRE</th>
+							<th scope="col">APELLIDO</th>
+							<th scope="col">USERNAME</th>
+							<th scope="col">DNI</th>
+							<th scope="col">EMAIL</th>
+							<th scope="col">ROL</th>
+							<th scope="col">ACTIONS</th>
+					</thead>
+
+					<tbody>
+						<tr th:each="user:${users}">
+							<td th:text="${user.id}"></td>
+							<td th:text="${user.nombre}"></td>
+							<td th:text="${user.apellido}"></td>
+							<td th:text="${user.userName}"></td>
+							<td th:text="${user.dni}"></td>
+							<td th:text="${user.email}"></td>
+							<td th:text="${user.role.role}"></td>
+							<td><a class="btn btn-primary"
+								th:href="@{user/editar/}+${user.id}">Editar</a> <a
+								class="btn btn-danger"
+								th:href="@{/user/baja/{id}(id=${user.id})}">Dar Baja</a>
+						</tr>
+					</tbody>
+
+				</table>
+
+
+			</div>
+</body>
+</html>
