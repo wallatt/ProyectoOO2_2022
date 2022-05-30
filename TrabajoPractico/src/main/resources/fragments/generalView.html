@@ -24,12 +24,13 @@
 				</a>
 			</div>
 			<div class="list-group list-group-flush">
-				<a class="list-group-item list-group-item-action list-group-item-light p-3"
+				<a class="list-group-item list-group-item-action list-group-item-light p-3"  sec:authorize="hasRole('ROLE_ADMIN')"
 					th:href="@{/edificios}">Edificios</a>
 
-				<a class="list-group-item list-group-item-action list-group-item-light p-3" th:href="@{/pedidos}">Mis Pedidos</a>
-				<a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">Events</a>
-				<a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">Profile</a>
+				<a class="list-group-item list-group-item-action list-group-item-light p-3"   sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{/pedidos}">Mis Pedidos</a>
+				<a class="list-group-item list-group-item-action list-group-item-light p-3"   sec:authorize="hasRole('ROLE_ASISTENTE')" th:href="@{/pedidos}">Mis Pedidos</a>
+				<a class="list-group-item list-group-item-action list-group-item-light p-3"  sec:authorize="hasRole('ROLE_ADMIN')"   th:href=@{/user}>Usuarios</a>
+				<a class="list-group-item list-group-item-action list-group-item-light p-3"   sec:authorize="hasRole('ROLE_ADMIN')" href="#!">Generar espacios</a>
 				<a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">Status</a>
 			</div>
 		</div>
@@ -44,7 +45,7 @@
 							class="navbar-toggler-icon"></span></button>
 					<div class="collapse navbar-collapse" id="navbarSupportedContent">
 						<ul class="navbar-nav ms-auto mt-2 mt-lg-0">
-							<a class="nav-item btn btn-danger" href="#!">Logout</a>
+							<a class="nav-item btn btn-danger" th:href=@{/logout}>Logout</a>
 							</li>
 						</ul>
 					</div>

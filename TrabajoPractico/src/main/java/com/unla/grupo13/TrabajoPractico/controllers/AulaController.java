@@ -11,11 +11,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.unla.grupo13.TrabajoPractico.entities.Laboratorio;
 import com.unla.grupo13.TrabajoPractico.helpers.ViewRouteHelper;
 import com.unla.grupo13.TrabajoPractico.models.LaboratorioModel;
 import com.unla.grupo13.TrabajoPractico.models.TradicionalModel;
 import com.unla.grupo13.TrabajoPractico.services.IAulaService;
+
+
 
 
 
