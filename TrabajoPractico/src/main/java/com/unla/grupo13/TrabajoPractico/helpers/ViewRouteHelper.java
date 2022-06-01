@@ -7,6 +7,7 @@ public class ViewRouteHelper {
 	public static String EDIFICIO_INDEX="edificio/index";
 	public static String LABORATORIO_INDEX="aula/index";
 	public static String TRADICIONAL_INDEX="aula/indexTradicional";
+
 	public static String NUEVO_PEDIDO="pedidos/nuevo";
 	public static String PEDIDOS_ROOT="pedidos/pedidos";
 	public static String PEDIDOS_OK="pedidos/okPedido";
@@ -28,4 +29,9 @@ public class ViewRouteHelper {
 	public final static String EXITO_USER_ASISTENTE="user/exitoasistente";
 	/**** Redirects ****/
 	public final static String USER_ROOT = "/user";
+
+
+	// espacios
+	public static String ESPACIO_NUEVO="espacio/nuevo";
+	public static String ESPACIO_OK="espacio/okEspacio";
 }

@@ -33,9 +33,8 @@ public class Espacio extends EntityBase {
 	@ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "notapedido_id", nullable = false)
 	private NotaPedido notaPedido;
-	
 
-	
-	
-	
+
+    public Espacio(Aula aula, char turno, LocalDate fecha, boolean libre) {
+    }
 }

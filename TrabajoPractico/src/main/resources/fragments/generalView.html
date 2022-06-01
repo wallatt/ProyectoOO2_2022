@@ -29,8 +29,8 @@
 
 				<a class="list-group-item list-group-item-action list-group-item-light p-3"   sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{/pedidos}">Mis Pedidos</a>
 				<a class="list-group-item list-group-item-action list-group-item-light p-3"   sec:authorize="hasRole('ROLE_ASISTENTE')" th:href="@{/pedidos}">Mis Pedidos</a>
-				<a class="list-group-item list-group-item-action list-group-item-light p-3"  sec:authorize="hasRole('ROLE_ADMIN')"   th:href=@{/user}>Usuarios</a>
-				<a class="list-group-item list-group-item-action list-group-item-light p-3"   sec:authorize="hasRole('ROLE_ADMIN')" href="#!">Generar espacios</a>
+				<a class="list-group-item list-group-item-action list-group-item-light p-3"  sec:authorize="hasRole('ROLE_ADMIN')"   th:href="@{/user}">Usuarios</a>
+				<a class="list-group-item list-group-item-action list-group-item-light p-3"   sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{/espacios/nuevo}">Generar espacios</a>
 				<a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">Status</a>
 			</div>
 		</div>

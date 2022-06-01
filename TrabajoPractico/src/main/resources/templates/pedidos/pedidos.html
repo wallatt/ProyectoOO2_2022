@@ -13,7 +13,7 @@
 				<div th:each="pedido:${pedidos}" class="card mb-3 border-dark m-1" style="width: 20rem;">
 					<div class="card-header">
 						<h5 class="card-title ">Pedido ID: <span th:text="${pedido.id}"></span>
-							<h5>
+							</h5>
 					</div>
 					<ul class="list-group list-group-flush">
 						<li class="list-group-item">Creacion:
@@ -31,6 +31,7 @@
 						<p class="card-text" th:text="${pedido.observaciones}"></p>
 						<a href="#" class="btn btn-primary">Modificar</a>
 						<a href="#" class="btn btn-primary">Aceptar</a>
+						<a href="#" class="btn btn-primary"  sec:authorize="hasRole('ROLE_ADMIN')">Gestionar</a>
 					</div>
 				</div>
 			</div>
