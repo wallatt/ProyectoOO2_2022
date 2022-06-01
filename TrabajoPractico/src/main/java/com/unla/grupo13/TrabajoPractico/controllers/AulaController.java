@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -11,11 +12,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.unla.grupo13.TrabajoPractico.entities.Laboratorio;
 import com.unla.grupo13.TrabajoPractico.helpers.ViewRouteHelper;
 import com.unla.grupo13.TrabajoPractico.models.LaboratorioModel;
 import com.unla.grupo13.TrabajoPractico.models.TradicionalModel;
 import com.unla.grupo13.TrabajoPractico.services.IAulaService;
+
+
 
 
 
@@ -28,7 +30,7 @@ public class AulaController {
 	@Qualifier("aulaService")
 	private IAulaService aulaService;
 	
-	
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@GetMapping("laboratorios/{id}")
 	public ModelAndView verLabs (@PathVariable("id") int id) {
 		
@@ -40,7 +42,7 @@ public class AulaController {
 		return mAV;
 	}
 	
-	
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@GetMapping("tradicional/{id}")
 	public ModelAndView verTrad (@PathVariable("id") int id) {
 		

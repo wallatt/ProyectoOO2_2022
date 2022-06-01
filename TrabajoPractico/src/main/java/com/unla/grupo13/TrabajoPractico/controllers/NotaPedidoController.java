@@ -1,18 +1,16 @@
 package com.unla.grupo13.TrabajoPractico.controllers;
 
+import java.lang.annotation.Repeatable;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.data.repository.query.Param;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
@@ -23,7 +21,7 @@ import com.unla.grupo13.TrabajoPractico.models.NotaPedidoModel;
 import com.unla.grupo13.TrabajoPractico.services.IMateriaService;
 import com.unla.grupo13.TrabajoPractico.services.INotaPedidoService;
 
-
+@Secured({"ROLE_ADMIN","ROLE_ASISTENTE"})
 @Controller
 @RequestMapping("/")
 public class NotaPedidoController {
@@ -36,7 +34,6 @@ public class NotaPedidoController {
 	@Autowired
 	@Qualifier("materiaService")
 	private IMateriaService materiaService;
-	
 	
 	// todos los pedidos
 	@GetMapping("pedidos")
@@ -71,7 +68,6 @@ public class NotaPedidoController {
 		
 			return new RedirectView(ViewRouteHelper.PEDIDOS_OK);
 	}
-	
 	@GetMapping ("/pedidos/okPedido")
 	public ModelAndView verPedidos() {
 		

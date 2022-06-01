@@ -8,7 +8,6 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import com.unla.grupo13.TrabajoPractico.entities.Aula;
-import com.unla.grupo13.TrabajoPractico.entities.Edificio;
 import com.unla.grupo13.TrabajoPractico.entities.Laboratorio;
 import com.unla.grupo13.TrabajoPractico.entities.Tradicional;
 

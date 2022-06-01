@@ -21,7 +21,7 @@
 						<td th:text="${laboratorio.numero}"></td>
 						<td th:text="${laboratorio.cantSillas}"></td>
 						<td th:text="${laboratorio.cantPc}"></td>
-						<td><a class="btn btn-primary" th:href="@{#}">Editar</a>
+						<td><a class="btn btn-primary"  sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{#}">Editar</a>
 
 					</tr>
 				</tbody>
