@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:sec="http://wwww.thymeleaf.org/extras/spring-security">
+
+<head th:insert="../fragments/generalView.html :: head"></head>
+
+<body>
+	<div th:replace="../fragments/generalView.html :: wrapper(~{:: .myContent})">
+		<div class="myContent container  text-center">
+			<h1>Editar Laboratorio : <span th:text="${lab.numero}"></span></h1>
+			<form th:action="@{/laboratorios/editar/{id}(id=${lab.id})}" method="post" th:object="${lab}">
+				<div class="row g-3 align-items-center justify-content-center mt-5 border p-5"> 
+					<div class="col-auto">
+						<label for="sillas" class="form-label ">Sillas</label>
+					</div>
+					<div class="col-auto">
+						<input th:value="${lab.cantSillas}" type="text" class="form-control" id="sillas"
+							aria-describedby="cantSillas">
+					</div>
+					<div class="col-auto">
+						<label for="pcs" class="form-label">PCs</label>
+					</div>
+					<div class="col-auto">
+						<input th:value="${lab.cantPc}" type="text" class="form-control" id="pcs">
+					</div>
+					<button type="submit" class="btn btn-primary col-md-6">Editar</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</body>
+
+</html>
