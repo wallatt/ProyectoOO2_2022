@@ -9,14 +9,9 @@
 		<div class="myContent container text-center pt-3">
 			<div class="row justify-content-md-center align-items-center">
 				<div class="col-md-6 col-md-offset-3">
-					<div th:if=${param.exito}>
-						<div class="alert alert-info">Se ha registrado exitosamente a
-							la aplicación</div>
-					</div>
 
-					<h1>Crear Pedido</h1>
-
-					<form th:action="@{/crear}" th:object="${notaPedido}" method="post">
+					<h1>Editar Pedido id: <span th:text="${pedido.id}"></span></h1>
+					<form th:action="@{/pedidos/editar/save/{id}(id=${pedido.id})}" th:object="${pedido}" method="post">
 
 						<div class="form-group">
 							<label class="control-label" for="codCurso">Codigo de
@@ -47,7 +42,8 @@
 
 						<div class="mb-3">
 							<label for="profesores" class="form-label">Profesores</label>
-							<textarea class="form-control" id="profesores" th:field="*{profesores}" rows="3"></textarea>
+							<textarea class="form-control" id="profesores" th:field="*{profesores}"
+								rows="3"></textarea>
 						</div>
 
 						<div class="form-group">
@@ -56,14 +52,12 @@
 								th:field="*{cantEstudiantes}" required autofocus="autofocus">
 						</div>
 
-
 						<div class="mb-3">
 							<label for="observaciones" class="form-label">Observaciones</label>
 							<textarea class="form-control" id="observaciones" th:field="*{observaciones}"
 								rows="3"></textarea>
 						</div>
-
-
+						
 						<div class="form-group">
 							<div>
 								<label class="col-form-label col-sm-4">Materia: </label>
@@ -86,6 +80,7 @@
 
 		</div>
 	</div>
+
 
 
 

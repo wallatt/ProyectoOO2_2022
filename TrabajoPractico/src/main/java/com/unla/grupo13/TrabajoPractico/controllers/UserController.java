@@ -6,6 +6,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.repository.query.Param;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -38,6 +39,7 @@ public class UserController {
 	private ModelMapper modelMapper = new ModelMapper();
 
 	@GetMapping("")
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	public String VerUsuarios(Model model, @Param("userName") String userName) {
 
 		List<User> users = userService.getAll(userName);
@@ -71,6 +73,7 @@ public class UserController {
 		return "/user/exito";
 	}
 
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@GetMapping("/asistente")
 	public ModelAndView asistente() {
 
@@ -132,6 +135,7 @@ public class UserController {
 
 	}
 
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@GetMapping("/editar/{id}")
 	public ModelAndView editar(@PathVariable("id") int id) {
 		ModelAndView mAV = new ModelAndView(ViewRouteHelper.USER_EDITAR);

@@ -9,6 +9,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import com.unla.grupo13.TrabajoPractico.services.imp.UserServiceDetails;
 
@@ -33,9 +34,18 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		http.authorizeRequests()
 				.antMatchers("/css/*", "/imgs/*", "/js/*", "/vendor/bootstrap/css/*", "/vendor/jquery/*",
 						"/vendor/bootstrap/js/*","/user/registro*","/user/create*")
-				.permitAll().anyRequest().authenticated().and().formLogin().loginPage("/login")
+				.permitAll().anyRequest().authenticated()
+					.and()
+				.formLogin().loginPage("/login")
 				.loginProcessingUrl("/loginprocess").usernameParameter("username").passwordParameter("password")
-				.defaultSuccessUrl("/loginsucces").permitAll().and().logout().logoutUrl("/logout")
-				.logoutSuccessUrl("/logout").permitAll();
+				.defaultSuccessUrl("/home")
+				.permitAll()
+					.and()
+				.logout()
+				.invalidateHttpSession(true)
+				.clearAuthentication(true)
+				.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+				.logoutSuccessUrl("/login")
+				.permitAll();
 	}
 }

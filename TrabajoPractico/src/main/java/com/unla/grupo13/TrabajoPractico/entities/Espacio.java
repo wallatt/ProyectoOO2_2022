@@ -17,6 +17,10 @@ import lombok.Setter;
 @Getter @Setter @NoArgsConstructor
 public class Espacio extends EntityBase {
 	
+	public Espacio(LocalDate fecha2, char turno2, Aula aula2, boolean libre2) {
+		// TODO Auto-generated constructor stub
+	}
+
 	@Column(name="fecha")
 	private LocalDate fecha;
 	

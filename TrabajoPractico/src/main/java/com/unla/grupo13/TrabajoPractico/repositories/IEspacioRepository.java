@@ -19,6 +19,6 @@ public interface IEspacioRepository extends JpaRepository<Espacio, Integer> {
 
     Espacio save(Espacio e);
 
-    @Query("SELECT e.aula FROM Espacio e JOIN FETCH e.aula a JOIN FETCH a.edificio WHERE e.libre=(:libre) and e.turno=(:turno) and a.cantSillas>=(:cantSillas) GROUP BY e.aula")
+    @Query("SELECT e FROM Espacio e JOIN FETCH e.aula a JOIN FETCH a.edificio WHERE e.libre=(:libre) and e.turno=(:turno) and a.cantSillas>=(:cantSillas) GROUP BY e.aula")
     public abstract List<Laboratorio> findByLaboratorioLibre(@Param("libre") boolean libre, @Param("turno") char turno, @Param("cantSillas") int cantSillas);
 }

@@ -2,6 +2,8 @@ package com.unla.grupo13.TrabajoPractico.models;
 
 import java.time.LocalDate;
 
+import com.unla.grupo13.TrabajoPractico.entities.Materia;
+
 public class NotaPedidoModel {
 	private int id;
 	
@@ -15,7 +17,13 @@ public class NotaPedidoModel {
 	
 	private int idMateria;
 	
+	private Materia materia;
+	
 	private String observaciones;
+	
+	private int cantEstudiantes;
+	
+	private boolean examenFinal;
 
 	public int getId() {
 		return id;
@@ -73,6 +81,31 @@ public class NotaPedidoModel {
 		this.observaciones = observaciones;
 	}
 	
+	
+	public int getCantEstudiantes() {
+		return cantEstudiantes;
+	}
+
+	public void setCantEstudiantes(int cantEstudiantes) {
+		this.cantEstudiantes = cantEstudiantes;
+	}
+
+	public boolean isExamenFinal() {
+		return examenFinal;
+	}
+
+	public void setExamenFinal(boolean examenFinal) {
+		this.examenFinal = examenFinal;
+	}
+
+	public Materia getMateria() {
+		return materia;
+	}
+
+	public void setMateria(Materia materia) {
+		this.materia = materia;
+	}
+
 	public NotaPedidoModel() {};
 	
 }
