@@ -31,7 +31,7 @@ public class Espacio extends EntityBase {
 	private boolean libre;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "notapedido_id", nullable = false)
+    @JoinColumn(name = "notapedido_id", nullable = true)
 	private NotaPedido notaPedido;
 
 

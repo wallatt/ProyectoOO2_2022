@@ -23,15 +23,16 @@
 						</li>
 						<li class="list-group-item ">Cod.Curso: <span th:text="${pedido.codCurso}"></span></li>
 						<li class="list-group-item">Profesores: <span th:text="${pedido.profesores}"></span></li>
-						<li class="list-group-item">Materia: <span th:text="${(pedido.materia).getNombre()}"></span>
-						</li>
+						<li class="list-group-item">Materia: <span th:text="${(pedido.materia).getNombre()}"></span></li>
 						<li class="list-group-item">Turno: <span th:text="${pedido.turno}"></span></li>
+
+
 					</ul>
 					<div class="card-body">
 						<p class="card-text" th:text="${pedido.observaciones}"></p>
 						<a href="#" class="btn btn-primary">Modificar</a>
 						<a href="#" class="btn btn-primary">Aceptar</a>
-						<a href="#" class="btn btn-primary"  sec:authorize="hasRole('ROLE_ADMIN')">Gestionar</a>
+						<a th:href="@{/pedidos/}+${pedido.id}" class="btn btn-primary" sec:authorize="hasRole('ROLE_ADMIN')">Gestionar</a>
 					</div>
 				</div>
 			</div>

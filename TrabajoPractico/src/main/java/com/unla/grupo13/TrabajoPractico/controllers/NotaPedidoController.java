@@ -2,6 +2,9 @@ package com.unla.grupo13.TrabajoPractico.controllers;
 
 import java.util.List;
 
+import com.unla.grupo13.TrabajoPractico.entities.Aula;
+import com.unla.grupo13.TrabajoPractico.entities.Espacio;
+import com.unla.grupo13.TrabajoPractico.services.IEspacioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.repository.query.Param;
@@ -36,8 +39,14 @@ public class NotaPedidoController {
 	@Autowired
 	@Qualifier("materiaService")
 	private IMateriaService materiaService;
-	
-	
+
+	@Autowired
+	@Qualifier("espacioService")
+	private IEspacioService espacioService;
+
+
+
+
 	// todos los pedidos
 	@GetMapping("pedidos")
 	public ModelAndView getPedidos() {
@@ -59,9 +68,8 @@ public class NotaPedidoController {
 		mAV.addObject("listMaterias", listMaterias);
 		
 		return mAV;
-		
-		
 	}
+
 	
 	@PostMapping("/crear")
 	public RedirectView nuevoPedido(NotaPedido notaPedido) {
@@ -78,6 +86,29 @@ public class NotaPedidoController {
 		ModelAndView mAV=new ModelAndView(ViewRouteHelper.PEDIDOS_OK);
 		return mAV;
 	}
-	
-	
+	@GetMapping ("/pedidos/{id_pedido}")
+	public ModelAndView asignarPedidos(@PathVariable("id_pedido") int id_pedido){
+		ModelAndView mAV=new ModelAndView(ViewRouteHelper.GESTION_PEDIDOS);
+		NotaPedido notaPedido = notaPedidoService.get(id_pedido);
+		mAV.addObject("pedido", notaPedido);
+		return mAV;
+	}
+
+	@GetMapping ("/pedidos/{id_pedido}/aulasValidas")
+	public ModelAndView aulasValidas(@PathVariable("id_pedido")int id_pedido, @ModelAttribute("aula") Aula aula) {
+		ModelAndView mAV=new ModelAndView(ViewRouteHelper.GESTION_PEDIDOS_AULAS);
+		NotaPedido notaPedido = notaPedidoService.get(id_pedido);
+		mAV.addObject("pedido", notaPedido);
+
+		return mAV;
+	}
+
+
+
+
+
+
+
+
+
 }

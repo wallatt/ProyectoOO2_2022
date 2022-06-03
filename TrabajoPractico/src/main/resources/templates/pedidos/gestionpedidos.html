@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+
+<head th:insert="../fragments/generalView.html :: head"></head>
+
+<body>
+	<div th:replace="../fragments/generalView.html :: wrapper(~{:: .myContent})">
+		<div class="myContent container text-center pt-3">
+			<h1>PEDIDOS</h1>
+			<a class="btn btn-success" th:href="@{/pedidos/nuevo}">Crear Pedido</a>
+			<div class="d-flex justify-content-around pt-4 flex-wrap">
+					<div class="card-header">
+						<h5 class="card-title ">Pedido ID: <span th:text="${pedido.id}"></span>
+							</h5>
+					</div>
+					<ul class="list-group list-group-flush">
+						<li class="list-group-item">Creacion:
+							<span th:text="${(pedido.fechaCreacion).getDayOfMonth()}"></span>
+							/<span th:text="${(pedido.fechaCreacion).getMonth()}"></span>
+							/<span th:text="${(pedido.fechaCreacion).getYear()}"></span>
+						</li>
+						<li class="list-group-item ">Cod.Curso: <span th:text="${pedido.codCurso}"></span></li>
+						<li class="list-group-item">Profesores: <span th:text="${pedido.profesores}"></span></li>
+						<li class="list-group-item">Materia: <span th:text="${(pedido.materia).getNombre()}"></span>			</li>
+						<li class="list-group-item">Final: <span th:text="${pedido.examenFinal}"></span></li>
+						<li class="list-group-item">Turno: <span th:text="${pedido.turno}"></span></li>
+						<li class="list-group-item">Estudiantes: <span th:text="${pedido.cantEstudiantes}"></span></li>
+						<li class="list-group-item">Observaciones: <span th:text="${pedido.observaciones}"></span></li>
+
+					</ul>
+					<div class="card-body">
+						<p class="card-text" th:text="${pedido.observaciones}"></p>
+						<a href="#" class="btn btn-primary">Modificar</a>
+						<a href="#" class="btn btn-primary">Aceptar</a>
+						<a href="#" class="btn btn-primary" sec:authorize="hasRole('ROLE_ADMIN')">Gestionar</a>
+					</div>
+				<div class="col-md-6 col-md-offset-3">
+
+					<form th:action="@{/aulasValidas}"  th:object="${notaPedido}" method="get">
+
+						<div class="mb-3">
+							<label for="turno" class="form-label">Turno</label>
+							<select class="form-select"
+								aria-label="Default select example" id="turno" th:field="*{turno}">
+								<option value="M">M</option>
+								<option value="T">T</option>
+								<option value="N">N</option>
+							</select>
+
+						</div>
+
+						<div class="mb-3">
+							<label for="examenFinal" class="form-label">Final</label> <select class="form-select"
+							aria-label="Default select example" id="examenFinal" th:field="*{examenFinal}">
+							<option value="1">Sí</option>
+							<option value="0">No</option>
+						</select>
+
+						</div>
+
+						<div class="mb-3">
+							<label for="Presencialidad" class="form-label">Presencialidad</label> <select class="form-select"
+							aria-label="Default select example" id="Presencialidad" th:field="*{examenFinal}">
+							<option value="1">100</option>
+							<option value="0">50</option>
+						</select>
+
+						</div>
+
+						<div class="form-group">
+							<label class="control-label" for="cantEstudiantes">Cantidad
+								de estudiantes: </label>
+							<input id="cantEstudiantes" type="number" class="form-control"
+																th:field="*{cantEstudiantes}" required autofocus="autofocus">
+						</div>
+
+						<div class="form-group pt-2">
+							<button type="submit" class="btn btn-success">Guardar</button>
+
+						</div>
+					</form>
+
+				</div>
+			</div>
+
+
+		</div>
+	</div>
+
+
+
+	<!-- Latest compiled and minified JavaScript -->
+
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+		integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+		crossorigin="anonymous"></script>
+</body>
+
+
+</html>
