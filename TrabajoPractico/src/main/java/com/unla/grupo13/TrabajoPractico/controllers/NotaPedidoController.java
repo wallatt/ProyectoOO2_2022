@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Set;
 
 import com.unla.grupo13.TrabajoPractico.entities.*;
+import com.unla.grupo13.TrabajoPractico.models.Parametros;
 import com.unla.grupo13.TrabajoPractico.models.TradicionalModel;
 import com.unla.grupo13.TrabajoPractico.services.IEspacioService;
 import org.hibernate.Hibernate;
@@ -96,6 +97,7 @@ public class NotaPedidoController {
 		mAV.addObject("pedido", notaPedido);
 		return mAV;
 	}
+
 	@GetMapping ("/pedidos/{id_pedido}/aulasvalidas")
 	public ModelAndView aulasValidas(@PathVariable("id_pedido")int id_pedido) {
 		ModelMapper mapper = new ModelMapper();
@@ -104,7 +106,6 @@ public class NotaPedidoController {
 		List<Espacio> espacios = espacioService.getByTurno(notaPedido.getTurno());
 		Set<Tradicional> trads= new HashSet<Tradicional>();
 		Set<Laboratorio> labs= new HashSet<Laboratorio>();
-
 		Set<TradicionalModel> tradicionalModels = new HashSet<TradicionalModel>();
 		String clase;
 
@@ -125,23 +126,26 @@ public class NotaPedidoController {
 			tradicionalModels.add(tradicionalModel);
 		}
 
-
-
 		//traer espacios
 
 		//obtener diferentes aulas
-
 
 		//List<Espacio> espacios = espacioService.
 		mAV.addObject("pedido", notaPedido);
 		mAV.addObject("espacios",espacios);
 		mAV.addObject("labs",labs);
 		mAV.addObject("trads",tradicionalModels);
-
-
+		mAV.addObject("parametros", new Parametros());
 		return mAV;
 	}
 
+	@PostMapping("/pedidos/aulaasignada")
+	public ModelAndView asignarEspacios(@ModelAttribute("parametros")Parametros parametros){
+		ModelAndView mV = new ModelAndView();
+		ModelAndView mAV=new ModelAndView(ViewRouteHelper.GESTION_ESPACIOS);
+
+		return mV;
+	}
 
 
 

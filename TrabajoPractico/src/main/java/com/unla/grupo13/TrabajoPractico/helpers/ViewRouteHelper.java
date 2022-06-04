@@ -13,6 +13,7 @@ public class ViewRouteHelper {
 	public static String PEDIDOS_OK="pedidos/okPedido";
 	public static String GESTION_PEDIDOS="pedidos/gestionpedidos";
 	public static String GESTION_PEDIDOS_AULAS="pedidos/gestionpedidosAulas";
+	public static String GESTION_ESPACIOS="pedidos/aulaasignada";
 
 
 
