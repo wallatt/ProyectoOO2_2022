@@ -37,49 +37,36 @@
 					</div>
 				<div class="col-md-6 col-md-offset-3">
 
-					<form th:action="@{/aulasValidas}" method="get">
 
-						<div class="mb-3">
-							<label for="turno" class="form-label">Turno</label>
-							<select class="form-select"
-								aria-label="Default select example" id="turno" th:field="*{turno}">
-								<option value="M">M</option>
-								<option value="T">T</option>
-								<option value="N">N</option>
-							</select>
-
+					<div th:each="trad:${trads}" class="card mb-3 border-dark m-1" style="width: 20rem;">
+						<div class="card-header">
+							<h5 class="card-title ">Tradicional ID: <span th:text="${trad.id}"></span>
+							</h5>
 						</div>
+						<ul class="list-group list-group-flush">
 
-						<div class="mb-3">
-							<label for="examenFinal" class="form-label">Final</label> <select class="form-select"
-							aria-label="Default select example" id="examenFinal" th:field="*{examenFinal}">
-							<option value="1">Sí</option>
-							<option value="0">No</option>
-						</select>
+							<li class="list-group-item ">ID aula: <span th:text="${trad.id}"></span></li>
+							<li class="list-group-item ">numero Aula: <span th:text="${trad.numero}"></span></li>
+							<li class="list-group-item ">pizarron Aula: <span th:text="${trad.pizarron}"></span></li>
 
+						</ul>
+					</div>
+
+					<div th:each="lab:${labs}" class="card mb-3 border-dark m-1" style="width: 20rem;">
+						<div class="card-header">
+							<h5 class="card-title ">Laboratorio ID: <span th:text="${lab.id}"></span>
+							</h5>
 						</div>
+						<ul class="list-group list-group-flush">
 
-						<div class="mb-3">
-							<label for="Presencialidad" class="form-label">Presencialidad</label> <select class="form-select"
-							aria-label="Default select example" id="Presencialidad" th:field="*{examenFinal}">
-							<option value="1">100</option>
-							<option value="0">50</option>
-						</select>
+							<li class="list-group-item ">ID aula: <span th:text="${lab.id}"></span></li>
+							<li class="list-group-item ">numero Aula: <span th:text="${lab.numero}"></span></li>
+							<li class="list-group-item ">sillas: <span th:text="${lab.cantSillas}"></span></li>
+							<li class="list-group-item ">pcs: <span th:text="${lab.cantPc}"></span></li>
 
-						</div>
+						</ul>
+					</div>
 
-						<div class="form-group">
-							<label class="control-label" for="cantEstudiantes">Cantidad
-								de estudiantes: </label>
-							<input id="cantEstudiantes" type="number" class="form-control"
-																th:field="*{cantEstudiantes}" required autofocus="autofocus">
-						</div>
-
-						<div class="form-group pt-2">
-							<button type="submit" class="btn btn-success">Guardar</button>
-
-						</div>
-					</form>
 
 				</div>
 			</div>

@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Service("espacioService")
 public class EspacioService implements IEspacioService {
@@ -44,5 +45,11 @@ public class EspacioService implements IEspacioService {
         }
 
     }
+
+    public List<Espacio> getByTurno(char turno){
+        List<Espacio> espacios = espacioRepository.findByTurno(turno);
+        return espacios;
+    }
+
 
 }

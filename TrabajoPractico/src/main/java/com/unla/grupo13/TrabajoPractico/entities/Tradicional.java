@@ -46,4 +46,18 @@ public class Tradicional extends Aula {
 		this.tieneProyector = tieneProyector;
 	}
 
+	@Override
+	public String toString() {
+		return "Tradicional{" +
+				"id=" + id +
+				", softDelete=" + softDelete +
+				", fechaCreacion=" + fechaCreacion +
+				", fechaModificacion=" + fechaModificacion +
+				", numero=" + numero +
+				//", edificio=" + edificio +
+				", cantBancos=" + cantBancos +
+				", pizarron='" + pizarron + '\'' +
+				", tieneProyector=" + tieneProyector +
+				'}';
+	}
 }

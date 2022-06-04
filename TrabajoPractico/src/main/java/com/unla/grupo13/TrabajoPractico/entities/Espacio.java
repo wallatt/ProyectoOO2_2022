@@ -3,11 +3,7 @@ package com.unla.grupo13.TrabajoPractico.entities;
 import java.time.LocalDate;
 
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
