@@ -25,4 +25,5 @@ public interface IEspacioRepository extends JpaRepository<Espacio, Serializable>
     public abstract List<Espacio> findByTurno(char turno);
 
 
+
 }

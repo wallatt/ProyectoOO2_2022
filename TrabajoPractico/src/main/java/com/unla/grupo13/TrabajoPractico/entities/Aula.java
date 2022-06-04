@@ -6,6 +6,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 
 
 @Entity
@@ -89,6 +90,7 @@ public class Aula{
 	public void setEdificio(Edificio edificio) {
 		this.edificio = edificio;
 	}
+
 
 
 	@Override

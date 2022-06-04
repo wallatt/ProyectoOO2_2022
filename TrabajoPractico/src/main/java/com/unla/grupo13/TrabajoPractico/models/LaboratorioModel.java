@@ -1,5 +1,9 @@
 package com.unla.grupo13.TrabajoPractico.models;
 
+import com.unla.grupo13.TrabajoPractico.entities.Espacio;
+
+import java.util.List;
+
 public class LaboratorioModel {
 
 	
@@ -34,6 +38,15 @@ public class LaboratorioModel {
 	public void setCantPc(int cantPc) {
 		this.cantPc = cantPc;
 	}
-	
+
+	private List<Espacio> espacios;
+
+	public List<Espacio> getEspacios() {
+		return espacios;
+	}
+
+	public void setEspacios(List<Espacio> espacios) {
+		this.espacios = espacios;
+	}
 	
 }

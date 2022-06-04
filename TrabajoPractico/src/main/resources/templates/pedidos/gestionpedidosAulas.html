@@ -7,19 +7,14 @@
 <body>
 	<div th:replace="../fragments/generalView.html :: wrapper(~{:: .myContent})">
 		<div class="myContent container text-center pt-3">
-			<h1>PEDIDOS</h1>
-			<a class="btn btn-success" th:href="@{/pedidos/nuevo}">Crear Pedido</a>
+			<h1>Asignar espacios</h1>
 			<div class="d-flex justify-content-around pt-4 flex-wrap">
 					<div class="card-header">
 						<h5 class="card-title ">Pedido ID: <span th:text="${pedido.id}"></span>
 							</h5>
 					</div>
 					<ul class="list-group list-group-flush">
-						<li class="list-group-item">Creacion:
-							<span th:text="${(pedido.fechaCreacion).getDayOfMonth()}"></span>
-							/<span th:text="${(pedido.fechaCreacion).getMonth()}"></span>
-							/<span th:text="${(pedido.fechaCreacion).getYear()}"></span>
-						</li>
+
 						<li class="list-group-item ">Cod.Curso: <span th:text="${pedido.codCurso}"></span></li>
 						<li class="list-group-item">Profesores: <span th:text="${pedido.profesores}"></span></li>
 						<li class="list-group-item">Materia: <span th:text="${(pedido.materia).getNombre()}"></span>			</li>
@@ -40,26 +35,32 @@
 
 					<div th:each="trad:${trads}" class="card mb-3 border-dark m-1" style="width: 20rem;">
 						<div class="card-header">
-							<h5 class="card-title ">Tradicional ID: <span th:text="${trad.id}"></span>
+							<h5 class="card-title ">Tradicional Id: <span th:text="${trad.id}"></span>
 							</h5>
 						</div>
 						<ul class="list-group list-group-flush">
 
 							<li class="list-group-item ">ID aula: <span th:text="${trad.id}"></span></li>
+							<li class="list-group-item ">Edificio: <span th:text="${trad.edificio.edificio}"></span></li>
 							<li class="list-group-item ">numero Aula: <span th:text="${trad.numero}"></span></li>
 							<li class="list-group-item ">pizarron Aula: <span th:text="${trad.pizarron}"></span></li>
+
+							<div th:each="espacio:${trad.espacios}" class="card mb-3 border-dark m-1" style="width: 20rem;">
+								<li class="list-group-item ">Espacio: <span th:text="${espacio.fecha}"></span></li>
+							</div>
 
 						</ul>
 					</div>
 
 					<div th:each="lab:${labs}" class="card mb-3 border-dark m-1" style="width: 20rem;">
 						<div class="card-header">
-							<h5 class="card-title ">Laboratorio ID: <span th:text="${lab.id}"></span>
+							<h5 class="card-title ">Laboratorio Id: <span th:text="${lab.id}"></span>
 							</h5>
 						</div>
 						<ul class="list-group list-group-flush">
 
-							<li class="list-group-item ">ID aula: <span th:text="${lab.id}"></span></li>
+							<li class="list-group-item ">Id aula: <span th:text="${lab.id}"></span></li>
+							<li class="list-group-item ">Edificio: <span th:text="${lab.edificio.edificio}"></span></li>
 							<li class="list-group-item ">numero Aula: <span th:text="${lab.numero}"></span></li>
 							<li class="list-group-item ">sillas: <span th:text="${lab.cantSillas}"></span></li>
 							<li class="list-group-item ">pcs: <span th:text="${lab.cantPc}"></span></li>

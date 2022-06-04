@@ -6,8 +6,10 @@ import java.util.List;
 import java.util.Set;
 
 import com.unla.grupo13.TrabajoPractico.entities.*;
+import com.unla.grupo13.TrabajoPractico.models.TradicionalModel;
 import com.unla.grupo13.TrabajoPractico.services.IEspacioService;
 import org.hibernate.Hibernate;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.repository.query.Param;
@@ -96,15 +98,18 @@ public class NotaPedidoController {
 	}
 	@GetMapping ("/pedidos/{id_pedido}/aulasvalidas")
 	public ModelAndView aulasValidas(@PathVariable("id_pedido")int id_pedido) {
+		ModelMapper mapper = new ModelMapper();
 		ModelAndView mAV=new ModelAndView(ViewRouteHelper.GESTION_PEDIDOS_AULAS);
 		NotaPedido notaPedido = notaPedidoService.get(id_pedido);
 		List<Espacio> espacios = espacioService.getByTurno(notaPedido.getTurno());
 		Set<Tradicional> trads= new HashSet<Tradicional>();
 		Set<Laboratorio> labs= new HashSet<Laboratorio>();
 
-
+		Set<TradicionalModel> tradicionalModels = new HashSet<TradicionalModel>();
 		String clase;
 
+		//Obtengo las diferentes aulas de los espacios
+		//separados en laboratorio y tradicional
 		for (Espacio e:espacios ) {
 //			clase = e.getAula().toString();
 //			if(clase.charAt(0)==('L')){
@@ -112,12 +117,15 @@ public class NotaPedidoController {
 				labs.add((Laboratorio) Hibernate.unproxy(e.getAula()));
 			}else{
 				trads.add((Tradicional) Hibernate.unproxy(e.getAula()));
-
 			}
-			//System.out.println(e.getAula().toString());
-			//.out.println(e.getAula().getClass());
-
 		}
+		for(Tradicional trad : trads){
+			TradicionalModel tradicionalModel = mapper.map(trad, TradicionalModel.class);
+			tradicionalModel.setEspacios(espacioService.traerEspaciosDeAula(trad, notaPedido.getTurno()));
+			tradicionalModels.add(tradicionalModel);
+		}
+
+
 
 		//traer espacios
 
@@ -128,7 +136,7 @@ public class NotaPedidoController {
 		mAV.addObject("pedido", notaPedido);
 		mAV.addObject("espacios",espacios);
 		mAV.addObject("labs",labs);
-		mAV.addObject("trads",trads);
+		mAV.addObject("trads",tradicionalModels);
 
 
 		return mAV;
