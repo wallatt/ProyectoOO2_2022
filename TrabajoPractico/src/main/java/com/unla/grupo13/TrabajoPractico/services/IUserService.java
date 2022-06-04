@@ -2,6 +2,8 @@ package com.unla.grupo13.TrabajoPractico.services;
 
 import java.util.List;
 
+
+
 import com.unla.grupo13.TrabajoPractico.entities.User;
 import com.unla.grupo13.TrabajoPractico.models.UserModel;
 
@@ -13,7 +15,8 @@ public interface IUserService {
 	public UserModel findByUserName(String userName);
 	public User findById(int id);
 	public List<User> getAll(String userName);
-	
+	public User editar(User user, int id);
+	public User darBaja(int id);
 	
 	
 }

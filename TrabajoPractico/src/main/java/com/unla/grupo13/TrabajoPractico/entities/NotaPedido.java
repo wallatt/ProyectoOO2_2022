@@ -33,6 +33,7 @@ public class NotaPedido extends EntityBase{
 	@Column(name="observaciones")
 	private String observaciones;
 	
+	
 	@Column (name="codcurso")
 	private String codCurso;
 	

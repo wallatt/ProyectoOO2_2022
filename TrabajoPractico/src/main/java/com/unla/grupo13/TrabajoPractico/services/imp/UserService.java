@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.validation.BindingResult;
 
 import com.unla.grupo13.TrabajoPractico.entities.User;
 import com.unla.grupo13.TrabajoPractico.entities.UserRole;
@@ -34,12 +35,48 @@ public class UserService implements IUserService{
 	@Override
 	public UserModel save(User user) {
 		// TODO Auto-generated method stub
+		
+		
+	
+	
 		BCryptPasswordEncoder pe = new BCryptPasswordEncoder(4);
 		user.setPassword(pe.encode(user.getPassword()));
+		user.setEnabled(true);
+		
+		
 		User nuevoU = userRepository.save(user);
 		return modelMapper.map(nuevoU,UserModel.class);
 	}
+	
+	
+	public User darBaja (int id) {
+		
+		
+		User usuario = userRepository.findById(id);
+		
+		usuario.setEnabled(!usuario.isEnabled());
+		return userRepository.save(modelMapper.map(usuario, User.class));
+	}
 
+	
+	public User editar(User userModel,int id) {
+		
+		
+		
+		User usuario = userRepository.findById(id);
+		User user = modelMapper.map(userModel, User.class);
+		BCryptPasswordEncoder pe = new BCryptPasswordEncoder(4);
+		user.setPassword(pe.encode(user.getPassword()));
+		usuario.setId(user.getId());
+		usuario.setNombre(user.getNombre());
+		usuario.setApellido(user.getApellido());
+		usuario.setUserName(user.getUserName());
+		usuario.setDni(user.getDni());
+		usuario.setEmail(user.getEmail());
+		usuario.setPassword(user.getPassword());
+		return userRepository.save(modelMapper.map(usuario, User.class));
+		
+	}
 
 	@Override
 	public UserModel findByUserName(String userName) {
