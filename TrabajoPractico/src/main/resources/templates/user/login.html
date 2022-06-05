@@ -1,46 +1,15 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-<meta charset="utf-8">
-<title>Inicio de sesión</title>
-<!-- Latest compiled and minified CSS -->
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
-	integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
-	crossorigin="anonymous">
 
-<!-- Optional theme -->
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
-	integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp"
-	crossorigin="anonymous">
-</head>
-<body>
+<head th:insert="../fragments/generalView.html :: head"></head>
 
+<body >
 
-	<nav class="navbar navbar-inverse navbar-fixed-top">
-		<div class="container">
-			<div class="navbar-header">
-				<button type="button" class="navbar-toggle collapsed"
-					data-toggle="collapse" data-target="#navbar" aria-expanded="false"
-					aria-controls="navbar">
-					<span class="sr-only">Toggle navigation</span> <span
-						class="icon-bar"></span> <span class="icon-bar"></span> <span
-						class="icon-bar"></span>
-				</button>
-				<a class="navbar-brand" href="#" th:href="@{/}">Registro e
-					inicio de sesión</a>
-			</div>
-		</div>
-	</nav>
-
-	<br>
-	<br>
 
 	<div class="container">
-		<div class="row">
-			<div class="col-md-6 col-md-offset-3">
-				<h1>Inicio de sesión</h1>
+		<div class="row justify-content-center align-content-center" style="height: 90vh;">
+			<div class="col-md-6 p-5 border rounded"style="background-color: #cccccc5e;" >
+				<h1 class="text-center p-2">Inicio de sesión</h1>
 				<form th:action="@{/loginprocess}" method="post">
 
 					<div th:if=${param.error}>
@@ -54,28 +23,27 @@
 					</div>
 
 
-					<div class="form-group">
-						<label  for="username">Nombre de
-							usuario : </label> <input id="username"  name="username" type="text" class="form-control"
+					<div class="form-group p-3">
+						<label class="pb-2" for="username">Nombre de
+							usuario : </label> <input id="username" name="username" type="text" class="form-control"
 							required autofocus="autofocus" placeholder="Digite nombre de usuario">
 					</div>
 
-					<div class="form-group">
-						<label  for="password">Password : </label> <input
-							id="password" type="password"  name="password" class="form-control" required
-							autofocus="autofocus" placeholder="Digite su password">
+					<div class="form-group p-3">
+						<label class="pb-2" for="password">Password : </label> <input id="password" type="password" name="password"
+							class="form-control" required autofocus="autofocus" placeholder="Digite su password">
 					</div>
 
-					<div class="form-group">
+					<div class="form-group p-3">
 						<div class="row">
-							<div class="col-md-6 col-md-offset-3">
-								<input type="submit" class="form-control btn btn-primary" name="login-submit" id="login-submit"
-									value="Iniciar sesión" />
+							<div class="">
+								<input type="submit" class="form-control btn btn-primary" name="login-submit"
+									id="login-submit" value="Iniciar sesión" />
 							</div>
 						</div>
 					</div>
 				</form>
-				<div class="form-group">
+				<div class="form-group p-3">
 					<span>Si eres nuevo usuario <a th:href="@{user/registro}">regístrate
 							aqui</a></span>
 				</div>
@@ -86,10 +54,9 @@
 
 
 	<!-- Latest compiled and minified JavaScript -->
-	<script
-		src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
 		integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
 		crossorigin="anonymous"></script>
 </body>
-</html>
 
+</html>

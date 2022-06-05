@@ -23,6 +23,7 @@ import com.unla.grupo13.TrabajoPractico.services.IAulaService;
 
 @Controller
 @RequestMapping("/")
+@PreAuthorize("hasRole('ROLE_ADMIN')")
 public class AulaController {
 
 	

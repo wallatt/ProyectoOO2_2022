@@ -26,26 +26,17 @@
 				</a>
 			</div>
 			<div class="list-group list-group-flush">
-				<a
-					class="list-group-item list-group-item-action list-group-item-light p-3"
+				<a class="list-group-item list-group-item-action list-group-item-light p-3"
 					sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{/edificios}">Edificios</a>
 
-				<a
-					class="list-group-item list-group-item-action list-group-item-light p-3"
-					sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{/pedidos}">Mis
-					Pedidos</a> <a
-					class="list-group-item list-group-item-action list-group-item-light p-3"
-					sec:authorize="hasRole('ROLE_ASISTENTE')" th:href="@{/pedidos}">Mis
-					Pedidos</a> <a
-					class="list-group-item list-group-item-action list-group-item-light p-3"
+				<a class="list-group-item list-group-item-action list-group-item-light p-3 "
+					sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{/pedidos}">Mis Pedidos</a>
+				<a class="list-group-item list-group-item-action list-group-item-light p-3"
+					sec:authorize="hasRole('ROLE_ASISTENTE')" th:href="@{/pedidos}">Mis Pedidos</a>
+				<a class="list-group-item list-group-item-action list-group-item-light p-3"
 					sec:authorize="hasRole('ROLE_ADMIN')" th:href=@{/user}>Usuarios</a>
-				<a
-					class="list-group-item list-group-item-action list-group-item-light p-3"
-					sec:authorize="hasRole('ROLE_ADMIN')" href="#!">Generar
-					espacios</a> <a
-					class="list-group-item list-group-item-action list-group-item-light p-3"
-					href="#!">Status</a>
-					
+				<a class="list-group-item list-group-item-action list-group-item-light p-3"
+					sec:authorize="hasRole('ROLE_ADMIN')" href="#!">Generar espacios</a>
 			</div>
 		</div>
 		<!-- Page content wrapper-->
@@ -64,20 +55,21 @@
 					<span><a th:href="@{/perfil}"><span sec:authentication="name"></span></a></span>
 
 					<div class="collapse navbar-collapse" id="navbarSupportedContent">
-						<ul class="navbar-nav ms-auto mt-2 mt-lg-0">
-
-							
-								
-							
+						<ul class="navbar-nav ms-auto mt-2 mt-lg-0 text-center">
 
 
-							<form th:action="@{/logout}" method="post">
-	
-								<input class="dropdown-item" style="cursor: pointer"
-									type="submit" value="Logout" />
+							<a class="list-group-item list-group-item-action list-group-item-light p-3 showMyContentHamburger"
+								sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{/edificios}">Edificios</a>
 
-
-							</form>
+							<a class="list-group-item list-group-item-action list-group-item-light p-3  showMyContentHamburger"
+								sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{/pedidos}">Mis Pedidos</a>
+							<a class="list-group-item list-group-item-action list-group-item-light p-3 showMyContentHamburger"
+								sec:authorize="hasRole('ROLE_ASISTENTE')" th:href="@{/pedidos}">Mis Pedidos</a>
+							<a class="list-group-item list-group-item-action list-group-item-light p-3 showMyContentHamburger"
+								sec:authorize="hasRole('ROLE_ADMIN')" th:href=@{/user}>Usuarios</a>
+							<a class="list-group-item list-group-item-action list-group-item-light p-3 showMyContentHamburger"
+								sec:authorize="hasRole('ROLE_ADMIN')" href="#!">Generar espacios</a>
+							<a class="nav-item btn btn-danger my-1 " th:href=@{/logout}>Logout</a>
 						</ul>
 
 					</div>

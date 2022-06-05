@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -26,7 +27,7 @@ public class NotaPedido extends EntityBase{
 	@Column (name="cantestudiantes")
 	private int cantEstudiantes;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.LAZY , cascade = CascadeType.ALL)
     @JoinColumn(name = "materia_id", nullable = false)
 	private Materia materia;
 	
@@ -117,7 +118,7 @@ public class NotaPedido extends EntityBase{
 	public String toString() {
 		return "NotaPedido [turno=" + turno + ", cantEstudiantes=" + cantEstudiantes + ", observaciones="
 				+ observaciones + ", codCurso=" + codCurso + ", profesores=" + profesores + ", examenFinal="
-				+ examenFinal + "]";
+				+ examenFinal + " materia id: " +this.getMateria().getId() + "]";
 	}
 	
 	

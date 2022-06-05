@@ -58,9 +58,6 @@ public class EspacioService implements IEspacioService {
 
     }
 
-    /*@Override
-    public List<> getAllByConditions(boolean libre, char turno, int cantSillas){
-        return espacioRepository.findByLaboratorioLibre(libre, turno, cantSillas);
-    }*/
+   
 
 }

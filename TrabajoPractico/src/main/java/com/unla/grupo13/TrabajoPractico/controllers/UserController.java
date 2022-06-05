@@ -37,8 +37,9 @@ public class UserController {
 
 	private ModelMapper modelMapper = new ModelMapper();
 
-	@PreAuthorize("hasRole('ROLE_ADMIN')")
+	
 	@GetMapping("")
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	public String VerUsuarios(Model model, @Param("userName") String userName) {
 
 		List<User> users = userService.getAll(userName);
