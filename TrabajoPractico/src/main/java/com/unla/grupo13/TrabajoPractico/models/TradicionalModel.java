@@ -1,6 +1,9 @@
 package com.unla.grupo13.TrabajoPractico.models;
 
+import com.unla.grupo13.TrabajoPractico.entities.Espacio;
+
 import javax.persistence.Column;
+import java.util.List;
 
 public class TradicionalModel {
 
@@ -57,7 +60,14 @@ public class TradicionalModel {
 	public void setTieneProyector(boolean tieneProyector) {
 		this.tieneProyector = tieneProyector;
 	}
-    
-    
+
+	private List<Espacio> espacios;
+
+	public List<Espacio> getEspacios() {
+		return espacios;
+	}
+	public void setEspacios(List<Espacio> espacios) {
+		this.espacios = espacios;
+	}
     
 }

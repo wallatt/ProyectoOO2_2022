@@ -31,11 +31,13 @@ public class Espacio extends EntityBase {
 	private boolean libre;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "notapedido_id", nullable = false)
+    @JoinColumn(name = "notapedido_id", nullable = true)
 	private NotaPedido notaPedido;
-	
 
-	
-	
-	
+	public Espacio(LocalDate fecha, char turno, Aula aula, boolean libre) {
+		this.fecha = fecha;
+		this.turno = turno;
+		this.aula = aula;
+		this.libre = libre;
+	}
 }

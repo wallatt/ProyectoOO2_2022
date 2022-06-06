@@ -12,6 +12,8 @@ public class NotaPedidoModel {
 	private String profesores;
 	
 	private char turno;
+
+	private int disponibilidad;
 	
 	private int idMateria;
 	

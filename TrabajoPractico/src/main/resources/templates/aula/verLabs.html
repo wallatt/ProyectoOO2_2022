@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+
+<head th:insert="../fragments/generalView.html :: head"></head>
+<body>
+<form action="#" th:action="@{/pedidos/}+${pedido.id}+@{/laboratorios/validas}" th:object="${parametros}">
+  <div class="rendered-form">
+    <div class="formbuilder-select form-group field-diaSemana">
+      <label for="diaSemana" class="formbuilder-select-label">Dia</label>
+      <select class="form-control" name="diaSemana" id="diaSemana">
+        <option value="1" selected="true" id="diaSemana-0">Lunes</option>
+        <option value="2" selected="true" id="diaSemana-1">Martes</option>
+        <option value="3" selected="true" id="diaSemana-2">Miercoles</option>
+        <option value="4" selected="true" id="diaSemana-3">Jueves</option>
+        <option value="5" selected="true" id="diaSemana-4">Viernes</option>
+        <option value="6" selected="true" id="diaSemana-5">Sabado</option>
+      </select>
+    </div>
+
+
+    <<div class="form-group">
+    <label class="control-label" for="cantPc">Cantidad
+      de PCs: </label> <input id="cantPc" type="number" class="form-control"
+                              th:field="*{cantPc}" required autofocus="autofocus">
+  </div>
+
+
+
+  </div>
+  <input type="submit"/>
+</form>
+</body>
+</html>
