@@ -48,8 +48,7 @@ public class EspacioController {
     @PostMapping("/crearespacio")
     public RedirectView nuevoPedido(@ModelAttribute("espacioModel") EspacioModel espacioModel) throws Exception {
 
-        espacioService.generarEspacioMes(espacioModel.getFechaInicio(), espacioModel.getFechaFinalizacion(), espacioModel.getTurno(),
-                espacioModel.getAula());
+        espacioService.generarEspacioMes(espacioModel.getFechaInicio(), espacioModel.getFechaFinalizacion(), espacioModel.getTurno());
         return new RedirectView(ViewRouteHelper.ESPACIO_OK);
     }
 
