@@ -32,12 +32,14 @@ public class EspacioService implements IEspacioService {
 
 
             throw new Exception("espacio ya registrado");
+
         }
 
 
         e = new Espacio(aula, turno, fecha, libre);
 
         return espacioRepository.save(e);
+
     }
 
     public void generarEspacioMes(String fechaInicio, String fechaFinalizacion, char turno) throws Exception {
@@ -59,7 +61,11 @@ public class EspacioService implements IEspacioService {
             System.out.println("\n" + a.toString() + "\n");
             while(aux.isBefore(fin.plusDays(1))){
                 if(aux.getDayOfWeek().getValue() <= 5){
-                    this.generarEspacios(a, turno, aux, true);
+                    try {
+                        this.generarEspacios(a, turno, aux, true);
+                    }catch (Exception e){
+                        System.out.println(e);
+                    }
                 }
                 aux = aux.plusDays(1);
             }
