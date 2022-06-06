@@ -12,8 +12,7 @@ public class ViewRouteHelper {
 	public static String PEDIDOS_ROOT="pedidos/pedidos";
 	public static String PEDIDOS_OK="pedidos/okPedido";
 	public static String PEDIDO_EDITAR="pedidos/editar";
-	public static String ESPACIO_NUEVO="espacio/nuevo";
-    public static String ESPACIO_OK="espacio/okEspacio";
+
 	public static String GESTION_PEDIDOS="pedidos/gestionpedidos";
 	public static String GESTION_PEDIDOS_AULAS_LABORATORIO="pedidos/gestionpedidosAulasLaboratorio";
 	public static String GESTION_PEDIDOS_AULAS_TRADICIONAL="pedidos/gestionpedidosAulasTradicional";

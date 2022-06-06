@@ -19,9 +19,9 @@ public class EspacioService implements IEspacioService {
     @Override
     public Espacio generarEspacios(Aula aula, char turno, LocalDate fecha, boolean libre) throws Exception {
         // TODO Auto-generated method stub
+        Espacio e = espacioRepository.findByLibreFechaAula(aula, turno, fecha);
 
         if (e != null) {
-        Espacio e = espacioRepository.findByLibreFechaAula(aula, turno, fecha);
 
 
             throw new Exception("espacio ya registrado");

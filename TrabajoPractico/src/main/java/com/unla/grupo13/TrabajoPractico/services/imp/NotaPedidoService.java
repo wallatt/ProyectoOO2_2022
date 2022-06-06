@@ -30,8 +30,6 @@ public class NotaPedidoService implements INotaPedidoService{
 	@Autowired
 	@Qualifier("materiaService")
 	private IMateriaService materiaService;
-	
-	private ModelMapper modelMapper=new ModelMapper();
 
 	@Override
 	public List<NotaPedido> getAll() {
