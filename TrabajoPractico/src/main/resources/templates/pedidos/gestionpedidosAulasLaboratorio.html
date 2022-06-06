@@ -33,7 +33,7 @@
 				<div class="col-md-6 col-md-offset-3">
 
 
-					<div th:each="trad:${trads}" class="card mb-3 border-dark m-1" style="width: 20rem;">
+					<div th:each="trad:${tradsmodel}" class="card mb-3 border-dark m-1" style="width: 20rem;">
 						<div class="card-header">
 							<h5 class="card-title ">Tradicional Id: <span th:text="${trad.id}"></span>
 							</h5>
@@ -47,7 +47,7 @@
 
 							<form th:action='${sendTest}' th:object="${parametros}" method='post'>
 								<fieldset>
-									<select id="trads" name="trads" class="form-control" th:field="${trads}">
+									<select id="tradsmodel" name="tradsmodel" class="form-control" th:field="${tradsmodel}">
 										<option value="">Listar Espacios</option>
 										<option
 
@@ -79,48 +79,7 @@
 						</ul>
 					</div>
 
-					<!-- falta agregar validaciones-->
-					<form action="#" th:action="@{/pedidos/aulaasignada}" th:object="${parametros}" method="post">
-					<div class="rendered-form">
-						<div class="formbuilder-select form-group field-diaSemana">
-							<label for="diaSemana" class="formbuilder-select-label">Dia</label>
-							<select class="form-control" name="diaSemana" id="diaSemana">
-								<option value="1" selected="true" id="diaSemana-0">Lunes</option>
-								<option value="2" selected="true" id="diaSemana-1">Martes</option>
-								<option value="3" selected="true" id="diaSemana-2">Miercoles</option>
-								<option value="4" selected="true" id="diaSemana-3">Jueves</option>
-								<option value="5" selected="true" id="diaSemana-4">Viernes</option>
-								<option value="6" selected="true" id="diaSemana-5">Sabado</option>
-							</select>
-						</div>
 
-						<div class="formbuilder-select form-group field-turnoMateria">
-							<label for="turnoMateria" class="formbuilder-select-label">Turno</label>
-							<select class="form-control" name="turnoMateria" id="turnoMateria">
-								<option value="M" selected="true" id="turnoMateria-0">Mañana</option>
-								<option value="T" id="turnoMateria-1">Tarde</option>
-								<option value="N" id="turnoMateria-2">Noche</option>
-							</select>
-						</div>
-						<div class="formbuilder-select form-group field-tipopresencial">
-							<label for="tipopresencial" class="formbuilder-select-label">TIpo Presencialidad
-								<br>
-							</label>
-							<select class="form-control" name="tipopresencial" id="tipopresencial">
-								<option value="0" selected="true" id="tipopresencial-0">100%</option>
-								<option value="1" id="tipopresencial-1">50%</option>
-								<option value="2" id="tipopresencial-2">Final</option>
-							</select>
-						</div>
-						<div class="formbuilder-date form-group field-fechaFinal">
-							<label for="fechaFinal" class="formbuilder-date-label">Fecha Final
-								<br>
-							</label>
-							<input type="date" class="form-control" name="fechaFinal" access="false" value="2022-05-04" id="fechaFinal">
-						</div>
-					</div>
-						<input type="submit"/>
-					</form>
 
 
 				</div>

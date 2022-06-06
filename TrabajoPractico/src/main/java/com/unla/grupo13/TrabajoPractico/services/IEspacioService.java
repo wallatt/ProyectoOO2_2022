@@ -16,7 +16,7 @@ public interface IEspacioService {
 
     public List<Espacio> getByTurno(char turno);
 
-    public List<Espacio> traerEspaciosDeAula(Aula aula , char turno);
+    public List<Espacio> traerEspaciosDeAula(Aula aula , char turno, boolean libre);
 
 
 

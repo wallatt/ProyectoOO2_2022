@@ -51,8 +51,8 @@ public class EspacioService implements IEspacioService {
         return espacios;
     }
 
-    public List<Espacio> traerEspaciosDeAula(Aula aula , char turno){
-        List<Espacio> espacios = espacioRepository.findByAulaAndTurno(aula, turno);
+    public List<Espacio> traerEspaciosDeAula(Aula aula , char turno, boolean libre){
+        List<Espacio> espacios = espacioRepository.findByAulaAndTurnoAndLibre(aula, turno, libre);
         return espacios;
     }
 

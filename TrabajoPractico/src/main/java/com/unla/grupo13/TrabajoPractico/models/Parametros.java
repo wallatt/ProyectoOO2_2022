@@ -8,20 +8,38 @@ import java.time.LocalDate;
 public class Parametros {
 
     //private Aula aula;
-    private String fechaFinal;
+    private LocalDate fechaFinal;
     private int diaSemana;
+    //0 = full; 1=50; 2=final
     private int tipopresencial;
     private char turnoMateria;
+    private int numAsientos;
+    private boolean tipoAula;
+
+
 
     public Parametros() {
     }
 
-    public String getFechaFinal() {
+//    public void setFechaFinal(LocalDate fechaFinal) {
+//        this.fechaFinal = fechaFinal;
+//    }
+
+    public boolean esLaboratorio() {
+        return tipoAula;
+    }
+
+    public void setTipoAula(boolean tipoAula) {
+        this.tipoAula = tipoAula;
+    }
+
+    public LocalDate getFechaFinal() {
         return fechaFinal;
     }
 
     public void setFechaFinal(String fechaFinal) {
-        this.fechaFinal = fechaFinal;
+
+        this.fechaFinal = LocalDate.parse(fechaFinal);
     }
 
     public int getDiaSemana() {
@@ -46,5 +64,24 @@ public class Parametros {
 
     public void setTurnoMateria(char turnoMateria) {
         this.turnoMateria = turnoMateria;
+    }
+
+    public int getNumAsientos() {
+        return numAsientos;
+    }
+
+    public void setNumAsientos(int numAsientos) {
+        this.numAsientos = numAsientos;
+    }
+
+    @Override
+    public String toString() {
+        return "Parametros{" +
+                "fechaFinal=" + fechaFinal +
+                ", diaSemana=" + diaSemana +
+                ", tipopresencial=" + tipopresencial +
+                ", turnoMateria=" + turnoMateria +
+                ", minimoLugares=" + numAsientos +
+                '}';
     }
 }
