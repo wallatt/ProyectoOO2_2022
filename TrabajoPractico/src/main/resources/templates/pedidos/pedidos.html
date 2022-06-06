@@ -43,11 +43,11 @@
 						</div>
 
 					</ul>
-					<div class="card-body">
+					<div  class="card-body">
 						<p class="card-text" th:text="${pedido.observaciones}"></p>
-						<a href="#" class="btn btn-primary">Modificar</a>
+						<a th:if="${pedido.espacios.isEmpty()}" href="#" class="btn btn-primary">Modificar</a>
 						<a href="#" class="btn btn-primary">Aceptar</a>
-						<a th:href="@{/pedidos/}+${pedido.id}" class="btn btn-primary" sec:authorize="hasRole('ROLE_ADMIN')">Gestionar</a>
+						<a th:if="${pedido.espacios.isEmpty()}" th:href="@{/pedidos/}+${pedido.id}" class="btn btn-primary" sec:authorize="hasRole('ROLE_ADMIN')">Gestionar</a>
 					</div>
 				</div>
 			</div>

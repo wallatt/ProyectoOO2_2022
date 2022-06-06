@@ -24,12 +24,7 @@
 						<li class="list-group-item">Observaciones: <span th:text="${pedido.observaciones}"></span></li>
 
 					</ul>
-					<div class="card-body">
-						<p class="card-text" th:text="${pedido.observaciones}"></p>
-						<a href="#" class="btn btn-primary">Modificar</a>
-						<a href="#" class="btn btn-primary">Aceptar</a>
-						<a href="#" class="btn btn-primary" sec:authorize="hasRole('ROLE_ADMIN')">Gestionar</a>
-					</div>
+
 				<div class="col-md-6 col-md-offset-3">
 
 
@@ -52,7 +47,7 @@
 										<option
 
 												th:each="espacio : ${lab.espacios}"
-												th:value="${trad}"
+												th:value="${lab}"
 												th:text="${espacio.fecha}"
 
 										></option>
