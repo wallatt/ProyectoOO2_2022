@@ -13,8 +13,9 @@ public interface INotaPedidoService {
 
 	
 	
-	public NotaPedido save(NotaPedido notaPedido);
 	public List<NotaPedido> getAll();
+	public NotaPedido findById(int id);
+	public NotaPedidoModel save(NotaPedido notaPedido);
 
 	public NotaPedido asignarEspacios(NotaPedido notaPedido, Set<Espacio> espacios);
 

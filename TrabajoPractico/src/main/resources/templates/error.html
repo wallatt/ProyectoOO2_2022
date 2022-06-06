@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:sec="http://wwww.thymeleaf.org/extras/spring-security">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Error</title>
+    <link rel="stylesheet" href="../static/css/error.css" th:href="@{/css/error.css}">
+</head>
+
+<body>
+	<div id="notfound">
+		<div class="notfound">
+			<div class="notfound-404"></div>
+			<h1>404</h1>
+			<h2>Oops! No se encontro la pagina</h2>
+			<p>La página que estás buscando no existe, ha sido removida. Su nombre, cambio o está temporalmente inhabilitada</p>
+			<a th:href="@{/home}">Volver al inicio</a>
+		</div>
+	</div>
+
+
+
+
+</body>
+
+</html>

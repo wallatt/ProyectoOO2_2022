@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
 <head>
 <meta charset="utf-8">
-<title>Registro de espacios</title>
+<title>Inicio de sesión</title>
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
@@ -16,96 +16,26 @@
 	crossorigin="anonymous">
 </head>
 <body>
-
-
-	<nav class="navbar navbar-inverse navbar-fixed-top">
-		<div class="container">
-			<div class="navbar-header">
-				<button type="button" class="navbar-toggle collapsed"
-					data-toggle="collapse" data-target="#navbar" aria-expanded="false"
-					aria-controls="navbar">
-					<span class="sr-only">Toggle navigation</span> <span
-						class="icon-bar"></span> <span class="icon-bar"></span> <span
-						class="icon-bar"></span>
-				</button>
-				<a class="navbar-brand" href="#" th:href="@{/}">CrearEspacios</a>
-			</div>
-		</div>
-	</nav>
-
-	<br>
-	<br>
-
 	<div class="container">
 		<div class="row">
 			<div class="col-md-6 col-md-offset-3">
-				<div th:if=${param.exito}>
-					<div class="alert alert-info">Se ha registrado exitosamente a
-						la aplicación</div>
-				</div>
-
-				<h1>Crear Espacios para un mes</h1>
-
-
-
-
-
-				<form th:action="@{/crearespacio}" th:object="${espacioModel}"method="post">
-
-					<div class="mb-3">
-						<label for="turno" class="form-label">Turno</label> <select
-							class="form-select" aria-label="Default select example"
-							id="turno" th:field="*{turno}">
-							<option value="M">M</option>
-							<option value="T">T</option>
-							<option value="N">N</option>
-						</select>
-
-					</div>
-					
-					
-					<div class="form-group">
-						<div>
-						<label class="col-form-label col-sm-4" >Aula: </label>
-							
-							<select  class="form-control"  id="aula" th:field="*{aula}">
-								<th:block th:each="aula : ${listAulas}">
-								<option th:text="${aula.edificio.edificio}+' '+${aula.numero}" th:value="${aula.id}" />
-								
-								</th:block>
-							</select>
-							</div>
-					</div>
-					<div class="form-group">
-						<label class="control-label" for="anio">anio: </label> <input id="anio" type="number"
-							class="form-control" th:field="*{anio}" required
-							autofocus="autofocus">
-				</div>
-				
-				<div class="form-group">
-						<label class="control-label" for="anio">mes: </label> <input id="mes" type="number"
-							class="form-control" th:field="*{mes}" required
-							autofocus="autofocus">
-				</div>
-					
-					
-					<div class="form-group">
-						<button type="submit" class="btn btn-success">Guardar</button>
-						<span>Regresar<a th:href="@{/loginsucces}">Click aqui</a></span>
-					</div>
-					
-				</form>
-				
-
+				<div class="alert alert-info">Espacios REGISTRADOS</div>
 			</div>
 		</div>
 	</div>
-
-
+	<div class="form-group">
+		<span>IR  <a th:href="@{/espacios/nuevo}">
+				atras</a></span>
+	</div>
+	
 	<!-- Latest compiled and minified JavaScript -->
 	<script
 		src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
 		integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
 		crossorigin="anonymous"></script>
+</body>
+</html>
+
+
 </body>
 </html>

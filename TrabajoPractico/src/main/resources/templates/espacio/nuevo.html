@@ -48,6 +48,8 @@
 
 
 
+
+
 				<form th:action="@{/crearespacio}" th:object="${espacioModel}"method="post">
 
 					<div class="mb-3">
@@ -58,8 +60,8 @@
 							<option value="T">T</option>
 							<option value="N">N</option>
 						</select>
-					</div>
 
+					</div>
 					
 					
 					<div class="form-group">
@@ -74,22 +76,33 @@
 							</select>
 							</div>
 					</div>
-					<div class="form-group">
-						<label class="control-label" for="anio">anio: </label> <input id="anio" type="number"
+					<!--<div class="form-group">
+						<label class="control-label" for="anio">anio: </label>
+						 <input id="anio" type="number"
 							class="form-control" th:field="*{anio}" required
 							autofocus="autofocus">
-				</div>
+					</div>-->
+					<div>
+						<label for="fechaInicio">Inicio cursada</label>
+						<input type="date" id="fechaInicio" name="trip-start"
+							   th:field="*{fechaInicio}"
+							   value="2022-05-30">
+						<label for="fechaFinalizacion">Fin de cursada</label>
+						<input type="date" id="fechaFinalizacion" name="trip-start"
+							   th:field="*{fechaFinalizacion}"
+							   value="2022-05-30">
+					</div>
 				
-				<div class="form-group">
+				<!--<div class="form-group">
 						<label class="control-label" for="anio">mes: </label> <input id="mes" type="number"
 							class="form-control" th:field="*{mes}" required
 							autofocus="autofocus">
-				</div>
+				</div>-->
 					
 					
 					<div class="form-group">
 						<button type="submit" class="btn btn-success">Guardar</button>
-						<span>Regresar<a th:href="@{/}">Click aqui</a></span>
+						<span>Regresar<a th:href="@{/loginsucces}">Click aqui</a></span>
 					</div>
 					
 				</form>

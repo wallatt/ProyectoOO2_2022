@@ -12,9 +12,7 @@ import com.unla.grupo13.TrabajoPractico.entities.NotaPedido;
 @Repository("notaPedidoRepository")
 public interface INotaPedidoRepository extends JpaRepository<NotaPedido, Serializable>{
 
-    public abstract NotaPedido findById(int id);
-
-
+	public abstract NotaPedido findById(int id);
 	
 	
 }
