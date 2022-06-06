@@ -1,5 +1,6 @@
 package com.unla.grupo13.TrabajoPractico.models;
 
+import com.unla.grupo13.TrabajoPractico.entities.Edificio;
 import com.unla.grupo13.TrabajoPractico.entities.Espacio;
 
 import java.util.List;
@@ -12,6 +13,17 @@ public class LaboratorioModel {
 	private int cantSillas;
 	
 	private int cantPc;
+
+	private Edificio edificio;
+
+
+	public Edificio getEdificio() {
+		return edificio;
+	}
+
+	public void setEdificio(Edificio edificio) {
+		this.edificio = edificio;
+	}
 	
 	public LaboratorioModel() {}
 

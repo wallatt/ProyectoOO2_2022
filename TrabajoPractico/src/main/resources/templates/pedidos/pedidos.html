@@ -25,7 +25,22 @@
 						<li class="list-group-item">Profesores: <span th:text="${pedido.profesores}"></span></li>
 						<li class="list-group-item">Materia: <span th:text="${(pedido.materia).getNombre()}"></span></li>
 						<li class="list-group-item">Turno: <span th:text="${pedido.turno}"></span></li>
+						<div th:if="${!pedido.espacios.isEmpty()}">
+						<span th:text="${pedido.espacios[0].aula.numero}"></span>
+						<span th:text="${pedido.espacios[0].aula.edificio.edificio}"></span>
 
+
+						<select id="pedido" name="pedido" class="form-control" th:field="${pedido}">
+							<option value="">Listar Espacios</option>
+							<option
+
+								th:each="espacio : ${pedido.espacios}"
+								th:value="${espacio.fecha}"
+								th:text="${espacio.fecha}"
+
+							></option>
+						</select>
+						</div>
 
 					</ul>
 					<div class="card-body">
