@@ -226,7 +226,6 @@ public class NotaPedidoController {
 		else {
 			for (Tradicional trad : trads) {
 					TradicionalModel tradicionalModel = mapper.map(trad, TradicionalModel.class);
-					System.out.println("trayendo espacios al tradicional");
 					tradicionalModel.setEspacios(espacioService.traerEspaciosDeAula(trad, parametros.getTurnoMateria(),true));
 					tradicionalModels.add(tradicionalModel);
 			}
@@ -244,7 +243,9 @@ public class NotaPedidoController {
 		mAV.addObject("pedido", notaPedido);
 		mAV.addObject("espacios",espacios);
 
-		mAV.addObject("parametros", new Parametros());
+		mAV.addObject("parametros", parametros);
+		System.out.println(parametros.toString());
+
 		return mAV;
 	}
 
@@ -252,7 +253,7 @@ public class NotaPedidoController {
 
 
 
-	@PostMapping("/pedidos/aulaasignada")
+	@GetMapping("/pedidos/aulaasignada")
 	public ModelAndView asignarEspacios(@ModelAttribute("parametros")Parametros parametros){
 		ModelAndView mV = new ModelAndView();
 		ModelAndView mAV=new ModelAndView(ViewRouteHelper.GESTION_ESPACIOS);

@@ -7,7 +7,7 @@ import java.time.LocalDate;
 
 public class Parametros {
 
-    //private Aula aula;
+    private int aulaId;
     private LocalDate fechaFinal;
     private int diaSemana;
     //0 = full; 1=50; 2=final
@@ -21,6 +21,17 @@ public class Parametros {
     public Parametros() {
     }
 
+    public int getAulaId() {
+        return aulaId;
+    }
+
+    public void setAulaId(int aulaId) {
+        this.aulaId = aulaId;
+    }
+
+    public boolean isTipoAula() {
+        return tipoAula;
+    }
 //    public void setFechaFinal(LocalDate fechaFinal) {
 //        this.fechaFinal = fechaFinal;
 //    }
@@ -77,11 +88,13 @@ public class Parametros {
     @Override
     public String toString() {
         return "Parametros{" +
-                "fechaFinal=" + fechaFinal +
+                "aulaId=" + aulaId +
+                ", fechaFinal=" + fechaFinal +
                 ", diaSemana=" + diaSemana +
                 ", tipopresencial=" + tipopresencial +
-                ", turnoMateria=" + turnoMateria +
-                ", minimoLugares=" + numAsientos +
+                ", turnoMateria=" + String.valueOf(turnoMateria) +
+                ", numAsientos=" + numAsientos +
+                ", tipoAula=" + tipoAula +
                 '}';
     }
 }
