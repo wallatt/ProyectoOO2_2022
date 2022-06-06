@@ -33,4 +33,15 @@ public class Espacio extends EntityBase {
 
     public Espacio(Aula aula, char turno, LocalDate fecha, boolean libre) {
     }
+
+
+	@Override
+	public String toString() {
+		return "Espacio{" +
+				"fecha=" + fecha +
+				", turno=" + turno +
+				", aula=" + aula +
+				", libre=" + libre +
+				'}';
+	}
 }

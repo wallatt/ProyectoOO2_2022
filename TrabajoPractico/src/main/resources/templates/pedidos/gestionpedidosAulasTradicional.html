@@ -64,12 +64,7 @@
 						</ul>
 					</div>
 					</form>
-					<div>
-						<p>
-							parametros: <span th:text ="${parametros.fechaFinal}"/>
-						</p>
-					</div>
-					<form action="#" th:action="@{/pedidos}+@{/aulaasignada}" th:object="${parametros}" method="get">
+					<form th:action="@{/pedidos/}+${pedido.id}+@{/aulaasignada}" th:object="${parametros}" method="post">
 						<div class="rendered-form">
 							<div class="formbuilder-select form-group field-diaSemana">
 								<label for="aulaId" class="formbuilder-select-label">Seleccionar Aula</label>

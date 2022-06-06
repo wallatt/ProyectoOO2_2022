@@ -148,6 +148,29 @@ public class NotaPedidoController {
 		return mAV;
 	}
 
+	public Set<Espacio> filtrarEspacios(Parametros parametros, List<Espacio> espacios){
+		Set<Espacio> filtrados = new HashSet<>();
+		if(parametros.getTipopresencial()<=1 ){
+			for(Espacio e: espacios){
+				//aniado solo espacios del dia de la notapedido
+				if(e.getFecha().getDayOfWeek().getValue()==parametros.getDiaSemana()){
+					filtrados.add(e);
+					System.out.println(e.getFecha().getDayOfWeek().getValue());
+				}
+			}
+		}else {
+			//Si es final remuevo espacios que no son fecha de final
+			for(Espacio e: espacios){
+				//remuevo espacios que no son de la fecha
+				if(e.getFecha().equals(parametros.getFechaFinal()))
+				{
+					filtrados.add(e);
+				}
+			}
+		}
+		return filtrados;
+	}
+
 	//traigo los espacios sin mayor considerancion en filtros
 	//y se filtran en este metodo los que cumplan las condiciones
 	@GetMapping ("/pedidos/{id_pedido}/aulasvalidadas")
@@ -162,27 +185,9 @@ public class NotaPedidoController {
 		}
 		NotaPedido notaPedido = notaPedidoService.get(id_pedido);
 
-		List<Espacio> espacios = espacioService.getByTurno(parametros.getTurnoMateria());
+		List<Espacio> espaciosDeTurno = espacioService.getByTurno(parametros.getTurnoMateria());
 
-		List<Espacio> filtrados = new ArrayList<Espacio>();
-		if(parametros.getTipopresencial()<=1 ){
-			for(Espacio e: espacios){
-				//remuevo espacios que no son de la fecha
-				if(e.getFecha().getDayOfWeek().getValue()==parametros.getDiaSemana()){
-					filtrados.add(e);
-				}
-			}
-		}else {
-			//Si es final remuevo espacios que no son fecha de final
-			for(Espacio e: espacios){
-					//remuevo espacios que no son de la fecha
-				if(e.getFecha().equals(parametros.getFechaFinal()))
-				{
-					filtrados.add(e);
-				}
-			}
-		}
-		espacios = filtrados;
+		Set<Espacio> espacios = filtrarEspacios(parametros, espaciosDeTurno);
 
 
 		Set<Tradicional> trads= new HashSet<Tradicional>();
@@ -253,13 +258,43 @@ public class NotaPedidoController {
 
 
 
-	@GetMapping("/pedidos/aulaasignada")
-	public ModelAndView asignarEspacios(@ModelAttribute("parametros")Parametros parametros){
+	@PostMapping("/pedidos/{id_pedido}/aulaasignada")
+	public ModelAndView asignarEspacios(@PathVariable("id_pedido")int id_pedido, @ModelAttribute("parametros")Parametros parametros){
 		ModelAndView mV = new ModelAndView();
 		ModelAndView mAV=new ModelAndView(ViewRouteHelper.GESTION_ESPACIOS);
-		System.out.println(parametros.toString());
 
-		return mV;
+		NotaPedido notaPedido = notaPedidoService.get(id_pedido);
+
+		List<Espacio> espacios = espacioService.getByTurno(parametros.getTurnoMateria());
+
+		List<Espacio> filtrados = new ArrayList<Espacio>();
+		//aniado solo espacios del aula especifica
+		System.out.println();
+		for(Espacio e: espacios){
+			if(e.getAula().getId()==parametros.getAulaId()){
+				filtrados.add(e);
+			}
+		}
+		System.out.println("largo de filtrados "+ filtrados.size());
+
+		//quedan filtrados por fecha por tipo de presencialidad
+		Set<Espacio> espaciosAguardar = filtrarEspacios(parametros, filtrados);
+
+		System.out.println("largo de espacios a guardar "+ espaciosAguardar.size());
+
+
+		for(Espacio e: espaciosAguardar){
+			e.setLibre(false);
+			e.setNotaPedido(notaPedido);
+			System.out.println(e.toString());
+		}
+
+		notaPedido.setEspacios(espaciosAguardar);
+
+		notaPedidoService.save(notaPedido);
+
+
+		return mAV;
 	}
 
 
