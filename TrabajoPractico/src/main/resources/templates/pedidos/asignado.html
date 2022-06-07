@@ -21,7 +21,11 @@
 		</div>
 	</div>
 	<div class="form-group">
-		<span>-> <a th:href="@{/home}">home</a></span>
+		<span>-> <a th:href="@{/pedidos}">Mis pedidos</a></span>
+	</div>
+	<div class="form-group">
+		<span>seguir asignando Tradicionales<a th:href="@{/pedidos/}+${p.id}+@{/tradicionales/validas/}+${e.aula.id}+@{/espacios/}+${diaSemana}">click aqui</a></span>
+		<span>seguir asignando Laboratorios<a th:href="@{/pedidos/}+${p.id}+@{/laboratorios/validas/}+${e.aula.id}+@{/espacios/}+${diaSemana}">click aqui</a></span>
 	</div>
 	
 	<!-- Latest compiled and minified JavaScript -->

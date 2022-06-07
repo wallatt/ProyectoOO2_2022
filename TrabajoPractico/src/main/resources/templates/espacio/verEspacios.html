@@ -41,7 +41,7 @@
 							<li class="list-group-item ">pizarron Aula: <span th:text="${trad.pizarron}"></span></li>
 
 						</ul>
-						<form th:action="@{/pedidos/}+${pedido.id}+@{/asignar}" th:object="${parametros2}" method="post">
+						<form th:action="@{/pedidos/}+${pedido.id}+@{/asignar/}+${diaSemana}" th:object="${parametros2}" method="post">
 						<div class="form-group">
 							<div>
 								<label class="col-form-label col-sm-4">Materia: </label>

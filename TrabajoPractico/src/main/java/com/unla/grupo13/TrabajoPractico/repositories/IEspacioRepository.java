@@ -26,6 +26,7 @@ public interface IEspacioRepository extends JpaRepository<Espacio, Integer> {
     public abstract Espacio findById(int id);
 
 
-	public abstract List<Espacio> findByTurnoAndAula(Aula aula, char turno);
+    @Query("SELECT e FROM Espacio e JOIN FETCH e.aula a WHERE e.turno=(:turno) and a=(:aula) and libre=true")
+    public abstract List<Espacio> findByTurnoAndAula(@Param("aula") Aula aula, @Param("turno")char turno);
 
 }

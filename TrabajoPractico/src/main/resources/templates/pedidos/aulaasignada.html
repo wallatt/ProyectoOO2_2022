@@ -45,9 +45,12 @@
 
 						</ul>
 					</div>
+					<div class="col-md-6 col-md-offset-3">
+
+
 					<div th:each="lab:${labs}" class="card mb-3 border-dark m-1" style="width: 20rem;">
 						<div class="card-header">
-							<h5 class="card-title ">Laboratorio Id: <span th:text="${lab.id}"></span>
+							<h5 class="card-title ">Tradicional Id: <span th:text="${lab.id}"></span>
 							</h5>
 						</div>
 						<ul class="list-group list-group-flush">
@@ -55,13 +58,14 @@
 							<li class="list-group-item ">ID aula: <span th:text="${lab.id}"></span></li>
 							<li class="list-group-item ">Edificio: <span th:text="${lab.edificio.edificio}"></span></li>
 							<li class="list-group-item ">numero Aula: <span th:text="${lab.numero}"></span></li>
-							<li class="list-group-item ">cant PC: <span th:text="${lab.cantPc}"></span></li>
+							<li class="list-group-item ">Cant Pc: <span th:text="${lab.cantPc}"></span></li>
 							<div class="card-body">
 								<a th:href="@{/pedidos/}+${pedido.id}+@{/laboratorios/validas/}+${lab.id}+@{/espacios/}+${parametros.diaSemana}" class="btn btn-primary" sec:authorize="hasRole('ROLE_ADMIN')">Ver espacios</a>
 							</div>
 
 						</ul>
 					</div>
+					
 
 
 				</div>

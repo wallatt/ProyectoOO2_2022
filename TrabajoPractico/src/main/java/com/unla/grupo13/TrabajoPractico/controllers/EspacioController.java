@@ -6,6 +6,7 @@ import com.unla.grupo13.TrabajoPractico.services.IAulaService;
 import com.unla.grupo13.TrabajoPractico.services.IEspacioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -18,7 +19,7 @@ import org.springframework.web.servlet.view.RedirectView;
 
 import java.util.List;
 
-
+@PreAuthorize("hasRole('ROLE_ADMIN')")
 @Controller
 @RequestMapping("/")
 public class EspacioController {
