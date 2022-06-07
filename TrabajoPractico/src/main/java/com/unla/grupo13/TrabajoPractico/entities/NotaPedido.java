@@ -4,13 +4,7 @@ import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -19,7 +13,11 @@ import lombok.Setter;
 
 
 @Entity
+@Table(name ="nota_pedido")
 public class NotaPedido extends EntityBase{
+
+	@Id
+	private int id;
 	
 	@Column(name="turno")
 	private char turno;
@@ -40,7 +38,7 @@ public class NotaPedido extends EntityBase{
 	
 	@Column (name="profesores")
 	private String profesores;
-	
+
 	@Column(name="examenfinal")
 	private boolean examenFinal;
 	
@@ -49,7 +47,17 @@ public class NotaPedido extends EntityBase{
 
 	
 	public NotaPedido() {}
-	
+
+	@Override
+	public int getId() {
+		return id;
+	}
+
+	@Override
+	public void setId(int id) {
+		this.id = id;
+	}
+
 	public char getTurno() {
 		return turno;
 	}

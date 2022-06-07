@@ -13,7 +13,7 @@
 				<div th:each="pedido:${pedidos}" class="card mb-3 border-dark m-1" style="width: 20rem;">
 					<div class="card-header">
 						<h5 class="card-title ">Pedido ID: <span th:text="${pedido.id}"></span>
-							<h5>
+							</h5>
 					</div>
 					<ul class="list-group list-group-flush">
 						<li class="list-group-item">Creacion:
@@ -23,19 +23,31 @@
 						</li>
 						<li class="list-group-item ">Cod.Curso: <span th:text="${pedido.codCurso}"></span></li>
 						<li class="list-group-item">Profesores: <span th:text="${pedido.profesores}"></span></li>
-						<li class="list-group-item">Materia: <span th:text="${(pedido.materia).getNombre()}"></span>
-						</li>
+						<li class="list-group-item">Materia: <span th:text="${(pedido.materia).getNombre()}"></span></li>
 						<li class="list-group-item">Turno: <span th:text="${pedido.turno}"></span></li>
-						<p class="card-text list-group-item" th:text="${pedido.observaciones}"></p>
-					</ul>
-					<div th:switch="${pedido.softDelete}" class=" card-header">
-						<div th:case="true" class="py-2">
-							<a th:href="@{pedidos/editar/}+${pedido.id}" class="btn btn-primary">Editar</a>
-							<a sec:authorize="hasRole('ROLE_ADMIN')" class="btn btn-primary">Asignar</a>
-							<a href="#" class="btn btn-secondary disabled">Pendiente</a>
+						<div th:if="${!pedido.espacios.isEmpty()}">
+						<span th:text="${pedido.espacios[0].aula.numero}"></span>
+						<span th:text="${pedido.espacios[0].aula.edificio.edificio}"></span>
 
+
+						<select id="pedido" name="pedido" class="form-control" th:field="${pedido}">
+							<option value="">Listar Espacios</option>
+							<option
+
+								th:each="espacio : ${pedido.espacios}"
+								th:value="${espacio.fecha}"
+								th:text="${espacio.fecha}"
+
+							></option>
+						</select>
 						</div>
-						<a th:case="false" href="#" class="btn btn-success disabled">Aceptado</a>
+
+					</ul>
+					<div  class="card-body">
+						<p class="card-text" th:text="${pedido.observaciones}"></p>
+						<a th:if="${pedido.espacios.isEmpty()}" href="#" class="btn btn-primary">Modificar</a>
+						<a href="#" class="btn btn-primary">Aceptar</a>
+						<a th:if="${pedido.espacios.isEmpty()}" th:href="@{/pedidos/}+${pedido.id}" class="btn btn-primary" sec:authorize="hasRole('ROLE_ADMIN')">Gestionar</a>
 					</div>
 				</div>
 			</div>

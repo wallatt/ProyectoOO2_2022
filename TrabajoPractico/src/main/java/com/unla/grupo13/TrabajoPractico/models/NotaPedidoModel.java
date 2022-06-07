@@ -1,6 +1,8 @@
 package com.unla.grupo13.TrabajoPractico.models;
 
 import java.time.LocalDate;
+import java.util.Arrays;
+import java.util.List;
 
 import com.unla.grupo13.TrabajoPractico.entities.Materia;
 
@@ -24,6 +26,16 @@ public class NotaPedidoModel {
 	private int cantEstudiantes;
 	
 	private boolean examenFinal;
+
+	private List<EspacioModel> espacioModelList;
+
+	public List<EspacioModel> getEspacioModelList() {
+		return espacioModelList;
+	}
+	public void setEspacioModelList(List<EspacioModel> espacioModelList) {
+		this.espacioModelList = espacioModelList;
+	}
+
 
 	public int getId() {
 		return id;

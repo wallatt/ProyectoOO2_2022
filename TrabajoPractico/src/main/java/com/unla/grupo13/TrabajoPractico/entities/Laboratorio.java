@@ -34,6 +34,17 @@ public class Laboratorio extends Aula{
 		this.cantSillas = cantSillas;
 	}
 
-    
-    
+	@Override
+	public String toString() {
+		return "Laboratorio{" +
+				"id=" + id +
+				", softDelete=" + softDelete +
+				", fechaCreacion=" + fechaCreacion +
+				", fechaModificacion=" + fechaModificacion +
+				", numero=" + numero +
+				//", edificio=" + edificio +
+				", cantPc=" + cantPc +
+				", cantSillas=" + cantSillas +
+				'}';
+	}
 }

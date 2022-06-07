@@ -12,6 +12,25 @@ import lombok.Setter;
 @Entity
 public class Espacio extends EntityBase {
 	
+//	public Espacio(LocalDate fecha2, char turno2, Aula aula2, boolean libre2) {
+		// TODO Auto-generated constructor stub
+//	}
+	public Espacio(){}
+
+	public Espacio(LocalDate fecha2, char turno2, Aula aula2, boolean libre2) {
+		this.fecha=fecha2;
+		this.aula=aula2;
+		this.turno=turno2;
+		this.libre=libre2;
+	}
+
+	public Espacio(Aula aula, char turno, LocalDate fecha, boolean libre) {
+		this.fecha = fecha;
+		this.turno = turno;
+		this.aula = aula;
+		this.libre = libre;
+	}
+
 	@Column(name="fecha")
 	private LocalDate fecha;
 	
@@ -30,20 +49,9 @@ public class Espacio extends EntityBase {
 	private NotaPedido notaPedido;
 
 
-	public Espacio() {}
-    public Espacio(Aula aula, char turno, LocalDate fecha, boolean libre) {
-    }
 
 
 
-
-
-	public Espacio(LocalDate fecha2, char turno2, Aula aula2, boolean libre2) {
-				this.fecha=fecha2;
-				this.aula=aula2;
-				this.turno=turno2;
-				this.libre=libre2;
-	}
 
 
 	public LocalDate getFecha() {
@@ -96,4 +104,17 @@ public class Espacio extends EntityBase {
 	}
     
     
+
+
+
+
+	@Override
+	public String toString() {
+		return "Espacio{" +
+				"fecha=" + fecha +
+				", turno=" + turno +
+				", aula=" + aula +
+				", libre=" + libre +
+				'}';
+	}
 }

@@ -1,7 +1,9 @@
 package com.unla.grupo13.TrabajoPractico.services.imp;
 
 import java.util.List;
+import java.util.Set;
 
+import com.unla.grupo13.TrabajoPractico.entities.Espacio;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -18,6 +20,9 @@ import com.unla.grupo13.TrabajoPractico.services.INotaPedidoService;
 @Service("notaPedidoService")
 public class NotaPedidoService implements INotaPedidoService{
 
+	private ModelMapper modelMapper=new ModelMapper();
+
+
 	@Autowired
 	@Qualifier("notaPedidoRepository")
 	private INotaPedidoRepository notaPedidoRepository;
@@ -25,8 +30,6 @@ public class NotaPedidoService implements INotaPedidoService{
 	@Autowired
 	@Qualifier("materiaService")
 	private IMateriaService materiaService;
-	
-	private ModelMapper modelMapper=new ModelMapper();
 
 	@Override
 	public List<NotaPedido> getAll() {
@@ -39,11 +42,22 @@ public class NotaPedidoService implements INotaPedidoService{
 		return notaPedidoRepository.findById(id);
 	}
 
+	public NotaPedido get(int Id){
+		return  notaPedidoRepository.findById(Id);
+	}
+
+
 	@Override
 	public NotaPedidoModel save(NotaPedido notaPedido) {
 		
 		NotaPedido nuevoNP = notaPedidoRepository.save(notaPedido);
 		return modelMapper.map(nuevoNP, NotaPedidoModel.class);
+	}
+	@Override
+	public NotaPedido asignarEspacios(NotaPedido notaPedido, Set<Espacio> espacios){
+		notaPedido.setEspacios(espacios);
+		notaPedido = notaPedidoRepository.save(notaPedido);
+		return notaPedido;
 	}
 
 

@@ -3,7 +3,12 @@ package com.unla.grupo13.TrabajoPractico.entities;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
 import javax.persistence.*;
+import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 	@Inheritance(strategy = InheritanceType.JOINED)
@@ -56,3 +61,7 @@ import javax.persistence.*;
 	    
 	    
 	}
+    
+    
+    
+
