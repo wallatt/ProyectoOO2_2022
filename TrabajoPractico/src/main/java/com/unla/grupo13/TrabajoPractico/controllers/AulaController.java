@@ -5,6 +5,7 @@ import java.util.List;
 import com.unla.grupo13.TrabajoPractico.entities.Espacio;
 import com.unla.grupo13.TrabajoPractico.entities.NotaPedido;
 import com.unla.grupo13.TrabajoPractico.entities.Tradicional;
+import com.unla.grupo13.TrabajoPractico.models.TradicionalUploadModel;
 import com.unla.grupo13.TrabajoPractico.services.IEspacioService;
 import com.unla.grupo13.TrabajoPractico.services.INotaPedidoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -63,7 +64,7 @@ public class AulaController {
 		return mAV;
 	}
 
-	@PostMapping("/tradicional/{id}/notapedido/{id_pedido}/diasemana/{diaSemana}/disponibilidad/{disponibidad}/turno/{turno}")
+	/*@PostMapping("/tradicional/{id}/notapedido/{id_pedido}/diasemana/{diaSemana}/disponibilidad/{disponibidad}/turno/{turno}")
 	public RedirectView guardarEspaciosTrad(@PathVariable("id_pedido") int id_pedido, @PathVariable("id") int id, @PathVariable("turno") char turno,
 											@PathVariable("diaSemana") int diaSemana, @PathVariable("disponibilidad") int disponibilidad) {
 
@@ -78,12 +79,21 @@ public class AulaController {
 
 		/*for(Espacio e: trad.getEspacios()){
 			//e.setNotaPedido();
-		}*/
+		}
 
 		//mAV.addObject("espacios", espaciosValidos);
 		//mAV.addObject("pedido", notaPedido);
 
 		return new RedirectView(ViewRouteHelper.AULA_OK);
+	}*/
+
+	@PostMapping("/aula/save/{id}")
+	public RedirectView guardarAula(@PathVariable("id") int id, @ModelAttribute("tradicional")TradicionalUploadModel model){
+
+		System.out.println("\nLlega hasta aca?\n");
+
+
+		return new RedirectView(ViewRouteHelper.AULA_OK);
 	}
-	
+
 }

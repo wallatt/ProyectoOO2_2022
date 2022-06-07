@@ -44,11 +44,16 @@
                         </div>
                         <form th:action="@{/tradicional/}+${trad.id}+@{/notapedido/}+${pedido.id}+@{/diasemana/}+${parametros2.diaSemana}+@{/disponibilidad/}+${parametros2.disponibidad}+@{/turno/}+${pedido.turno}" th:object="${tradicionalModel}" method="post">
                             <div class="card-body">
-                                <a th:href="@{/tradicional/}+${trad.id}+@{/notapedido/}+${pedido.id}+@{/diasemana/}+${parametros2.diaSemana}+@{/disponibilidad/}+${parametros2.disponibidad}+@{/turno/}+${pedido.turno}" class="btn btn-primary" sec:authorize="hasRole('ROLE_ADMIN')">Confimar</a>
+                                <a th:href="@{/tradicional/}+${trad.id}+@{/notapedido/}+${pedido.id}+@{/diasemana/}+${parametros2.diaSemana}+@{/disponibilidad/}+${parametros2.disponibidad}+@{/turno/}+${pedido.turno}" class="btn btn-primary" sec:authorize="hasRole('ROLE_ADMIN')">Aceptar</a>
                             </div>
                         </form>
 
                    </ul>
+                    <form th:action="@{/crear}" th:object="${parametros2}" method="post">
+                        <div class="form-group">
+
+                        </div>
+                    </form>
                </div>
                <div th:each="lab:${labs}" class="card mb-3 border-dark m-1" style="width: 20rem;">
                    <div class="card-header">
@@ -69,6 +74,7 @@
                        </div>
 
                    </ul>
+
                </div>
 
 
