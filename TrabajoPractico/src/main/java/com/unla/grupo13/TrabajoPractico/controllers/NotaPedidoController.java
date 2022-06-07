@@ -1,11 +1,11 @@
 package com.unla.grupo13.TrabajoPractico.controllers;
 
 import java.sql.SQLOutput;
-import java.util.ArrayList;
-import java.util.HashSet;
+import java.time.Duration;
+import java.time.LocalDate;
+import java.util.*;
 import java.time.LocalDateTime;
-import java.util.List;
-import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
 import com.unla.grupo13.TrabajoPractico.entities.*;
@@ -195,29 +195,42 @@ public class NotaPedidoController {
 		return mAV;
 	}
 
-	public Set<Espacio> filtrarEspacios(Parametros parametros, List<Espacio> espacios){
+	public Set<Espacio> filtrarEspacios(Parametros parametros, List<Espacio> espacios) {
+
+		Comparator<Espacio> compararPorfecha = Comparator.comparing(Espacio::getFecha);
+		espacios = espacios.stream().sorted(compararPorfecha).collect(Collectors.toList());
+
 		Set<Espacio> filtrados = new HashSet<>();
-		if(parametros.getTipopresencial()<=1 ){
-			for(Espacio e: espacios){
+		if (parametros.getTipopresencial() == 0) {
+			for (Espacio e : espacios) {
 				//aniado solo espacios del dia de la notapedido
-				if(e.getFecha().getDayOfWeek().getValue()==parametros.getDiaSemana()){
+				if (e.getFecha().getDayOfWeek().getValue() == parametros.getDiaSemana()) {
 					filtrados.add(e);
-					System.out.println(e.getFecha().getDayOfWeek().getValue());
 				}
 			}
-		}else {
-			//Si es final remuevo espacios que no son fecha de final
-			for(Espacio e: espacios){
-				//remuevo espacios que no son de la fecha
-				if(e.getFecha().equals(parametros.getFechaFinal()))
-				{
-					filtrados.add(e);
+		} else {
+			LocalDate fechaAComparar = espacios.get(0).getFecha();
+			if (parametros.getTipopresencial() == 1) {
+				for (Espacio e : espacios) {
+					int dias = (int)Duration.between(fechaAComparar.atStartOfDay(), e.getFecha().atStartOfDay()).toDays();
+					if (dias % 14 == 0) {
+						filtrados.add(e);
+					}
+				}
+
+			} else {
+				//Si es final remuevo espacios que no son fecha de final
+				for (Espacio e : espacios) {
+					//remuevo espacios que no son de la fecha
+					if (e.getFecha().equals(parametros.getFechaFinal())) {
+						filtrados.add(e);
+					}
 				}
 			}
 		}
 		return filtrados;
-	}
 
+	}
 	//traigo los espacios sin mayor considerancion en filtros
 	//y se filtran en este metodo los que cumplan las condiciones
 	@GetMapping ("/pedidos/{id_pedido}/aulasvalidadas")
@@ -259,8 +272,8 @@ public class NotaPedidoController {
 			}
 		}
 
-		Set<TradicionalModel> tradicionalModels = new HashSet<TradicionalModel>();
-		Set<LaboratorioModel> laboratorioModels = new HashSet<LaboratorioModel>();
+		List<TradicionalModel> tradicionalModels = new LinkedList<TradicionalModel>();
+		List<LaboratorioModel> laboratorioModels = new LinkedList<LaboratorioModel>();
 
 
 		//traigo espacios al aula
@@ -272,7 +285,8 @@ public class NotaPedidoController {
 					laboratorioModels.add(laboratorioModel);
 
 			}
-
+			Comparator<LaboratorioModel> compararPorNumero =Comparator.comparing(LaboratorioModel::getId);
+			laboratorioModels = laboratorioModels.stream().sorted(compararPorNumero).collect(Collectors.toList());
 
 		}
 		else {
@@ -281,7 +295,10 @@ public class NotaPedidoController {
 					tradicionalModel.setEspacios(espacioService.traerEspaciosDeAula(trad, parametros.getTurnoMateria(),true));
 					tradicionalModels.add(tradicionalModel);
 			}
+			Comparator<TradicionalModel> compararPorNumero =Comparator.comparing(TradicionalModel::getId);
+			tradicionalModels = tradicionalModels.stream().sorted(compararPorNumero).collect(Collectors.toList());
 		}
+
 
 		if(parametros.esLaboratorio()){
 			mAV.addObject("labs",labs);

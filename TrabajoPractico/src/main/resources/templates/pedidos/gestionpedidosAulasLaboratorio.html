@@ -63,7 +63,7 @@
 							<div class="formbuilder-select form-group field-diaSemana">
 								<label for="aulaId" class="formbuilder-select-label">Seleccionar Aula</label>
 								<select class="form-control" name="aulaId" id="aulaId">
-									<th:block th:each="lab : ${labs}">
+									<th:block th:each="lab : ${labsmodel}">
 										<option th:text="${lab.id}" th:value="${lab.id}" />
 									</th:block>
 								</select>
