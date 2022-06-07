@@ -10,6 +10,8 @@ public interface INotaPedidoService {
 	
 	
 	public List<NotaPedido> getAll();
-	public NotaPedido findById(int id);
+	
 	public NotaPedidoModel save(NotaPedido notaPedido);
+	public NotaPedido get(int id_pedido);
+	
 }

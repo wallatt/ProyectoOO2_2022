@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:insert="../fragments/generalView.html :: head"></head>
+<body>
+	<div class="container">
+		<div class="row">
+			<div class="col-md-6 col-md-offset-3">
+				<div class="alert alert-info">Espacio REGISTRADO</div>
+				<div class="alert alert-info">ID Pedido:<span th:text="${p.id}"></span></div>
+				<div class="alert alert-info">Materia:<span th:text="${p.materia.nombre}"></span></div>
+		
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-md-6 col-md-offset-3">
+				<div class="alert alert-info">Nueva fecha asignada:<span th:text="${e.fecha}"></span></div>
+				<div class="alert alert-info">Edificio:<span th:text="${e.aula.edificio.edificio}"></span></div>
+				<div class="alert alert-info">Aula:<span th:text="${e.aula.numero}"></span></div>				
+			</div>
+		</div>
+	</div>
+	<div class="form-group">
+		<span>-> <a th:href="@{/home}">home</a></span>
+	</div>
+	
+	<!-- Latest compiled and minified JavaScript -->
+	<script
+		src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+		integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+		crossorigin="anonymous"></script>
+</body>
+</html>
+
+
+</body>
+</html>

@@ -34,10 +34,7 @@ public class NotaPedidoService implements INotaPedidoService{
 		return notaPedidoRepository.findAll();
 	}
 
-	@Override
-	public NotaPedido findById(int id) {
-		return notaPedidoRepository.findById(id);
-	}
+	
 
 	@Override
 	public NotaPedidoModel save(NotaPedido notaPedido) {
@@ -45,6 +42,14 @@ public class NotaPedidoService implements INotaPedidoService{
 		NotaPedido nuevoNP = notaPedidoRepository.save(notaPedido);
 		return modelMapper.map(nuevoNP, NotaPedidoModel.class);
 	}
+
+	@Override
+	public NotaPedido get(int id_pedido) {
+		// TODO Auto-generated method stub
+		return notaPedidoRepository.findById(id_pedido);
+	}
+
+	
 
 
 }

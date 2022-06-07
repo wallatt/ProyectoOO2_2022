@@ -38,6 +38,27 @@ public class AulaService implements IAulaService{
 		return aulaRepository.findByEdificio2(id);
 	}
 
+	@Override
+	public Aula getById(int id) {
+		// TODO Auto-generated method stub
+		return aulaRepository.findById(id);
+	}
+
+	@Override
+	public List <Laboratorio> findEspaciosLab(char turno, boolean libre, int cantEstudiantes, int cantPc) {
+		
+		
+	
+		// TODO Auto-generated method stub
+		return aulaRepository.findEspaciosLab(turno, libre, cantEstudiantes, cantPc);
+	}
+
+	@Override
+	public List <Tradicional> findEspaciosTrad(char turno, boolean libre, int cantEstudiantes, boolean proyector) {
+		// TODO Auto-generated method stub
+		return aulaRepository.findEspaciosTrad(turno, libre, cantEstudiantes, proyector);
+	}
+
 	
 	
 }

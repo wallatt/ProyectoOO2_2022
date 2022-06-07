@@ -15,6 +15,7 @@ import com.unla.grupo13.TrabajoPractico.entities.Tradicional;
 public interface IAulaRepository extends JpaRepository<Aula,Integer>{
 
 
+
 	public abstract List<Aula> findAll();
 	
 	@Query("SELECT l FROM Laboratorio l JOIN FETCH l.edificio e WHERE e.id=(:id)")
@@ -22,4 +23,12 @@ public interface IAulaRepository extends JpaRepository<Aula,Integer>{
 	
 	@Query("SELECT t FROM Tradicional t JOIN FETCH t.edificio e WHERE e.id=(:id)")
 	public abstract List<Tradicional>findByEdificio2(int id);
+	
+	@Query("SELECT t FROM Tradicional t JOIN FETCH t.espacios e WHERE t.tieneProyector=(:proyector) and t.cantBancos>=(:cantEstudiantes) and e.libre=(:libre) and e.turno=(:turno) GROUP BY t.id")
+	public abstract List<Tradicional> findEspaciosTrad(char turno,boolean libre,int cantEstudiantes,boolean proyector);
+	
+	@Query("SELECT l FROM Laboratorio l JOIN FETCH l.espacios e WHERE l.cantSillas>=(:cantEstudiantes) and l.cantPc>=(:cantPc) and e.libre=(:libre) and e.turno=(:turno) GROUP BY l.id")
+	public abstract List<Laboratorio> findEspaciosLab(char turno,boolean libre,int cantEstudiantes,int cantPc);
+	
+	public abstract Aula findById(int id);
 }

@@ -11,6 +11,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service("espacioService")
@@ -58,6 +59,60 @@ public class EspacioService implements IEspacioService {
 
     }
 
-   
+    public List<Espacio> getByTurno(char turno){
+        List<Espacio> espacios = espacioRepository.findByTurno(turno);
+        return espacios;
+    }
+
+
+	@Override
+	public List<Espacio> getByAulaId(int id_aula) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Espacio> getByTurno1(char turno) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Espacio> traerEspaciosDeAula(Aula aula, char turno) {
+		// TODO Auto-generated method stub
+		return espacioRepository.findByTurnoAndAula(aula, turno);
+	}
+	
+	
+	public List<Espacio> traerEspacioDia(int diaSemana,List<Espacio> espacios){
+		
+		List<Espacio> espaciosSemana=new ArrayList<Espacio>();
+		
+		for (int i=0;i<espacios.size();i++) {
+		
+		if (espacios.get(i).getFecha().getDayOfWeek().getValue()==diaSemana) {
+			
+			
+			espaciosSemana.add(espacios.get(i));
+		}
+		
+		
+		}
+		return espaciosSemana;
+	}
+
+	@Override
+	public Espacio getById(int id) {
+		// TODO Auto-generated method stub
+		return espacioRepository.findById(id);
+	}
+
+	@Override
+	public void save(Espacio espacio) {
+		espacioRepository.save(espacio);
+		
+	}
+
+
 
 }
