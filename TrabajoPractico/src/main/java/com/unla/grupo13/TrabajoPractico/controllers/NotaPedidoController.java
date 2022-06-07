@@ -29,6 +29,7 @@ import com.unla.grupo13.TrabajoPractico.services.IMateriaService;
 import com.unla.grupo13.TrabajoPractico.services.INotaPedidoService;
 
 @Controller
+@PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_ASISTENTE')")
 @RequestMapping("/")
 public class NotaPedidoController {
 
@@ -49,6 +50,8 @@ public class NotaPedidoController {
 		ModelAndView mAV = new ModelAndView(ViewRouteHelper.PEDIDOS_ROOT);
 		mAV.addObject("pedidos", lstNotaPedido);
 		mAV.addObject("pedido", new NotaPedidoModel());
+		
+		
 
 		return mAV;
 	}
@@ -56,7 +59,6 @@ public class NotaPedidoController {
 	@GetMapping("/pedidos/nuevo")
 	public ModelAndView crearPedido() {
 
-		// ModelAndView mAV=new ModelAndView(ViewRouteHelper.NUEVO_PEDIDO);
 		List<Materia> listMaterias = materiaService.getAll();
 		ModelAndView mAV = new ModelAndView(ViewRouteHelper.NUEVO_PEDIDO);
 		mAV.addObject("notaPedido", new NotaPedido());
@@ -118,6 +120,18 @@ public class NotaPedidoController {
 	
 		
 		return mAV;
+	}
+	
+	@GetMapping("/clases")
+	public String  verMisClases(@Param("codigoCurso") String codigoCurso , Model model) {
+		List<NotaPedido> lstNotaPedido = notaPedidoService.findByCodCurso(codigoCurso);
+		List<Materia> listMaterias = materiaService.getAll();
+
+		model.addAttribute("pedidos",lstNotaPedido);
+		model.addAttribute("codigoCurso", codigoCurso);
+		model.addAttribute("listMaterias", listMaterias);
+		
+		return "/pedidos/clases";
 	}
 
 }

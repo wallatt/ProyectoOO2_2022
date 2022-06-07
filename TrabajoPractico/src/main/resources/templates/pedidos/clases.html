@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:sec="http://wwww.thymeleaf.org/extras/spring-security">
+
+<head th:insert="../fragments/generalView.html :: head"></head>
+
+<body>
+	<div th:replace="../fragments/generalView.html :: wrapper(~{:: .myContent})">
+		<div class="myContent container  text-center">
+			<form class="form-inline" action="">
+				<div class="form-group mb-2">
+
+					<label> Buscar clases por codCurso: </label>
+				</div>
+				<div class="form-group mx-sm-3 mb-2">
+					<input type="text" name="codigoCurso" class="form-control" id="codigoCurso"
+						th:value="${codigoCurso}" placeholder="Codigo Curso" required>
+				</div>
+				<input type="submit" class=" btn btn-primary mb-2" value="Buscar">
+				&nbsp;&nbsp;
+				<td><a class="btn btn-primary" th:href="@{/clases}">Limpiar</a>
+				</td>
+			</form>
+			<table class="table">
+				<thead class="thead-dark">
+					<tr>
+						<th scope="col">#</th>
+						<th scope="col">NOMBRE</th>
+						<th scope="col">APELLIDO</th>
+						<th scope="col">USERNAME</th>
+						<th scope="col">DNI</th>
+						<th scope="col">EMAIL</th>
+						<th scope="col">ROL</th>
+						<th scope="col">ACTIONS</th>
+				</thead>
+
+				<tbody>
+					<tr th:each="pedido:${pedidos}">
+						<td th:text="${pedido.codCurso}"></td>
+					</tr>
+				</tbody>
+
+			</table>
+
+		</div>
+	</div>
+</body>

@@ -8,7 +8,7 @@
 	<!-- Fragmento Wrapper-->
 	<div th:replace="../fragments/generalView.html :: wrapper(~{:: .myContent})">
 		<div class="myContent container-fluid">
-			<h1 class="mt-4">Bienvenido!</h1>
+			<h1 class="mt-4">Bienvenido! <span th:text=="${username}"></span></h1>
 			<h4>Administra tus clases facilmente!</h4>
 		</div>
 	</div>

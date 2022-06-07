@@ -7,6 +7,7 @@
 
 	<div th:replace="../fragments/generalView.html :: wrapper(~{:: .myContent})">
 		<div class="myContent container text-center pt-3">
+
 			<div class="row justify-content-md-center align-items-center">
 				<div class="col-md-6 col-md-offset-3">
 
@@ -42,8 +43,7 @@
 
 						<div class="mb-3">
 							<label for="profesores" class="form-label">Profesores</label>
-							<textarea class="form-control" id="profesores" th:field="*{profesores}"
-								rows="3"></textarea>
+							<textarea class="form-control" id="profesores" th:field="*{profesores}" rows="3"></textarea>
 						</div>
 
 						<div class="form-group">
@@ -57,7 +57,7 @@
 							<textarea class="form-control" id="observaciones" th:field="*{observaciones}"
 								rows="3"></textarea>
 						</div>
-						
+
 						<div class="form-group">
 							<div>
 								<label class="col-form-label col-sm-4">Materia: </label>

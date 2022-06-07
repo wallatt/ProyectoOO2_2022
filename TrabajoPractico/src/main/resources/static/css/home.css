@@ -93,6 +93,10 @@ body {
 	display:none;
 }
 
+.myAlert {
+	display:none;
+}
+
 hr {
   margin: 1rem 0;
   color: inherit;

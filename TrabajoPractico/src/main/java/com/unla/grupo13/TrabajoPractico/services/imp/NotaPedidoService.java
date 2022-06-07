@@ -46,5 +46,11 @@ public class NotaPedidoService implements INotaPedidoService{
 		return modelMapper.map(nuevoNP, NotaPedidoModel.class);
 	}
 
+	@Override
+	public List<NotaPedido> findByCodCurso(String codCurso) {
+		return notaPedidoRepository.findByCodCurso(codCurso);
+	}
+
+
 
 }

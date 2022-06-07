@@ -4,6 +4,8 @@ package com.unla.grupo13.TrabajoPractico.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,7 +29,11 @@ public class HomeController {
 	
 	 @GetMapping(value={"/","home"})
 	    public ModelAndView home(){
+		 
+		 	Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		 
 	    	ModelAndView mAV = new ModelAndView(ViewRouteHelper.HOME);
+	    	mAV.addObject("username", auth.getName());
 	    	
 	    	return mAV;
 	    }
