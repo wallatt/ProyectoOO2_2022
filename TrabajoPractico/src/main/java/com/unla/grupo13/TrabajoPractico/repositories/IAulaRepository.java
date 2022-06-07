@@ -12,7 +12,7 @@ import com.unla.grupo13.TrabajoPractico.entities.Laboratorio;
 import com.unla.grupo13.TrabajoPractico.entities.Tradicional;
 
 @Repository("aulaRepository")
-public interface IAulaRepository extends JpaRepository<Aula,Serializable>{
+public interface IAulaRepository extends JpaRepository<Aula,Integer>{
 
 
 	public abstract List<Aula> findAll();

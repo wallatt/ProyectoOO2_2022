@@ -1,7 +1,6 @@
 package com.unla.grupo13.TrabajoPractico.controllers;
 
 import java.util.List;
-
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -38,6 +37,7 @@ public class UserController {
 
 	private ModelMapper modelMapper = new ModelMapper();
 
+	
 	@GetMapping("")
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	public String VerUsuarios(Model model, @Param("userName") String userName) {
@@ -65,11 +65,13 @@ public class UserController {
 	}
 
 	@PostMapping("/create")
-	public String create(@ModelAttribute("user") UserModel userModel) {
+	public String create(@ModelAttribute("user") UserModel userModel) throws Exception {
+
 		UserRole role = rolService.findByRole("ROLE_AUDITOR");
+
 		userModel.setRole(role);
-		userModel.setEnabled(true);
 		userService.save(modelMapper.map(userModel, User.class));
+
 		return "/user/exito";
 	}
 
@@ -82,23 +84,24 @@ public class UserController {
 		return mAV;
 	}
 
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@PostMapping("/asistente/create")
 	public RedirectView createAsistente(@ModelAttribute("user") UserModel userModel) {
 
 		UserRole role = rolService.findByRole("ROLE_ASISTENTE");
 		userModel.setRole(role);
-		userModel.setEnabled(true);
-
 		userService.save(modelMapper.map(userModel, User.class));
 		return new RedirectView(ViewRouteHelper.EXITO_ASISTENTE);
 	}
 
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@GetMapping("/asistente/exitoasistente")
 	public ModelAndView exitoAsistente() {
 		ModelAndView mAV = new ModelAndView(ViewRouteHelper.EXITO_USER_ASISTENTE);
 		return mAV;
 	}
 
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@GetMapping("/byusername")
 	public ModelAndView getByUserName(@ModelAttribute("userName") String userName) {
 		ModelAndView mAV = new ModelAndView(ViewRouteHelper.DATOS_USER);
@@ -106,30 +109,19 @@ public class UserController {
 		return mAV;
 	}
 
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@GetMapping("/baja/{id}")
-	public String darBajar(@PathVariable("id") int id, @ModelAttribute("user") UserModel userModel) {
+	public String darBajar(@PathVariable("id") int id) {
 
-		User usuario = userService.findById(id);
-		usuario.setEnabled(!usuario.isEnabled());
-		userService.save(modelMapper.map(usuario, User.class));
-		return "redirect:/loginsucces";
+	
+		userService.darBaja(id);
+		return "redirect:/user";
 	}
 
 	@PostMapping("/editar/save/{id}")
 	public String editarUser(@PathVariable("id") int id, @ModelAttribute("user") UserModel userModel) {
 
-		User usuario = userService.findById(id);
-		User user = modelMapper.map(userModel, User.class);
-
-		usuario.setId(user.getId());
-		usuario.setNombre(user.getNombre());
-		usuario.setApellido(user.getApellido());
-		usuario.setUserName(user.getUserName());
-		usuario.setCreatedAt(usuario.getCreatedAt());
-		usuario.setDni(user.getDni());
-		usuario.setEmail(user.getEmail());
-		usuario.setPassword(user.getPassword());
-		userService.save(modelMapper.map(usuario, User.class));
+		userService.editar(modelMapper.map(userModel, User.class), id);
 
 		return "user/exitoeditar";
 

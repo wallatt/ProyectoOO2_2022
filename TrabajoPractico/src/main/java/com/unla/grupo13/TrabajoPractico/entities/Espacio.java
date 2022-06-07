@@ -10,7 +10,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Getter @Setter @NoArgsConstructor
 public class Espacio extends EntityBase {
 	
 //	public Espacio(LocalDate fecha2, char turno2, Aula aula2, boolean libre2) {
@@ -31,7 +30,7 @@ public class Espacio extends EntityBase {
 	private char turno;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "aula_id", nullable = false)
+    @JoinColumn(name = "aula_id", nullable = true)
 	private Aula aula;
 	
 	@Column(name="libre")
@@ -41,6 +40,67 @@ public class Espacio extends EntityBase {
     @JoinColumn(name = "notapedido_id", nullable = true)
 	private NotaPedido notaPedido;
 
+
+
+
+	public Espacio(LocalDate fecha2, char turno2, Aula aula2, boolean libre2) {
+				this.fecha=fecha2;
+				this.aula=aula2;
+				this.turno=turno2;
+				this.libre=libre2;
+	}
+
+
+	public LocalDate getFecha() {
+		return fecha;
+	}
+
+
+	public void setFecha(LocalDate fecha) {
+		this.fecha = fecha;
+	}
+
+
+	public char getTurno() {
+		return turno;
+	}
+
+
+	public void setTurno(char turno) {
+		this.turno = turno;
+	}
+
+
+	public Aula getAula() {
+		return aula;
+	}
+
+
+	public void setAula(Aula aula) {
+		this.aula = aula;
+	}
+
+
+	public boolean isLibre() {
+		return libre;
+	}
+
+
+	public void setLibre(boolean libre) {
+		this.libre = libre;
+	}
+
+
+	public NotaPedido getNotaPedido() {
+		return notaPedido;
+	}
+
+
+	public void setNotaPedido(NotaPedido notaPedido) {
+		this.notaPedido = notaPedido;
+	}
+    
+    
 
 
 

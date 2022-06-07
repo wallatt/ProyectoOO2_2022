@@ -24,6 +24,7 @@ public class ViewRouteHelper {
 	/**** Views ****/
 	//HOME
 	public final static String INDEX = "/user";
+	public final static String PERFIL="home/perfil";
 	//USER
 	public final static String USER_INDEX ="user/exito";
 	public final static String USER_NEW = "user/registro";

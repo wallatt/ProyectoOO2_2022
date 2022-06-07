@@ -31,7 +31,7 @@ public class AulaController {
 	@Qualifier("aulaService")
 	private IAulaService aulaService;
 	
-	
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@GetMapping("laboratorios/{id}")
 	public ModelAndView verLabs (@PathVariable("id") int id) {
 		
@@ -43,7 +43,7 @@ public class AulaController {
 		return mAV;
 	}
 	
-	
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@GetMapping("tradicional/{id}")
 	public ModelAndView verTrad (@PathVariable("id") int id) {
 		

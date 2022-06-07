@@ -1,5 +1,7 @@
 package com.unla.grupo13.TrabajoPractico.entities;
 
+import java.util.HashSet;
+import java.util.Set;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -8,100 +10,58 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.List;
 
-
 @Entity
-@Inheritance(strategy = InheritanceType.JOINED)
-public class Aula{
+	@Inheritance(strategy = InheritanceType.JOINED)
+	public abstract class Aula extends EntityBase{
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	protected int id;
+	   
+		@Column(name = "numero")
+	    protected int numero;
 
-	@Column(name = "softDelete")
-	protected boolean softDelete = Boolean.TRUE;
+	    @ManyToOne(fetch = FetchType.LAZY)
+	    @JoinColumn(name = "edificio_id", nullable = false)
+	    protected Edificio edificio;
+	   
+	    @OneToMany(fetch=FetchType.LAZY, mappedBy="aula")
+		protected Set<Espacio> espacios=new HashSet<Espacio>();
+		
+	    
+	    public Set<Espacio> getEspacios() {
+			return espacios;
+		}
 
-	@Column(name = "fechaCreacion")
-	@CreationTimestamp
-	protected LocalDateTime fechaCreacion;
 
-	@Column(name = "fechaModificacion")
-	@UpdateTimestamp
-	protected LocalDateTime fechaModificacion;
+		public void setEspacios(Set<Espacio> espacios) {
+			this.espacios = espacios;
+		}
 
-	public int getId() {
-		return id;
+
+		public Aula() {}
+
+
+		public int getNumero() {
+			return numero;
+		}
+
+
+		public void setNumero(int numero) {
+			this.numero = numero;
+		}
+
+
+		public Edificio getEdificio() {
+			return edificio;
+		}
+
+
+		public void setEdificio(Edificio edificio) {
+			this.edificio = edificio;
+		}
+	    
+	    
+	    
 	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
-	public boolean isSoftDelete() {
-		return softDelete;
-	}
-
-	public void setSoftDelete(boolean softDelete) {
-		this.softDelete = softDelete;
-	}
-
-	public LocalDateTime getFechaCreacion() {
-		return fechaCreacion;
-	}
-
-	public void setFechaCreacion(LocalDateTime fechaCreacion) {
-		this.fechaCreacion = fechaCreacion;
-	}
-
-	public LocalDateTime getFechaModificacion() {
-		return fechaModificacion;
-	}
-
-	public void setFechaModificacion(LocalDateTime fechaModificacion) {
-		this.fechaModificacion = fechaModificacion;
-	}
-
-   
-	@Column(name = "numero")
-    protected int numero;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "edificio_id", nullable = false)
-    protected Edificio edificio;
-
     
-    public Aula() {}
-
-
-	public int getNumero() {
-		return numero;
-	}
-
-
-	public void setNumero(int numero) {
-		this.numero = numero;
-	}
-
-
-	public Edificio getEdificio() {
-		return edificio;
-	}
-
-
-	public void setEdificio(Edificio edificio) {
-		this.edificio = edificio;
-	}
-
-
-
-	@Override
-	public String toString() {
-		return "Aula{" +
-				"id=" + id +
-				", softDelete=" + softDelete +
-				", fechaCreacion=" + fechaCreacion +
-				", fechaModificacion=" + fechaModificacion +
-				", numero=" + numero +
-				", edificio=" + edificio +
-				'}';
-	}
+    
+    
 }

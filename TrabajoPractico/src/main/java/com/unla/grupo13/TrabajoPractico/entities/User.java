@@ -11,6 +11,9 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -25,18 +28,22 @@ public class User {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
 	
+	
 	@Column (name="nombre", nullable=false, length=60)
 	private String nombre;
 	
+
 	@Column (name="apellido", nullable=false, length=60)
 	private String apellido;
 	
 	@Column (name="email", nullable=false, length=60)
 	private String email;
 	
+	
 	@Column(name="password", unique=true,nullable=false,length=60)
 	private String password;
 	
+
 	@Column (name="dni",nullable=false, length=60)
 	private long dni;
 	
