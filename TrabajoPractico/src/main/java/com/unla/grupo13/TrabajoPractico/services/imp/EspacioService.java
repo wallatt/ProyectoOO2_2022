@@ -32,15 +32,35 @@ public class EspacioService implements IEspacioService {
 
 
             throw new Exception("espacio ya registrado");
-
         }
-
-
         e = new Espacio(aula, turno, fecha, libre);
 
         return espacioRepository.save(e);
 
     }
+
+    public void generarEspacioMes(String fechaInicio, String fechaFinalizacion, char turno, Aula aula) throws Exception {
+
+        //int diasDelMes = funciones.diasDelMes(anio, mes);
+
+        LocalDate inicio = LocalDate.parse(fechaInicio);
+
+        LocalDate fin = LocalDate.parse(fechaFinalizacion);
+
+        LocalDate aux = inicio;
+
+        while(aux.isBefore(fin.plusDays(1))){
+            if(aux.getDayOfWeek().getValue() != 6 && aux.getDayOfWeek().getValue() != 7){
+                this.generarEspacios(aula, turno, aux, true);
+            }
+
+
+            aux = aux.plusDays(1);
+        }
+
+    }
+
+
 
     public void generarEspacioMes(String fechaInicio, String fechaFinalizacion, char turno) throws Exception {
 
