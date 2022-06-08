@@ -64,24 +64,19 @@
 					</div>
 					
 					
-<!--					<div class="form-group">-->
-<!--						<div>-->
-<!--						<label class="col-form-label col-sm-4" >Aula: </label>-->
-<!--							-->
-<!--							<select  class="form-control"  id="aula" th:field="*{aula}">-->
-<!--								<th:block th:each="aula : ${listAulas}">-->
-<!--								<option th:text="${aula.edificio.edificio}+' '+${aula.numero}" th:value="${aula.id}" />-->
-<!--								-->
-<!--								</th:block>-->
-<!--							</select>-->
+					<div class="form-group">
+						<div>
+						<label class="col-form-label col-sm-4" >Aula: </label>
+
+							<select  class="form-control"  id="aula" th:field="*{aula}">
+								<th:block th:each="aula : ${listAulas}">-->
+								<option th:text="${aula.edificio.edificio}+' '+${aula.numero}" th:value="${aula.id}" />
+
+								</th:block>
+							</select>
 <!--							</div>-->
 <!--					</div>-->
-					<!--<div class="form-group">
-						<label class="control-label" for="anio">anio: </label>
-						 <input id="anio" type="number"
-							class="form-control" th:field="*{anio}" required
-							autofocus="autofocus">
-					</div>-->
+
 					<div>
 						<label for="fechaInicio">Inicio cursada</label>
 						<input type="date" id="fechaInicio" name="trip-start"

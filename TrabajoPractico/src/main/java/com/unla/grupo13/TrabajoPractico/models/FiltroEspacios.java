@@ -25,7 +25,7 @@ public class FiltroEspacios {
             contador = 0;
             Set<Espacio> espacios = new HashSet<>();
             for (Espacio e : espaciosFiltradosPorFechaYTurno) {
-                if (e.getAula().equals(a)){
+                if (e.getAula().getId() == a.getId()){
                     contador += 1;
                     if(e.isLibre()){
                         espacios.add(e);
@@ -97,7 +97,11 @@ public class FiltroEspacios {
                 espaciosOrdenados = a.getEspacios().stream().sorted(compararPorfecha).collect(Collectors.toList());
                 hayPar = true;
                 hayImpar = true;
-                fechaAComparar = espaciosOrdenados.get(0).getFecha();
+                if(espaciosOrdenados.size()!= 0){
+                    fechaAComparar = espaciosOrdenados.get(0).getFecha();
+                }else{
+                    continue;
+                }
                 espaciosPares = new HashSet<Espacio>();
                 espaciosImPares = new HashSet<Espacio>();
                 //habria que hacer dos listas para cada semana par e impar
