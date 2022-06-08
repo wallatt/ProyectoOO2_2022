@@ -9,11 +9,9 @@ import java.lang.annotation.Repeatable;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.unla.grupo13.TrabajoPractico.models.*;
 import org.modelmapper.ModelMapper;
 import com.unla.grupo13.TrabajoPractico.entities.*;
-import com.unla.grupo13.TrabajoPractico.models.LaboratorioModel;
-import com.unla.grupo13.TrabajoPractico.models.Parametros;
-import com.unla.grupo13.TrabajoPractico.models.TradicionalModel;
 import com.unla.grupo13.TrabajoPractico.services.IEspacioService;
 import org.hibernate.Hibernate;
 import org.modelmapper.ModelMapper;
@@ -34,8 +32,6 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
 import com.unla.grupo13.TrabajoPractico.helpers.ViewRouteHelper;
-import com.unla.grupo13.TrabajoPractico.models.NotaPedidoModel;
-import com.unla.grupo13.TrabajoPractico.models.UserModel;
 import com.unla.grupo13.TrabajoPractico.services.IMateriaService;
 import com.unla.grupo13.TrabajoPractico.services.INotaPedidoService;
 
@@ -245,109 +241,103 @@ public class NotaPedidoController {
 		ModelMapper mapper = new ModelMapper();
 		ModelAndView mAV;
 
-		if(parametros.esLaboratorio()){
-			mAV =new ModelAndView(ViewRouteHelper.GESTION_PEDIDOS_AULAS_LABORATORIO);
-		}else{
-			mAV =new ModelAndView(ViewRouteHelper.GESTION_PEDIDOS_AULAS_TRADICIONAL);
+		if (parametros.esLaboratorio()) {
+			mAV = new ModelAndView(ViewRouteHelper.GESTION_PEDIDOS_AULAS_LABORATORIO);
+		} else {
+			mAV = new ModelAndView(ViewRouteHelper.GESTION_PEDIDOS_AULAS_TRADICIONAL);
 		}
 
 		NotaPedido notaPedido = notaPedidoService.get(id_pedido);
 
+		FiltroEspacios filtro = new FiltroEspacios();
+
 		//trae todos los espacios para un turno
 		List<Espacio> espaciosDeTurno = espacioService.getByTurnoAndDiaSemana(parametros.getTurnoMateria(), parametros.getDiaSemana());
+
+		Set<Aula> aulasYEspaciosFiltrados = filtro.filtrarEspacios(parametros, espaciosDeTurno);
 
 		Set<Espacio> espacios = filtrarEspacios(parametros, espaciosDeTurno);
 
 
-		Set<Tradicional> trads= new HashSet<Tradicional>();
-		Set<Laboratorio> labs= new HashSet<Laboratorio>();
+		Set<Tradicional> trads = new HashSet<Tradicional>();
+		Set<Laboratorio> labs = new HashSet<Laboratorio>();
 
-
-		//Obtengo las diferentes aulas de los espacios
-		//separados en laboratorio y tradicional
-		for (Espacio e:espacios ) {
-			//remuevo aulas que no tienen suficientes lugares
-			if(Hibernate.unproxy(e.getAula()) instanceof Laboratorio){
-				Laboratorio lab = (Laboratorio) Hibernate.unproxy(e.getAula());
-				if(lab.getCantPc()>= parametros.getNumAsientos() && lab.getCantSillas() >= parametros.getNumAsientos()) {
+		//filtrado por cant alumnos
+		for (Aula a : aulasYEspaciosFiltrados) {
+			if (a instanceof Laboratorio) {
+				Laboratorio lab = (Laboratorio) a;
+				if (lab.getCantPc() >= parametros.getNumAsientos() && lab.getCantSillas() >= parametros.getNumAsientos()) {
 					labs.add(lab);
-				}
-			}else{
-				Tradicional trad = (Tradicional) Hibernate.unproxy(e.getAula());
-				if(trad.getCantBancos()>= parametros.getNumAsientos()) {
+				} else {
+					Tradicional trad = (Tradicional) a;
+					if (trad.getCantBancos() >= parametros.getNumAsientos()) {
+						trads.add(trad);
+					}
 
-					trads.add(trad);
 				}
+
+
+//		//Obtengo las diferentes aulas de los espacios
+//		//separados en laboratorio y tradicional
+//		for (Espacio e:espacios ) {
+//			//remuevo aulas que no tienen suficientes lugares
+//			if(Hibernate.unproxy(e.getAula()) instanceof Laboratorio){
+//				Laboratorio lab = (Laboratorio) Hibernate.unproxy(e.getAula());
+//				if(lab.getCantPc()>= parametros.getNumAsientos() && lab.getCantSillas() >= parametros.getNumAsientos()) {
+//					labs.add(lab);
+//				}
+//			}else{
+//				Tradicional trad = (Tradicional) Hibernate.unproxy(e.getAula());
+//				if(trad.getCantBancos()>= parametros.getNumAsientos()) {
+//
+//					trads.add(trad);
+//				}
 			}
-		}
+			}
 
-		List<TradicionalModel> tradicionalModels = new LinkedList<TradicionalModel>();
-		List<LaboratorioModel> laboratorioModels = new LinkedList<LaboratorioModel>();
+			List<TradicionalModel> tradicionalModels = new LinkedList<TradicionalModel>();
+			List<LaboratorioModel> laboratorioModels = new LinkedList<LaboratorioModel>();
 
 
-		//traigo espacios al aula
-		//falta traer solo espacios libres
-		if(parametros.esLaboratorio()){
-			for (Laboratorio lab : labs) {
+			//Ordeno aulas por ID
+			if (parametros.esLaboratorio()) {
+				for (Laboratorio lab : labs) {
 					LaboratorioModel laboratorioModel = mapper.map(lab, LaboratorioModel.class);
-					laboratorioModel.setEspacios(espacioService.traerEspaciosDeAula(lab, parametros.getTurnoMateria(),true));
+					//laboratorioModel.setEspacios(espacioService.traerEspaciosDeAula(lab, parametros.getTurnoMateria(),true));
 					laboratorioModels.add(laboratorioModel);
 
-			}
-			Comparator<LaboratorioModel> compararPorNumero =Comparator.comparing(LaboratorioModel::getId);
-			laboratorioModels = laboratorioModels.stream().sorted(compararPorNumero).collect(Collectors.toList());
+				}
+				Comparator<LaboratorioModel> compararPorNumero = Comparator.comparing(LaboratorioModel::getId);
+				laboratorioModels = laboratorioModels.stream().sorted(compararPorNumero).collect(Collectors.toList());
 
-		}
-		else {
-			for (Tradicional trad : trads) {
+			} else {
+				for (Tradicional trad : trads) {
 					TradicionalModel tradicionalModel = mapper.map(trad, TradicionalModel.class);
-					tradicionalModel.setEspacios(espacioService.traerEspaciosDeAula(trad, parametros.getTurnoMateria(),true));
+					//tradicionalModel.setEspacios(espacioService.traerEspaciosDeAula(trad, parametros.getTurnoMateria(),true));
 					tradicionalModels.add(tradicionalModel);
+				}
+				Comparator<TradicionalModel> compararPorNumero = Comparator.comparing(TradicionalModel::getId);
+				tradicionalModels = tradicionalModels.stream().sorted(compararPorNumero).collect(Collectors.toList());
 			}
-			Comparator<TradicionalModel> compararPorNumero =Comparator.comparing(TradicionalModel::getId);
-			tradicionalModels = tradicionalModels.stream().sorted(compararPorNumero).collect(Collectors.toList());
+
+
+			if (parametros.esLaboratorio()) {
+				mAV.addObject("labs", labs);
+				mAV.addObject("labsmodel", laboratorioModels);
+			} else {
+				mAV.addObject("trads", trads);
+				mAV.addObject("tradsmodel", tradicionalModels);
+			}
+
+			//List<Espacio> espacios = espacioService.
+			mAV.addObject("pedido", notaPedido);
+			mAV.addObject("espacios", espacios);
+
+			mAV.addObject("parametros", parametros);
+			System.out.println(parametros.toString());
+
+			return mAV;
 		}
-
-
-		if(parametros.esLaboratorio()){
-			mAV.addObject("labs",labs);
-			mAV.addObject("labsmodel",laboratorioModels);
-		}else{
-			mAV.addObject("trads",trads);
-			mAV.addObject("tradsmodel",tradicionalModels);
-		}
-
-		//List<Espacio> espacios = espacioService.
-		mAV.addObject("pedido", notaPedido);
-		mAV.addObject("espacios",espacios);
-
-		mAV.addObject("parametros", parametros);
-		System.out.println(parametros.toString());
-
-		return mAV;
-	}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

@@ -69,6 +69,9 @@ public class FiltroEspacios {
         for (Aula a : aulas) {
             for (Espacio e : a.getEspacios()) {
                 if (e.getFecha().equals(parametros.getFechaFinal())) {
+                    Set<Espacio> espacioFinal = new HashSet<Espacio>();
+                    espacioFinal.add(e);
+                    a.setEspacios(espacioFinal);
                     aulasConEspaciosEnFechaTurnoYTipo.add(a);
                 }
             }
