@@ -40,58 +40,48 @@
                         <li class="list-group-item ">numero Aula: <span th:text="${trad.numero}"></span></li>
                         <li class="list-group-item ">pizarron Aula: <span th:text="${trad.pizarron}"></span></li>
                         <div class="card-body">
-                            <a th:href="@{/pedidos/}+${pedido.id}+@{/tradicionales/validas/}+${trad.id}+@{/espacios/}+${parametros2.diaSemana}" class="btn btn-primary" sec:authorize="hasRole('ROLE_ADMIN')">Ver espacios</a>
+                            <a th:href="@{/pedidos/}+${pedido.id}+@{/tradicionales/validas/}+${trad.id}+@{/espacios/}+${parametros2.diaSemana}+@{/disponibidad/}+${parametros2.disponibidad}" class="btn btn-primary" sec:authorize="hasRole('ROLE_ADMIN')">Ver espacios</a>
                         </div>
-                        <form th:action="@{/tradicional/}+${trad.id}+@{/notapedido/}+${pedido.id}+@{/diasemana/}+${parametros2.diaSemana}+@{/disponibilidad/}+${parametros2.disponibidad}+@{/turno/}+${pedido.turno}" th:object="${tradicionalModel}" method="post">
+
+                    </ul>
+                </div>
+                <div class="col-md-6 col-md-offset-3">
+
+
+                    <div th:each="lab:${labs}" class="card mb-3 border-dark m-1" style="width: 20rem;">
+                        <div class="card-header">
+                            <h5 class="card-title ">Tradicional Id: <span th:text="${lab.id}"></span>
+                            </h5>
+                        </div>
+                        <ul class="list-group list-group-flush">
+
+                            <li class="list-group-item ">ID aula: <span th:text="${lab.id}"></span></li>
+                            <li class="list-group-item ">Edificio: <span th:text="${lab.edificio.edificio}"></span></li>
+                            <li class="list-group-item ">numero Aula: <span th:text="${lab.numero}"></span></li>
+                            <li class="list-group-item ">Cant Pc: <span th:text="${lab.cantPc}"></span></li>
                             <div class="card-body">
-                                <a th:href="@{/tradicional/}+${trad.id}+@{/notapedido/}+${pedido.id}+@{/diasemana/}+${parametros2.diaSemana}+@{/disponibilidad/}+${parametros2.disponibidad}+@{/turno/}+${pedido.turno}" class="btn btn-primary" sec:authorize="hasRole('ROLE_ADMIN')">Aceptar</a>
+                                <a th:href="@{/pedidos/}+${pedido.id}+@{/laboratorios/validas/}+${lab.id}+@{/espacios/}+${parametros.diaSemana}+@{/disponibidad/}+${parametros.disponibidad}" class="btn btn-primary" sec:authorize="hasRole('ROLE_ADMIN')">Ver espacios</a>
                             </div>
-                        </form>
 
-                   </ul>
-                    <form th:action="@{/crear}" th:object="${parametros2}" method="post">
-                        <div class="form-group">
-
-                        </div>
-                    </form>
-               </div>
-               <div th:each="lab:${labs}" class="card mb-3 border-dark m-1" style="width: 20rem;">
-                   <div class="card-header">
-                       <h5 class="card-title ">Laboratorio Id: <span th:text="${lab.id}"></span>
-                       </h5>
-                   </div>
-                   <ul class="list-group list-group-flush">
-
-                       <li class="list-group-item ">ID aula: <span th:text="${lab.id}"></span></li>
-                       <li class="list-group-item ">Edificio: <span th:text="${lab.edificio.edificio}"></span></li>
-                       <li class="list-group-item ">numero Aula: <span th:text="${lab.numero}"></span></li>
-                       <li class="list-group-item ">cant PC: <span th:text="${lab.cantPc}"></span></li>
-                       <div class="card-body">
-                           <a th:href="@{/pedidos/}+${pedido.id}+@{/laboratorios/validas/}+${lab.id}+@{/espacios/}+${parametros.diaSemana}" class="btn btn-primary" sec:authorize="hasRole('ROLE_ADMIN')">Ver espacios</a>
-                       </div>
-                       <div class="card-body">
-                           <a th:href="@{/laboratorio/}+${pedido.id}+@{/laboratorios/validas/}+${lab.id}+${pedido.turno}+@{/espacios/}+${parametros.diaSemana}" class="btn btn-primary" sec:authorize="hasRole('ROLE_ADMIN')">Ver espacios</a>
-                       </div>
-
-                   </ul>
-
-               </div>
-
-
-           </div>
-       </div>
-
-
-   </div>
-</div>
+                        </ul>
+                    </div>
 
 
 
-<!-- Latest compiled and minified JavaScript -->
+                </div>
+            </div>
 
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
-        integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
-        crossorigin="anonymous"></script>
+
+        </div>
+    </div>
+
+
+
+    <!-- Latest compiled and minified JavaScript -->
+
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+            crossorigin="anonymous"></script>
 </body>
 
 

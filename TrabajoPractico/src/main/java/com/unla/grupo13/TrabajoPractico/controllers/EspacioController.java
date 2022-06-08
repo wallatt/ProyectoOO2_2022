@@ -1,25 +1,25 @@
 package com.unla.grupo13.TrabajoPractico.controllers;
 
 import com.unla.grupo13.TrabajoPractico.entities.Aula;
-import com.unla.grupo13.TrabajoPractico.entities.Espacio;
-import com.unla.grupo13.TrabajoPractico.entities.Laboratorio;
-import com.unla.grupo13.TrabajoPractico.helpers.ViewRouteHelper;
 import com.unla.grupo13.TrabajoPractico.models.EspacioModel;
 import com.unla.grupo13.TrabajoPractico.services.IAulaService;
 import com.unla.grupo13.TrabajoPractico.services.IEspacioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
+
+import com.unla.grupo13.TrabajoPractico.helpers.ViewRouteHelper;
 import org.springframework.web.servlet.view.RedirectView;
 
 import java.util.List;
 
+@PreAuthorize("hasRole('ROLE_ADMIN')")
 @Controller
 @RequestMapping("/")
 public class EspacioController {
@@ -48,6 +48,7 @@ public class EspacioController {
     public RedirectView nuevoPedido(@ModelAttribute("espacioModel") EspacioModel espacioModel) throws Exception {
 
         espacioService.generarEspacioMes(espacioModel.getFechaInicio(), espacioModel.getFechaFinalizacion(), espacioModel.getTurno());
+
         return new RedirectView(ViewRouteHelper.ESPACIO_OK);
     }
 
@@ -57,13 +58,4 @@ public class EspacioController {
         ModelAndView mAV = new ModelAndView(ViewRouteHelper.ESPACIO_OK);
         return mAV;
     }
-
-    /*@GetMapping("/infoPedidos")
-    public ModelAndView verEspacios(Model model, String tipo, boolean proyector, String pizarron, int cantEstudiantes, char turno){
-        if(tipo.equalsIgnoreCase("Laboratorio")){
-            List<Laboratorio> labos = aulaService.traerLabos(cantEstudiantes, turno);
-        }
-
-        //model.
-    }*/
 }

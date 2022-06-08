@@ -1,5 +1,5 @@
 package com.unla.grupo13.TrabajoPractico.models;
-
+import com.unla.grupo13.TrabajoPractico.entities.Edificio;
 import com.unla.grupo13.TrabajoPractico.entities.Espacio;
 
 import javax.persistence.Column;
@@ -7,8 +7,10 @@ import java.util.List;
 
 public class TradicionalModel {
 
-	
-	
+
+	protected int numero;
+
+
 	private int id;
 	
 	private int cantBancos;
@@ -18,8 +20,25 @@ public class TradicionalModel {
  
     private boolean tieneProyector;
 
-    
-    public TradicionalModel() {}
+	private Edificio edificio;
+
+	public int getNumero() {
+		return numero;
+	}
+
+	public void setNumero(int numero) {
+		this.numero = numero;
+	}
+
+	public Edificio getEdificio() {
+		return edificio;
+	}
+
+	public void setEdificio(Edificio edificio) {
+		this.edificio = edificio;
+	}
+
+	public TradicionalModel() {}
 
 
 	public int getId() {
@@ -69,5 +88,4 @@ public class TradicionalModel {
 	public void setEspacios(List<Espacio> espacios) {
 		this.espacios = espacios;
 	}
-    
 }

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+
+<head th:insert="../fragments/generalView.html :: head"></head>
+
+<body>
+	<div th:replace="../fragments/generalView.html :: wrapper(~{:: .myContent})">
+		<div class="myContent container text-center pt-3">
+			<h1>Asignar espacios</h1>
+			<div class="d-flex justify-content-around pt-4 flex-wrap">
+					<div class="card-header">
+						<h5 class="card-title ">Pedido ID: <span th:text="${pedido.id}"></span>
+							</h5>
+					</div>
+					<ul class="list-group list-group-flush">
+
+						<li class="list-group-item ">Cod.Curso: <span th:text="${pedido.codCurso}"></span></li>
+						<li class="list-group-item">Profesores: <span th:text="${pedido.profesores}"></span></li>
+						<li class="list-group-item">Materia: <span th:text="${(pedido.materia).getNombre()}"></span>			</li>
+						<li class="list-group-item">Final: <span th:text="${pedido.examenFinal}"></span></li>
+						<li class="list-group-item">Turno: <span th:text="${pedido.turno}"></span></li>
+						<li class="list-group-item">Estudiantes: <span th:text="${pedido.cantEstudiantes}"></span></li>
+						<li class="list-group-item">Observaciones: <span th:text="${pedido.observaciones}"></span></li>
+
+					</ul>
+					
+				<div class="col-md-6 col-md-offset-3">
+
+
+					<div  class="card mb-3 border-dark m-1" style="width: 20rem;">
+						<div class="card-header">
+							<h5 class="card-title ">Tradicional Id: <span th:text="${trad.id}"></span>
+							</h5>
+						</div>
+						<ul class="list-group list-group-flush">
+
+							<li class="list-group-item ">ID aula: <span th:text="${trad.id}"></span></li>
+							<li class="list-group-item ">Edificio: <span th:text="${trad.edificio.edificio}"></span></li>
+							<li class="list-group-item ">numero Aula: <span th:text="${trad.numero}"></span></li>
+							<li class="list-group-item ">pizarron Aula: <span th:text="${trad.pizarron}"></span></li>
+
+						</ul>
+						<form th:action="@{/pedidos/}+${pedido.id}+@{/asignarTrad/}+${trad.id}+@{/disponibilidad/}+${trad.disponibidad}+@{/turno/}+${pedido.turno}" th:object="${parametros2}" method="post">
+						<!--<div class="form-group">
+							<div>
+								<label class="col-form-label col-sm-4">Materia: </label>
+
+								<select class="form-control" id="es" th:field="*{id}">
+									<th:block th:each="es : ${espacios}">
+										<option th:text="${es.fecha}" th:value="${es.id}" />
+									</th:block>
+								</select>
+							</div>
+						</div>-->
+						
+						<div class="form-group pt-2">
+							<button type="submit" class="btn btn-success">Guardar</button>
+
+						</div>
+						</form>
+					</div>
+					
+					
+
+
+				</div>
+			</div>
+
+
+		</div>
+	</div>
+
+
+
+	<!-- Latest compiled and minified JavaScript -->
+
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+		integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+		crossorigin="anonymous"></script>
+</body>
+
+
+</html>

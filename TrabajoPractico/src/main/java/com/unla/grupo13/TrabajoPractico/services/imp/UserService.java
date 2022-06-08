@@ -74,7 +74,34 @@ public class UserService implements IUserService{
 
 
 
+	public User darBaja (int id) {
 
+
+		User usuario = userRepository.findById(id);
+
+		usuario.setEnabled(!usuario.isEnabled());
+		return userRepository.save(modelMapper.map(usuario, User.class));
+	}
+
+
+	public User editar(User userModel,int id) {
+
+
+
+		User usuario = userRepository.findById(id);
+		User user = modelMapper.map(userModel, User.class);
+		BCryptPasswordEncoder pe = new BCryptPasswordEncoder(4);
+		user.setPassword(pe.encode(user.getPassword()));
+		usuario.setId(user.getId());
+		usuario.setNombre(user.getNombre());
+		usuario.setApellido(user.getApellido());
+		usuario.setUserName(user.getUserName());
+		usuario.setDni(user.getDni());
+		usuario.setEmail(user.getEmail());
+		usuario.setPassword(user.getPassword());
+		return userRepository.save(modelMapper.map(usuario, User.class));
+
+	}
 
 	
 	

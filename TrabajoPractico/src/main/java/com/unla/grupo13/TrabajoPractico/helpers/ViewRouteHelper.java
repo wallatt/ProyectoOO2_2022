@@ -2,6 +2,7 @@ package com.unla.grupo13.TrabajoPractico.helpers;
 
 public class ViewRouteHelper {
 
+
 	// Aulas y Edificios
 
 	public static String EDIFICIO_INDEX="edificio/index";
@@ -10,8 +11,9 @@ public class ViewRouteHelper {
 	public static String VER_TRADICIONALES="aula/verTradicionales";
 	public static String VER_LABS="aula/verLabs";
 
-	public static String AULA_OK="aula/okAula";
+	public static String CONFIRMAR_LAB="aula/confirmarlab";
 
+	public static String CONFIRMAR_TRAD="aula/confirmartrad";
 
 	//Pedidos
 	public static String NUEVO_PEDIDO="pedidos/nuevo";
@@ -20,7 +22,7 @@ public class ViewRouteHelper {
 
 	public static String GESTION_PEDIDOS="pedidos/gestionpedidos";
 	public static String GESTION_ESPACIOS="pedidos/aulaasignada";
-
+	public static String PEDIDOS_ASIGNADO="pedidos/asignado";
 
 
 
@@ -42,10 +44,14 @@ public class ViewRouteHelper {
 	public final static String EXITO_USER_ASISTENTE="user/exitoasistente";
 	/**** Redirects ****/
 	public final static String USER_ROOT = "/user";
+	public static final String PEDIDO_EDITAR = "pedidos/editar";
+	public static final String PERFIL = "home/perfil";
 
 
 	// espacios
 	public static String ESPACIO_NUEVO="espacio/nuevo";
 	public static String ESPACIO_OK="espacio/okEspacio";
 	public static String ESPACIOS_VALIDOS="espacio/espacios";
+	public static String ESPACIOS_VER="espacio/verEspacios";
+	public static String ESPACIOS_VER_LAB="espacio/VerEspaciosLab";
 }

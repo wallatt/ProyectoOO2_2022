@@ -1,19 +1,17 @@
 package com.unla.grupo13.TrabajoPractico.services;
 
 import java.util.List;
-import java.util.Set;
 
-import com.unla.grupo13.TrabajoPractico.entities.Espacio;
 import com.unla.grupo13.TrabajoPractico.entities.NotaPedido;
+import com.unla.grupo13.TrabajoPractico.models.NotaPedidoModel;
 
 public interface INotaPedidoService {
 
-	
-	
-	public NotaPedido save(NotaPedido notaPedido);
+
+
 	public List<NotaPedido> getAll();
 
-	public NotaPedido asignarEspacios(NotaPedido notaPedido, Set<Espacio> espacios);
+	public NotaPedidoModel save(NotaPedido notaPedido);
+	public NotaPedido get(int id_pedido);
 
-	public NotaPedido get(int Id);
 }

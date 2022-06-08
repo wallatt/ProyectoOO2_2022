@@ -1,17 +1,38 @@
 package com.unla.grupo13.TrabajoPractico.entities;
 
 
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 
 @Entity
-
 @Inheritance(strategy = InheritanceType.JOINED)
-public abstract class Aula extends EntityBase{
+public class Aula{
 
-   
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	protected int id;
+
+	@Column(name = "softDelete")
+	protected boolean softDelete = Boolean.TRUE;
+
+	@Column(name = "fechaCreacion")
+	@CreationTimestamp
+	protected LocalDateTime fechaCreacion;
+
+	@Column(name = "fechaModificacion")
+	@UpdateTimestamp
+	protected LocalDateTime fechaModificacion;
+	
+	@OneToMany(fetch=FetchType.LAZY, mappedBy="aula")
+	protected Set<Espacio> espacios=new HashSet<Espacio>();
+	
 	@Column(name = "numero")
     protected int numero;
 
@@ -19,13 +40,41 @@ public abstract class Aula extends EntityBase{
     @JoinColumn(name = "edificio_id", nullable = false)
     protected Edificio edificio;
 
-	@OneToMany(fetch=FetchType.LAZY, mappedBy="aula")
-	protected Set<Espacio> espacios=new HashSet<Espacio>();
-
 	@Column(name = "disponibilidad")
 	protected int porcetanjeDisponibilidad;
-    
-    public Aula() {}
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public boolean isSoftDelete() {
+		return softDelete;
+	}
+
+	public void setSoftDelete(boolean softDelete) {
+		this.softDelete = softDelete;
+	}
+
+	public LocalDateTime getFechaCreacion() {
+		return fechaCreacion;
+	}
+
+	public void setFechaCreacion(LocalDateTime fechaCreacion) {
+		this.fechaCreacion = fechaCreacion;
+	}
+
+	public LocalDateTime getFechaModificacion() {
+		return fechaModificacion;
+	}
+
+	public void setFechaModificacion(LocalDateTime fechaModificacion) {
+		this.fechaModificacion = fechaModificacion;
+	}
+
+	public Aula() {}
 
 
 	public int getNumero() {
@@ -46,7 +95,6 @@ public abstract class Aula extends EntityBase{
 	public void setEdificio(Edificio edificio) {
 		this.edificio = edificio;
 	}
-
 	public int getPorcetanjeDisponibilidad() {
 		return porcetanjeDisponibilidad;
 	}
@@ -68,9 +116,11 @@ public abstract class Aula extends EntityBase{
 		return "Aula{" +
 				"numero=" + numero +
 				//", edificio=" + edificio +
-				//", espacios=" + espacios +
 				", porcetanjeDisponibilidad=" + porcetanjeDisponibilidad +
 				", id=" + id +
+				", softDelete=" + softDelete +
+				", fechaCreacion=" + fechaCreacion +
+				", fechaModificacion=" + fechaModificacion +
 				'}';
 	}
 }

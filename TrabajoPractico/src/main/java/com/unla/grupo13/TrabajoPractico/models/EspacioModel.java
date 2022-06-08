@@ -4,8 +4,7 @@ import com.unla.grupo13.TrabajoPractico.entities.Aula;
 
 import java.time.LocalDate;
 
-public class EspacioModel {
-
+public class EspacioModel{
     private int id;
     /*private int anio;
     private int mes;*/

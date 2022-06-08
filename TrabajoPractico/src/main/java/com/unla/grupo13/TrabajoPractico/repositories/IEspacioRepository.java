@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Set;
 
 @Repository("espacioRepository")
 public interface IEspacioRepository extends JpaRepository<Espacio, Integer> {
@@ -17,12 +18,18 @@ public interface IEspacioRepository extends JpaRepository<Espacio, Integer> {
     @Query("SELECT e FROM Espacio e JOIN FETCH e.aula a WHERE e.turno=(:turno) and e.fecha=(:fecha) and a=(:aula)")
     public abstract Espacio findByLibreFechaAula(@Param("aula") Aula aula, @Param("turno")char turno, @Param ("fecha") LocalDate fecha);
 
-    Espacio save(Espacio e);
 
-    @Query("SELECT e FROM Espacio e JOIN FETCH e.aula a WHERE e.turno=(:turno) and a=(:aula)")
-    public abstract List<Espacio> findByTurnoAndAula(@Param("aula") Aula aula, @Param("turno")char turno);
-
-
+    @Query("SELECT e FROM Espacio e JOIN FETCH e.aula a JOIN FETCH a.edificio WHERE e.libre=(:libre) and e.turno=(:turno) and a.cantSillas>=(:cantSillas) GROUP BY e.aula")
+    public abstract List<Laboratorio> findByLaboratorioLibre(@Param("libre") boolean libre, @Param("turno") char turno, @Param("cantSillas") int cantSillas);
 
     public abstract List<Espacio> findByTurno(char turno);
+
+    public abstract Espacio findById(int id);
+
+    @Query("SELECT e FROM Espacio e JOIN e.aula a WHERE e.turno=(:turno) and a.id=(:id)")
+    public Set<Espacio>findByAulaIdAndTurno(int id, char turno);
+
+    @Query("SELECT e FROM Espacio e JOIN FETCH e.aula a WHERE e.turno=(:turno) and a=(:aula) and libre=true")
+    public abstract List<Espacio> findByTurnoAndAula(@Param("aula") Aula aula, @Param("turno")char turno);
+
 }

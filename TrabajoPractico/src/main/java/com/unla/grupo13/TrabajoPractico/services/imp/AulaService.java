@@ -1,6 +1,8 @@
 package com.unla.grupo13.TrabajoPractico.services.imp;
 
-import java.util.List;
+import java.time.temporal.TemporalField;
+import java.time.temporal.WeekFields;
+import java.util.*;
 
 import com.unla.grupo13.TrabajoPractico.entities.*;
 import com.unla.grupo13.TrabajoPractico.repositories.IEspacioRepository;
@@ -13,6 +15,8 @@ import org.springframework.stereotype.Service;
 import com.unla.grupo13.TrabajoPractico.repositories.IAulaRepository;
 import com.unla.grupo13.TrabajoPractico.services.IAulaService;
 
+import javax.swing.plaf.synth.SynthTextAreaUI;
+
 
 @Service("aulaService")
 public class AulaService implements IAulaService{
@@ -22,13 +26,17 @@ public class AulaService implements IAulaService{
 	private IAulaRepository aulaRepository;
 
 	@Autowired
+	@Qualifier("notaPedidoRepository")
+	private INotaPedidoRepository notaPedidoRepository;
+
+	@Autowired
 	@Qualifier("espacioRepository")
 	private IEspacioRepository espacioRepository;
 
 	@Autowired
-	@Qualifier("notaPedidoRepository")
-	private INotaPedidoRepository notaPedidoRepository;
-	
+	@Qualifier("espacioService")
+	private IEspacioService espacioService;
+
 	@Override
 	public List<Aula> getAll() {
 		// TODO Auto-generated method stub
@@ -54,37 +62,165 @@ public class AulaService implements IAulaService{
 	}
 
 	@Override
-	public List <Laboratorio> findEspaciosLab(char turno, boolean libre, int cantEstudiantes, int cantPc) {
-
-
-
+	public List <Laboratorio> findEspaciosLab(char turno, boolean libre, int cantEstudiantes, int cantPc, int disponibilidad, int diaSemana) {
 		// TODO Auto-generated method stub
-		return aulaRepository.findEspaciosLab(turno, libre, cantEstudiantes, cantPc);
+		List<Laboratorio> list = new ArrayList<Laboratorio>();
+
+		Set<Espacio> porDias = new HashSet<Espacio>();
+
+		//porDias = espacioService.traerEspacioDia(diaSemana, )
+
+		int cantLibres = 0;
+
+		for(Laboratorio lab : aulaRepository.findEspaciosLab(turno, libre, cantEstudiantes, cantPc)){
+			lab.setEspacios(espacioRepository.findByAulaIdAndTurno(lab.getId(), turno));
+
+			porDias = espacioService.traerEspacioDia(diaSemana, lab.getEspacios());
+			for(Espacio e : lab.getEspacios()){
+
+				if(e.isLibre() && e.getFecha().getDayOfWeek().getValue() == diaSemana){
+
+					cantLibres ++;
+				}
+			}
+
+			System.out.println("\nCANT LIBRE\n" + cantLibres);
+			System.out.println("\nESPACIOS SIZE\n" + porDias.size());
+			System.out.println("\nDISPONIBILIDAD\n" + disponibilidad);
+
+			if((cantLibres / porDias.size()) >= disponibilidad){
+				list.add(lab);
+			}
+
+			cantLibres = 0;
+		}
+
+		return list;
 	}
 
 	@Override
-	public List <Tradicional> findEspaciosTrad(char turno, boolean libre, int cantEstudiantes, boolean proyector, int disponibilidad) {
+	public List <Tradicional> findEspaciosTrad(char turno, boolean libre, int cantEstudiantes, boolean proyector, int disponibilidad, int diaSemana) {
 		// TODO Auto-generated method stub
-		return aulaRepository.findEspaciosTrad(turno, libre, cantEstudiantes, proyector, disponibilidad);
+
+		int cantLibres = 0;
+
+		List<Tradicional> list = new ArrayList<Tradicional>();
+
+		for(Tradicional trad : aulaRepository.findEspaciosTrad(turno, libre, cantEstudiantes, proyector)){
+			for(Espacio e : trad.getEspacios()){
+				if(e.isLibre() && e.getFecha().getDayOfWeek().getValue() == diaSemana){
+					cantLibres ++;
+				}
+			}
+
+			if((cantLibres / trad.getEspacios().size()) >= disponibilidad){
+				list.add(trad);
+			}
+
+			cantLibres = 0;
+		}
+
+		return list;
 	}
 
-	@Override
-	public void uploadAllTradicional(boolean libre, char turno, int id, int id_pedido, int disponibilidad, int diaSemana){
-
-		Tradicional trad = aulaRepository.findTradicionalWithEspacios(true, turno, id);
+	public void asignarTrad(char turno,boolean libre, int porcetanjeDisponibilidad, int id, int id_pedido, int diaSemana){
+		Tradicional trad = aulaRepository.findByIdTradWithEspacios(turno, true, id);
 
 		NotaPedido pedido = notaPedidoRepository.findById(id_pedido);
 
+		int weekNumber = 0;
+
+		int cantLibres = 0;
+
+		TemporalField woy = WeekFields.of(Locale.getDefault()).weekOfWeekBasedYear();
+
+		Set<Espacio> list = new HashSet<Espacio>();
+
+		list = espacioService.traerEspacioDia(diaSemana, trad.getEspacios());
+
+		System.out.println("\nPORCENTAJE DE FRONT \n" + porcetanjeDisponibilidad);
+
+		System.out.println("\nTAMAÑO LISTA\n" + list.size());
+
 		for(Espacio e : trad.getEspacios()){
-			if(e.getFecha().getDayOfWeek().getValue() == diaSemana){
+			if(e.isLibre() && e.getFecha().getDayOfWeek().getValue() == diaSemana){
+				cantLibres ++;
+			}
+		}
+
+		if(cantLibres == porcetanjeDisponibilidad){
+
+			System.out.println("\nLLEGA HASTA EL IF?\n");
+
+			for (Espacio e : list){
+				e.setLibre(false);
 				e.setNotaPedido(pedido);
 				espacioRepository.save(e);
 			}
 		}
+		else{
+			for (Espacio e : list){
+				weekNumber = e.getFecha().get(woy);
+				if(weekNumber%2 != 0){
+					e.setLibre(false);
+					e.setNotaPedido(pedido);
+					espacioRepository.save(e);
+				}
+			}
+		}
 
-		trad.setPorcetanjeDisponibilidad(trad.getPorcetanjeDisponibilidad() - disponibilidad);
+		pedido.setSoftDelete(false);
+
+		System.out.println("\ndisponibilidad:\n" + porcetanjeDisponibilidad);
+		System.out.println("\nturno:\n" + turno);
+		System.out.println("\nid_pedido:\n" + id_pedido);
+		System.out.println("\nid_aula:\n" + id);
+
+		trad.setPorcetanjeDisponibilidad(trad.getPorcetanjeDisponibilidad() - porcetanjeDisponibilidad);
 
 		aulaRepository.save(trad);
+
+		notaPedidoRepository.save(pedido);
+	}
+
+	public void asignarLab(char turno, boolean libre, int porcetanjeDisponibilidad, int id, int id_pedido, int diaSemana){
+		Laboratorio lab = aulaRepository.findByIdLabWithEspacios(turno, true, id);
+
+		NotaPedido pedido = notaPedidoRepository.findById(id_pedido);
+
+		int weekNumber = 0;
+
+		TemporalField woy = WeekFields.of(Locale.getDefault()).weekOfWeekBasedYear();
+
+		Set<Espacio> list = new HashSet<Espacio>();
+
+		list = espacioService.traerEspacioDia(diaSemana, lab.getEspacios());
+
+		if(lab.getPorcetanjeDisponibilidad() == porcetanjeDisponibilidad){
+			for (Espacio e : list){
+				e.setLibre(false);
+				e.setNotaPedido(pedido);
+				espacioRepository.save(e);
+			}
+		}
+		else{
+			for (Espacio e : list){
+				weekNumber = e.getFecha().get(woy);
+				if(weekNumber%2 != 0){
+					e.setLibre(false);
+					e.setNotaPedido(pedido);
+					espacioRepository.save(e);
+				}
+			}
+		}
+
+		pedido.setSoftDelete(false);
+
+		lab.setPorcetanjeDisponibilidad(lab.getPorcetanjeDisponibilidad() - porcetanjeDisponibilidad);
+
+		aulaRepository.save(lab);
+
+		notaPedidoRepository.save(pedido);
 
 	}
 

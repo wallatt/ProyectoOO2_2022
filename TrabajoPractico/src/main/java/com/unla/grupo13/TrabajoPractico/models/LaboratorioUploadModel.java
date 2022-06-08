@@ -2,11 +2,19 @@ package com.unla.grupo13.TrabajoPractico.models;
 
 public class LaboratorioUploadModel {
 
+    private int id;
     private int cantPc;
     private int cantSillas;
     private char turno;
     private int diaSemana;
+    private int disponibidad;
+    public int getDisponibidad() {
+        return disponibidad;
+    }
 
+    public void setDisponibidad(int disponibidad) {
+        this.disponibidad = disponibidad;
+    }
     public int getDiaSemana() {
         return diaSemana;
     }
@@ -30,5 +38,13 @@ public class LaboratorioUploadModel {
     }
     public void setTurno(char turno) {
         this.turno = turno;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }

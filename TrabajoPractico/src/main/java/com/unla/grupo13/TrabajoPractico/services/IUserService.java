@@ -13,6 +13,8 @@ public interface IUserService {
 	public UserModel findByUserName(String userName);
 	public User findById(int id);
 	public List<User> getAll(String userName);
+	public User editar(User user, int id);
+	public User darBaja(int id);
 	
 	
 	
