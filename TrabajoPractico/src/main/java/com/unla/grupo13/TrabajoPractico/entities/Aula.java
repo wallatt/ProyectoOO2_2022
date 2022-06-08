@@ -1,6 +1,7 @@
 package com.unla.grupo13.TrabajoPractico.entities;
 
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 import org.hibernate.annotations.CreationTimestamp;
@@ -57,10 +58,20 @@ import java.util.List;
 		public void setEdificio(Edificio edificio) {
 			this.edificio = edificio;
 		}
-	    
-	    
-	    
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+		Aula aula = (Aula) o;
+		return numero == aula.numero;
 	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(numero);
+	}
+}
     
     
     

@@ -120,6 +120,17 @@ public class EspacioService implements IEspacioService {
         return espacios;
     }
 
+    public List<Espacio> getByTurnoAndDiaSemana(char turno, int dia){
+        List<Espacio> espacioTemp = espacioRepository.findByTurno(turno);
+        List<Espacio> espacios = new ArrayList<Espacio>();
+        for(Espacio e: espacioTemp){
+            if(e.getFecha().getDayOfWeek().getValue() == dia){
+                espacios.add(e);
+            }
+        }
+        return espacios;
+    }
+
 
 
 }

@@ -17,6 +17,8 @@ public interface IEspacioService {
 
     public List<Espacio> traerEspaciosDeAula(Aula aula , char turno, boolean libre);
 
+    public List<Espacio> getByTurnoAndDiaSemana(char turno, int dia);
+
 
 
 }

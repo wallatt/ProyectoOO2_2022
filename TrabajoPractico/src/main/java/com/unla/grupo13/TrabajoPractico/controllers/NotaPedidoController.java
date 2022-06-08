@@ -202,11 +202,14 @@ public class NotaPedidoController {
 		Comparator<Espacio> compararPorfecha = Comparator.comparing(Espacio::getFecha);
 		espacios = espacios.stream().sorted(compararPorfecha).collect(Collectors.toList());
 
+		int cantidadEspacios = espacios.size();
+
+
 		Set<Espacio> filtrados = new HashSet<>();
 		if (parametros.getTipopresencial() == 0) {
 			for (Espacio e : espacios) {
 				//aniado solo espacios del dia de la notapedido
-				if (e.getFecha().getDayOfWeek().getValue() == parametros.getDiaSemana()) {
+				if (e.isLibre()) {
 					filtrados.add(e);
 				}
 			}
@@ -231,23 +234,27 @@ public class NotaPedidoController {
 			}
 		}
 		return filtrados;
-
 	}
+
+
 	//traigo los espacios sin mayor considerancion en filtros
 	//y se filtran en este metodo los que cumplan las condiciones
 	@GetMapping ("/pedidos/{id_pedido}/aulasvalidadas")
 	public ModelAndView aulasValidadas(@PathVariable("id_pedido")int id_pedido, @ModelAttribute("parametros")Parametros parametros) {
-		ModelMapper mapper = new ModelMapper();
 
+		ModelMapper mapper = new ModelMapper();
 		ModelAndView mAV;
+
 		if(parametros.esLaboratorio()){
 			mAV =new ModelAndView(ViewRouteHelper.GESTION_PEDIDOS_AULAS_LABORATORIO);
 		}else{
 			mAV =new ModelAndView(ViewRouteHelper.GESTION_PEDIDOS_AULAS_TRADICIONAL);
 		}
+
 		NotaPedido notaPedido = notaPedidoService.get(id_pedido);
 
-		List<Espacio> espaciosDeTurno = espacioService.getByTurno(parametros.getTurnoMateria());
+		//trae todos los espacios para un turno
+		List<Espacio> espaciosDeTurno = espacioService.getByTurnoAndDiaSemana(parametros.getTurnoMateria(), parametros.getDiaSemana());
 
 		Set<Espacio> espacios = filtrarEspacios(parametros, espaciosDeTurno);
 
@@ -319,6 +326,32 @@ public class NotaPedidoController {
 
 		return mAV;
 	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
