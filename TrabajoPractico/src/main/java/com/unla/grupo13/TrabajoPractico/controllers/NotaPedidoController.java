@@ -9,11 +9,9 @@ import java.lang.annotation.Repeatable;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.unla.grupo13.TrabajoPractico.models.*;
 import org.modelmapper.ModelMapper;
 import com.unla.grupo13.TrabajoPractico.entities.*;
-import com.unla.grupo13.TrabajoPractico.models.LaboratorioModel;
-import com.unla.grupo13.TrabajoPractico.models.Parametros;
-import com.unla.grupo13.TrabajoPractico.models.TradicionalModel;
 import com.unla.grupo13.TrabajoPractico.services.IEspacioService;
 import org.hibernate.Hibernate;
 import org.modelmapper.ModelMapper;
@@ -34,8 +32,6 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
 import com.unla.grupo13.TrabajoPractico.helpers.ViewRouteHelper;
-import com.unla.grupo13.TrabajoPractico.models.NotaPedidoModel;
-import com.unla.grupo13.TrabajoPractico.models.UserModel;
 import com.unla.grupo13.TrabajoPractico.services.IMateriaService;
 import com.unla.grupo13.TrabajoPractico.services.INotaPedidoService;
 
@@ -202,11 +198,14 @@ public class NotaPedidoController {
 		Comparator<Espacio> compararPorfecha = Comparator.comparing(Espacio::getFecha);
 		espacios = espacios.stream().sorted(compararPorfecha).collect(Collectors.toList());
 
+		int cantidadEspacios = espacios.size();
+
+
 		Set<Espacio> filtrados = new HashSet<>();
 		if (parametros.getTipopresencial() == 0) {
 			for (Espacio e : espacios) {
 				//aniado solo espacios del dia de la notapedido
-				if (e.getFecha().getDayOfWeek().getValue() == parametros.getDiaSemana()) {
+				if (e.isLibre()) {
 					filtrados.add(e);
 				}
 			}
@@ -231,134 +230,166 @@ public class NotaPedidoController {
 			}
 		}
 		return filtrados;
-
 	}
+
+
 	//traigo los espacios sin mayor considerancion en filtros
 	//y se filtran en este metodo los que cumplan las condiciones
 	@GetMapping ("/pedidos/{id_pedido}/aulasvalidadas")
 	public ModelAndView aulasValidadas(@PathVariable("id_pedido")int id_pedido, @ModelAttribute("parametros")Parametros parametros) {
-		ModelMapper mapper = new ModelMapper();
 
+		ModelMapper mapper = new ModelMapper();
 		ModelAndView mAV;
-		if(parametros.esLaboratorio()){
-			mAV =new ModelAndView(ViewRouteHelper.GESTION_PEDIDOS_AULAS_LABORATORIO);
-		}else{
-			mAV =new ModelAndView(ViewRouteHelper.GESTION_PEDIDOS_AULAS_TRADICIONAL);
+
+		if (parametros.esLaboratorio()) {
+			mAV = new ModelAndView(ViewRouteHelper.GESTION_PEDIDOS_AULAS_LABORATORIO);
+		} else {
+			mAV = new ModelAndView(ViewRouteHelper.GESTION_PEDIDOS_AULAS_TRADICIONAL);
 		}
+
 		NotaPedido notaPedido = notaPedidoService.get(id_pedido);
 
-		List<Espacio> espaciosDeTurno = espacioService.getByTurno(parametros.getTurnoMateria());
+		FiltroEspacios filtro = new FiltroEspacios();
 
-		Set<Espacio> espacios = filtrarEspacios(parametros, espaciosDeTurno);
-
-
-		Set<Tradicional> trads= new HashSet<Tradicional>();
-		Set<Laboratorio> labs= new HashSet<Laboratorio>();
+		//trae todos los espacios para un turno
+		List<Espacio> espaciosDeTurno = espacioService.getByTurnoAndDiaSemana(parametros.getTurnoMateria(), parametros.getDiaSemana());
 
 
-		//Obtengo las diferentes aulas de los espacios
-		//separados en laboratorio y tradicional
-		for (Espacio e:espacios ) {
-			//remuevo aulas que no tienen suficientes lugares
-			if(Hibernate.unproxy(e.getAula()) instanceof Laboratorio){
-				Laboratorio lab = (Laboratorio) Hibernate.unproxy(e.getAula());
-				if(lab.getCantPc()>= parametros.getNumAsientos() && lab.getCantSillas() >= parametros.getNumAsientos()) {
+		Set<Aula> aulasYEspaciosFiltrados = filtro.filtrarEspacios(parametros, espaciosDeTurno);
+
+
+		//Set<Espacio> espacios = filtrarEspacios(parametros, espaciosDeTurno);
+
+
+		Set<Tradicional> trads = new HashSet<Tradicional>();
+		Set<Laboratorio> labs = new HashSet<Laboratorio>();
+
+		//filtrado por cant alumnos
+		for (Aula a : aulasYEspaciosFiltrados) {
+			if (Hibernate.unproxy(a) instanceof Laboratorio) {
+				Laboratorio lab = (Laboratorio) Hibernate.unproxy(a);
+				if (lab.getCantPc() >= parametros.getNumAsientos() && lab.getCantSillas() >= parametros.getNumAsientos()) {
 					labs.add(lab);
 				}
-			}else{
-				Tradicional trad = (Tradicional) Hibernate.unproxy(e.getAula());
-				if(trad.getCantBancos()>= parametros.getNumAsientos()) {
-
+			} else {
+				Tradicional trad = (Tradicional) Hibernate.unproxy(a);
+				if (trad.getCantBancos() >= parametros.getNumAsientos()) {
 					trads.add(trad);
 				}
 			}
 		}
 
-		List<TradicionalModel> tradicionalModels = new LinkedList<TradicionalModel>();
-		List<LaboratorioModel> laboratorioModels = new LinkedList<LaboratorioModel>();
 
 
-		//traigo espacios al aula
-		//falta traer solo espacios libres
-		if(parametros.esLaboratorio()){
-			for (Laboratorio lab : labs) {
+//		//Obtengo las diferentes aulas de los espacios
+//		//separados en laboratorio y tradicional
+//		for (Espacio e:espacios ) {
+//			//remuevo aulas que no tienen suficientes lugares
+//			if(Hibernate.unproxy(e.getAula()) instanceof Laboratorio){
+//				Laboratorio lab = (Laboratorio) Hibernate.unproxy(e.getAula());
+//				if(lab.getCantPc()>= parametros.getNumAsientos() && lab.getCantSillas() >= parametros.getNumAsientos()) {
+//					labs.add(lab);
+//				}
+//			}else{
+//				Tradicional trad = (Tradicional) Hibernate.unproxy(e.getAula());
+//				if(trad.getCantBancos()>= parametros.getNumAsientos()) {
+//
+//					trads.add(trad);
+//				}
+
+
+			List<TradicionalModel> tradicionalModels = new LinkedList<TradicionalModel>();
+			List<LaboratorioModel> laboratorioModels = new LinkedList<LaboratorioModel>();
+
+
+			//Ordeno aulas por ID
+			if (parametros.esLaboratorio()) {
+				for (Laboratorio lab : labs) {
 					LaboratorioModel laboratorioModel = mapper.map(lab, LaboratorioModel.class);
-					laboratorioModel.setEspacios(espacioService.traerEspaciosDeAula(lab, parametros.getTurnoMateria(),true));
+					//laboratorioModel.setEspacios(espacioService.traerEspaciosDeAula(lab, parametros.getTurnoMateria(),true));
 					laboratorioModels.add(laboratorioModel);
 
-			}
-			Comparator<LaboratorioModel> compararPorNumero =Comparator.comparing(LaboratorioModel::getId);
-			laboratorioModels = laboratorioModels.stream().sorted(compararPorNumero).collect(Collectors.toList());
+				}
+				Comparator<LaboratorioModel> compararPorNumero = Comparator.comparing(LaboratorioModel::getId);
+				laboratorioModels = laboratorioModels.stream().sorted(compararPorNumero).collect(Collectors.toList());
 
-		}
-		else {
-			for (Tradicional trad : trads) {
+			} else {
+				for (Tradicional trad : trads) {
 					TradicionalModel tradicionalModel = mapper.map(trad, TradicionalModel.class);
-					tradicionalModel.setEspacios(espacioService.traerEspaciosDeAula(trad, parametros.getTurnoMateria(),true));
+					//tradicionalModel.setEspacios(espacioService.traerEspaciosDeAula(trad, parametros.getTurnoMateria(),true));
 					tradicionalModels.add(tradicionalModel);
+				}
+				Comparator<TradicionalModel> compararPorNumero = Comparator.comparing(TradicionalModel::getId);
+				tradicionalModels = tradicionalModels.stream().sorted(compararPorNumero).collect(Collectors.toList());
 			}
-			Comparator<TradicionalModel> compararPorNumero =Comparator.comparing(TradicionalModel::getId);
-			tradicionalModels = tradicionalModels.stream().sorted(compararPorNumero).collect(Collectors.toList());
+
+
+			if (parametros.esLaboratorio()) {
+				mAV.addObject("labs", labs);
+				mAV.addObject("labsmodel", laboratorioModels);
+			} else {
+				mAV.addObject("trads", trads);
+				mAV.addObject("tradsmodel", tradicionalModels);
+			}
+
+			//List<Espacio> espacios = espacioService.
+			mAV.addObject("pedido", notaPedido);
+			//mAV.addObject("espacios", espacios);
+
+			mAV.addObject("parametros", parametros);
+			System.out.println(parametros.toString());
+
+			return mAV;
 		}
 
 
-		if(parametros.esLaboratorio()){
-			mAV.addObject("labs",labs);
-			mAV.addObject("labsmodel",laboratorioModels);
-		}else{
-			mAV.addObject("trads",trads);
-			mAV.addObject("tradsmodel",tradicionalModels);
-		}
 
-		//List<Espacio> espacios = espacioService.
-		mAV.addObject("pedido", notaPedido);
-		mAV.addObject("espacios",espacios);
 
-		mAV.addObject("parametros", parametros);
-		System.out.println(parametros.toString());
-
-		return mAV;
-	}
 
 
 
 
 
 	@PostMapping("/pedidos/{id_pedido}/aulaasignada")
-	public ModelAndView asignarEspacios(@PathVariable("id_pedido")int id_pedido, @ModelAttribute("parametros")Parametros parametros){
+	public ModelAndView asignarEspacios(@PathVariable("id_pedido")int id_pedido, @ModelAttribute("parametros") Parametros parametros){
 		ModelAndView mV = new ModelAndView();
 		ModelAndView mAV=new ModelAndView(ViewRouteHelper.GESTION_ESPACIOS);
 
 		NotaPedido notaPedido = notaPedidoService.get(id_pedido);
 
-		List<Espacio> espacios = espacioService.getByTurno(parametros.getTurnoMateria());
+//		List<Espacio> espacios = espacioService.getByTurno(parametros.getTurnoMateria());
+//
+		List<Aula> aulasFiltrados = new ArrayList<Aula>();
+		FiltroEspacios filtro = new FiltroEspacios();
 
-		List<Espacio> filtrados = new ArrayList<Espacio>();
+		List<Espacio> espaciosDeTurno = espacioService.getByTurnoAndDiaSemana(parametros.getTurnoMateria(), parametros.getDiaSemana());
+
+		Set<Aula> aulasYEspaciosFiltrados = filtro.filtrarEspacios(parametros, espaciosDeTurno);
+
 		//aniado solo espacios del aula especifica
 		System.out.println();
-		for(Espacio e: espacios){
-			if(e.getAula().getId()==parametros.getAulaId()){
-				filtrados.add(e);
+		for(Aula a: aulasYEspaciosFiltrados){
+			if(a.getId()==parametros.getAulaId()){
+				aulasFiltrados.add(a);
 			}
 		}
-		System.out.println("largo de filtrados "+ filtrados.size());
+		System.out.println("largo de filtrados "+ aulasFiltrados.size());
 
 		//quedan filtrados por fecha por tipo de presencialidad
-		Set<Espacio> espaciosAguardar = filtrarEspacios(parametros, filtrados);
+		//Set<Espacio> espaciosAguardar = filtrarEspacios(parametros, filtrados);
 
-		System.out.println("largo de espacios a guardar "+ espaciosAguardar.size());
+		//System.out.println("largo de espacios a guardar "+ espaciosAguardar.size());
 
 
-		for(Espacio e: espaciosAguardar){
+		for(Espacio e: aulasFiltrados.get(0).getEspacios()){
 			e.setLibre(false);
 			e.setNotaPedido(notaPedido);
 			System.out.println(e.toString());
 		}
 
-		notaPedido.setEspacios(espaciosAguardar);
+		notaPedido.setEspacios(aulasFiltrados.get(0).getEspacios());
 
 		notaPedidoService.save(notaPedido);
-
 
 		return mAV;
 	}
