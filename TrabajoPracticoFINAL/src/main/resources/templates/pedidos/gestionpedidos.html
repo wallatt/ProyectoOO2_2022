@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+
+<head th:insert="../fragments/generalView.html :: head"></head>
+
+<body>
+	<div th:replace="../fragments/generalView.html :: wrapper(~{:: .myContent})">
+		<div class="myContent container text-center pt-3">
+			<h1>PEDIDOS</h1>
+			<a class="btn btn-success" th:href="@{/pedidos/nuevo}">Crear Pedido</a>
+
+			<div class="d-flex justify-content-around pt-4 flex-wrap">
+				<div class="card-header">
+					<h5 class="card-title ">Pedido ID: <span th:text="${pedido.id}"></span>
+					</h5>
+					<ul class="list-group list-group-flush">
+						<li class="list-group-item">Creacion:
+							<span th:text="${(pedido.fechaCreacion).getDayOfMonth()}"></span>
+							/<span th:text="${(pedido.fechaCreacion).getMonth()}"></span>
+							/<span th:text="${(pedido.fechaCreacion).getYear()}"></span>
+						</li>
+						<li class="list-group-item ">Cod.Curso: <span th:text="${pedido.codCurso}"></span></li>
+						<li class="list-group-item">Profesores: <span th:text="${pedido.profesores}"></span></li>
+						<li class="list-group-item">Materia: <span th:text="${(pedido.materia).getNombre()}"></span>
+						</li>
+						<li class="list-group-item">Final: <span th:text="${pedido.examenFinal}"></span></li>
+						<li class="list-group-item">Turno: <span th:text="${pedido.turno}"></span></li>
+						<li class="list-group-item">Estudiantes: <span th:text="${pedido.cantEstudiantes}"></span></li>
+						<li class="list-group-item">Observaciones: <span th:text="${pedido.observaciones}"></span></li>
+
+					</ul>
+				</div>
+
+
+				<div class="card" style="width: 18rem;">
+					<div class="card-body">
+						<h5 class="card-title">Busqueda aulas</h5>
+						<form action="#" th:action="@{/pedidos/}+${pedido.id}+@{/aulasvalidadas}"
+							th:object="${parametros}" method="GET">
+							<div>
+								<div>
+									<label class="m-1">Tipo Aula
+
+										<div class="radio-group">
+											<div class="formbuilder-radio mb-2">
+												<input name="tipoAula" access="false" id="tipoAula-0"
+													required="required" aria-required="true" value="0" type="radio"
+													checked="checked">
+												<label for="tipoAula-0">Tradicional</label>
+											</div>
+											<div class="formbuilder-radio p-1">
+												<input name="tipoAula" access="false" id="tipoAula-1"
+													required="required" aria-required="true" value="1" type="radio">
+												<label for="tipoAula-1">Laboratorio</label>
+											</div>
+										</div>
+								</div>
+							</div>
+
+							<div class="rendered-form">
+								<div class="formbuilder-select form-group field-diaSemana mb-2">
+									<label for="diaSemana" class="formbuilder-select-label">Dia</label>
+
+									<select th:if="${!pedido.examenFinal}" class="form-control" name="diaSemana" id="diaSemana">
+										<option value="1" selected="true" id="diaSemana-0">Lunes</option>
+										<option value="2" selected="true" id="diaSemana-1">Martes</option>
+										<option value="3" selected="true" id="diaSemana-2">Miercoles</option>
+										<option value="4" selected="true" id="diaSemana-3">Jueves</option>
+										<option value="5" selected="true" id="diaSemana-4">Viernes</option>
+									</select>
+								</div>
+
+								<div class="formbuilder-select form-group field-turnoMateria mb-2">
+									<label for="turnoMateria" class="formbuilder-select-label">Turno</label>
+									<select class="form-control" name="turnoMateria" id="turnoMateria">
+										<option value="M" selected="true" id="turnoMateria-0">Mañana</option>
+										<option value="T" id="turnoMateria-1">Tarde</option>
+										<option value="N" id="turnoMateria-2">Noche</option>
+									</select>
+								</div>
+								<div class="formbuilder-select form-group field-tipopresencial mb-2">
+									<label for="tipopresencial" class="formbuilder-select-label">TIpo Presencialidad
+										<br>
+									</label>
+									<select class="form-control" name="tipopresencial" id="tipopresencial">
+										<option value="0" selected="true" id="tipopresencial-0">100%</option>
+										<option value="1" id="tipopresencial-1">50%</option>
+										<option value="2" id="tipopresencial-2">Final</option>
+									</select>
+								</div>
+								<div class="formbuilder-date form-group field-fechaFinal mb-2">
+									<div th:if="${pedido.examenFinal}">
+										<label for="fechaFinal" class="formbuilder-date-label">Fecha Final
+										</label>
+										<input type="date" class="form-control myDate" name="fechaFinal" access="false"
+											value="2022-05-04" id="fechaFinal">
+									</div>
+								</div>
+								<div class="rendered-form mb-2">
+									<div class="formbuilder-number form-group field-numAsientos">
+										<label for="numAsientos" class="formbuilder-number-label">Cantidad estudiantes
+											<br><span class="formbuilder-required"></span></label>
+										<input type="number" class="form-control" name="numAsientos" access="false"
+											value="0" min="5" max="200" step="1" id="numAsientos">
+									</div>
+								</div>
+							</div>
+							<input class="btn btn-success mt-2" type="submit" />
+						</form>
+					</div>
+				</div>
+				<!-- falta agregar validaciones-->
+				<!--"@{/pedidos/aulaasignada}"-->
+
+			</div>
+
+
+		</div>
+	</div>
+
+
+
+	<!-- Latest compiled and minified JavaScript -->
+
+	<!-- Bootstrap core JS-->
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/	bootstrap.bundle.min.js"></script>
+	<script>
+		const date = document.querySelector(".myDate")
+
+
+	</script>
+</body>
+
+
+</html>

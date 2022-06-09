@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+
+<head th:insert="../fragments/generalView.html :: head"></head>
+
+<body>
+	<div th:replace="../fragments/generalView.html :: wrapper(~{:: .myContent})">
+		<div class="myContent container text-center pt-3">
+			<h1>Asignar espacios</h1>
+			<div class="d-flex justify-content-around pt-4 flex-wrap">
+				<div>
+					<div class="border border-primary">
+						<h5 class="card-title ">Pedido ID: <span th:text="${pedido.id}"></span>
+						</h5>
+						
+						<ul class="list-group list-group-flush">
+
+							<li class="list-group-item ">Cod.Curso: <span th:text="${pedido.codCurso}"></span></li>
+							<li class="list-group-item">Profesores: <span th:text="${pedido.profesores}"></span></li>
+							<li class="list-group-item">Materia: <span th:text="${(pedido.materia).getNombre()}"></span>
+							</li>
+							<li class="list-group-item">Final: <span th:text="${pedido.examenFinal}"></span></li>
+							<li class="list-group-item">Turno: <span th:text="${pedido.turno}"></span></li>
+							<li class="list-group-item">Estudiantes: <span th:text="${pedido.cantEstudiantes}"></span>
+							</li>
+							<li class="list-group-item">Observaciones: <span th:text="${pedido.observaciones}"></span>
+							</li>
+
+						</ul>
+					</div>
+				</div>
+
+
+
+				<div class="col-md-3">
+
+
+					<form th:action='${sendTest}' th:object="${parametros}" method='post'>
+						<div th:each="trad:${tradsmodel}" class="card mb-3 border-dark m-1" style="width: 20rem;">
+							<div class="card-header">
+								<h5 class="card-title ">Tradicional Id: <span th:text="${trad.id}"></span>
+								</h5>
+							</div>
+							<ul class="list-group list-group-flush">
+
+								<li class="list-group-item ">ID aula: <span th:text="${trad.id}"></span></li>
+								<li class="list-group-item ">Edificio: <span th:text="${trad.edificio.edificio}"></span>
+								</li>
+								<li class="list-group-item ">numero Aula: <span th:text="${trad.numero}"></span></li>
+								<li class="list-group-item ">pizarron Aula: <span th:text="${trad.pizarron}"></span>
+								</li>
+
+								<form th:action='${sendTest}' th:object="${parametros}" method='post'>
+									<fieldset>
+										<select id="tradsmodel" name="tradsmodel"
+											class="form-control bg-primary text-center text-white"
+											style="cursor: pointer;" th:field="${tradsmodel}">
+											<option value="">Listar Espacios</option>
+											<option th:each="espacio : ${trad.espacios}" th:value="${trad}"
+												th:text="${espacio.fecha}"></option>
+										</select>
+									</fieldset>
+								</form>
+
+							</ul>
+						</div>
+					</form>
+
+				</div>
+				<div class="col-md-3">
+					<form th:action="@{/pedidos/}+${pedido.id}+@{/aulaasignada}" th:object="${parametros}"
+						method="post">
+						<div class="rendered-form">
+							<div class="formbuilder-select form-group field-diaSemana">
+								<label for="aulaId" class="formbuilder-select-label">Seleccionar Aula</label>
+								<select class="form-control" name="aulaId" id="aulaId">
+									<th:block th:each="trad : ${tradsmodel}">
+										<option th:text="'Aula numero: ' + ${trad.numero} + ' ' + ${trad.edificio.edificio}" th:value="${trad.id}" />
+									</th:block>
+								</select>
+								<input type="hidden" name="diaSemana" id="diaSemana" th:value="${parametros.diaSemana}">
+								</input>
+								<input type="hidden" name="tipopresencial" id="tipopresencial"
+									th:value="${parametros.tipopresencial}"> </input>
+								<input type="hidden" name="turnoMateria" id="turnoMateria"
+									th:value="${parametros.turnoMateria}"> </input>
+								<input type="hidden" name="tipoAula" id="tipoAula" th:value="${parametros.tipoAula}">
+								</input>
+								<input type="hidden" name="numAsientos" id="numAsientos"
+									th:value="${parametros.numAsientos}"> </input>
+								<input th:if="${pedido.examenFinal}" type="hidden" name="fechaFinal" id="fechaFinal"
+									th:value="${parametros.fechaFinal}"> </input>
+
+							</div>
+						</div>
+						<button type="submit" class="btn btn-success mt-2">Asignar aula</button>
+					</form>
+				</div>
+			</div>
+
+		</div>
+	</div>
+
+
+
+	<!-- Latest compiled and minified JavaScript -->
+	<!-- Bootstrap core JS-->
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/	bootstrap.bundle.min.js"></script>
+</body>
+
+
+</html>
