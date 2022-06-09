@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:sec="http://wwww.thymeleaf.org/extras/spring-security">
+
+<head th:insert="../fragments/generalView.html :: head"></head>
+
+<body>
+	<div th:replace="../fragments/generalView.html :: wrapper(~{:: .myContent})">
+		<div class="myContent container  text-center">
+			<form class="form-inline" action="">
+				<div class="form-group mx-sm-3 mb-2">
+					<label class="col-form-label col-sm-4">Materias: </label>
+
+					<select class="form-control" id="codigoCurso" name="codigoCurso">
+						<th:block th:each="codigo : ${codigos}">
+							<option th:text="${codigo.getMateria().getNombre() + ' - Comision : ' + codigo.getCodCurso()}"
+								th:value="${codigo.getCodCurso()}" />
+						</th:block>
+					</select>
+				</div>
+				<input type="submit" class=" btn btn-primary mb-2" value="Buscar">
+				&nbsp;&nbsp;
+				<td><a class="btn btn-primary" th:href="@{/clases}">Limpiar</a>
+				</td>
+			</form>
+			<table class="table">
+				<thead class="thead-dark">
+					<tr>
+						<th scope="col">Codigo curso</th>
+						<th scope="col">Nombre</th>
+						<th scope="col">Edificio</th>
+						<th scope="col">Aula nro:</th>
+						<th scope="col">Fecha cursada</th>
+						<th scope="col">Turno</th>
+						<th scope="col">Profesor</th>
+				</thead>
+
+				<tbody>
+					<tr th:each="espacio:${espacios}">
+						<td th:text="${espacio.getNotaPedido().getCodCurso()}"></td>
+						<td th:text="${espacio.getNotaPedido().getMateria().getNombre()}"></td>
+						<td th:text="${espacio.getAula().getEdificio().getEdificio()}"></td>
+						<td th:text="${espacio.getAula().getNumero()}"></td>
+						<td th:text="${espacio.getFecha()}"></td>
+						<td th:switch="${espacio.getNotaPedido().getTurno()}">
+							<span th:case="T" th:text="Tarde"></span>
+							<span th:case="M" th:text="Mañana"></span>
+							<span th:case="N" th:text="Noche"></span>
+						</td>
+						<td th:text="${espacio.getNotaPedido().getProfesores()}"></td>
+					</tr>
+				</tbody>
+
+			</table>
+
+		</div>
+	</div>
+</body>
