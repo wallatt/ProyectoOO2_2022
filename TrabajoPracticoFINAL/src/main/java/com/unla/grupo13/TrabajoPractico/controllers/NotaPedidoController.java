@@ -340,7 +340,7 @@ public class NotaPedidoController {
 		}
 
 		notaPedido.setEspacios(aulasFiltrados.get(0).getEspacios());
-
+		notaPedido.setSoftDelete(false);
 		notaPedidoService.save(notaPedido);
 
 		return mAV;
