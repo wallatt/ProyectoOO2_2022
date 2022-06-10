@@ -69,7 +69,7 @@ import java.util.List;
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(numero);
+		return Objects.hash(id);
 	}
 }
     
