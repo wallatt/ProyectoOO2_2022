@@ -15,6 +15,15 @@ public class LaboratorioModel {
 	private int cantPc;
 
 	private Edificio edificio;
+	protected int numero;
+
+	public int getNumero() {
+		return numero;
+	}
+
+	public void setNumero(int numero) {
+		this.numero = numero;
+	}
 
 
 	public Edificio getEdificio() {
